@@ -1,12 +1,12 @@
 ---
 title: "Basic skills - a test"
-format:
- html:
-    theme: default
+format: html
 editor: visual
+execute:
+  eval: true
 ---
 
-# Datacamp
+## Datacamp
 
 In the first week, you will have almost two full days to learn the basics of R yourself. We have given you access to [DataCamp](https://datacamp.com/), a great interactive platform to learn R at any level. The courses we would like you to complete because they prepare you with all you need to know to follow the rest of the course are as follows:
 
@@ -17,14 +17,16 @@ In the first week, you will have almost two full days to learn the basics of R y
 Please follow them at your own speed. If you think something is too easy because you already have some prior experience, you can skip through it and learn at your own speed. Feel free to start other courses too. All we want you to be able to do, is gain the skills and experience to be able to complete the exercises below. These exercises are therefore not graded in any way, it's just a way to make sure you understand the basics to continue with the rest of the course.
 
 ::: {.callout-important title="A note on AI"}
-You can find the answers and code when you click on the toggle, but try to do as much as you can without looking at the answers first. You can use Google or your notes from DataCamp to find the answers, but please don't use ChatGPT or other AI tools to help you find the answers directly. For example, don't just put the question as a prompt, but you could ask: how do I calculate the mean in R? Or: how can I make a basic plot with ggplot2 to visualise XYZ? In other words: don't 'cheat', but if you want to use ChatGPT, use it in a way that will help you learn and it doesn't hand the answer to you.
+You can find the answers and code when you click on the toggle, but try to do as much as you can without looking at the answers first. You can also see that you will find the answer and then the code, after clicking on it. This is another way in which you can get a 'hint' - i.e. the answer, to make you think about what kind of code you need to receive such an answer.
+
+You can use Google or your notes from DataCamp to find the answers, but please don't use ChatGPT or other AI tools to help you find the answers directly. For example, don't just put the question as a prompt, but you could ask: how do I calculate the mean in R? Or: how can I make a basic plot with ggplot2 to visualise XYZ? In other words: don't 'cheat', but if you want to use ChatGPT, use it in a way that will help you learn and it doesn't hand the answer to you.
 :::
 
-## Data
+### Data description
 
 Let's work with some global height dataset. It was downloaded from the website <https://ncdrisc.org/data-downloads-height.html> and the file can be found in the `data` directory. The data contain the mean heights of adolescents of both boys and girls at different age groups. The mean height is the mean height of a certain age group in a specific year.
 
-## Part 1: exploration
+### Part 1: exploration
 
 -   The dataset is called `NCD_RisC_Lancet_2020_heigh_child_adolescent_global.csv` and is stored in the `data` directory. What does the `.csv` extension mean?
 
@@ -56,12 +58,14 @@ data <- read.table("../data/NCD_RisC_Lancet_2020_height_child_adolescent_global.
 
 -   How many data entries are there?
 
+Number of data entries = number of rows, because we are dealing with a data table.
+
 ::: {.callout-tip title="Code and answer" collapse=true}
 ```{r exercise 3}
 nrow(data) 
 ```
 
-1050 entries because there are 1050 rows, excluding the header
+So 1050 entries =  this excludes the header.
 
 :::
 
@@ -75,10 +79,10 @@ Remember you can always view the data (by clicking on it in the environment or b
 
 ```{r exercise 4}
 
-#this shows you just the structure of the table
+# this shows you just the structure of the table
 str(data) 
 
-#this tells you the column names of the table
+# this tells you the column names of the table
 names(data) 
 
 # this shows you the first 6 entries and the column names
@@ -100,7 +104,7 @@ So 5 and 19, respectively.
 
 :::
 
-## Part 2: cleaning the data
+### Part 2: cleaning the data
 
 -   What is the data type / class of the mean height and its standard error?
 
@@ -191,7 +195,7 @@ There we go! It's always good to check if things worked, so you can use e.g. `st
 
 :::
 
-## Part 3: summary statistics
+### Part 3: summary statistics
 
 -   What is the mean across years of the mean heights in the dataset?
 
@@ -252,7 +256,7 @@ boys_12yr %>% arrange(Mean.height.standard.error) %>% head() # 2004, with a SE o
 ```
 :::
 
-## Part 4: plotting
+### Part 4: plotting
 
 -   Make a plot that shows you whether the mean height of 18 year olds increased or decreased over time. Bonus if you do it seperately per sex!
 
@@ -271,39 +275,14 @@ library(ggplot2)
 
 ggplot(subset(data, Age.group == 18), aes(x = Year, y = Mean.height)) + geom_point(aes(col = Sex)) + geom_line(aes(col = Sex)) + theme_classic()
 
-# method 2: base R
-# subset the data
-age_18 <- subset(data, Age.group == 18)
-
-# set up empty plot
-plot(
-  age_18$Year, age_18$Mean.height,
-  type = "n",
-  xlab = "Year",
-  ylab = "Mean height"
-)
-
-# add points and lines by Sex
-for (s in levels(age_18$Sex)) {
-  ds <- age_18[age_18$Sex == s, ]
-  
-  points(ds$Year, ds$Mean.height,
-         col = cols[s], pch = 16)
-  
-  lines(ds$Year, ds$Mean.height,
-        col = cols[s], lwd = 2)
-}
-
-# add legend
-legend("topleft",
-       legend = levels(as.factor(age_18$Sex)),
-       pch = 16,
-       lwd = 2,
-       bty = "n")
+# method 2: base R -- not sure how to do it
 ```
+
 
 As we see, both the mean height of girls and boys aged 18 years increased over time. What is also clear is that base R is a lot longer, and you require a lot of separate elements.
 
 :::
+
+
 
 Well done! If you managed to answer all of the above, with or without some help from your notes and the internet, you're ready to explore genetic data and answer some pop gen questions.

@@ -271,9 +271,7 @@ every person works in R
 
 \chapter{Basic skills - a test}\label{basic-skills---a-test}
 
-\bookmarksetup{startatroot}
-
-\chapter{Datacamp}\label{datacamp}
+\section{Datacamp}\label{datacamp}
 
 In the first week, you will have almost two full days to learn the
 basics of R yourself. We have given you access to
@@ -300,7 +298,7 @@ able to complete the exercises below. These exercises are therefore not
 graded in any way, it's just a way to make sure you understand the
 basics to continue with the rest of the course.
 
-\begin{tcolorbox}[enhanced jigsaw, coltitle=black, toprule=.15mm, opacityback=0, breakable, colback=white, bottomtitle=1mm, leftrule=.75mm, colframe=quarto-callout-important-color-frame, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{A note on AI}, toptitle=1mm, colbacktitle=quarto-callout-important-color!10!white, titlerule=0mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, left=2mm, opacitybacktitle=0.6]
+\begin{tcolorbox}[enhanced jigsaw, breakable, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{A note on AI}, toptitle=1mm, leftrule=.75mm, toprule=.15mm, colbacktitle=quarto-callout-important-color!10!white, opacityback=0, opacitybacktitle=0.6, bottomtitle=1mm, arc=.35mm, titlerule=0mm, colframe=quarto-callout-important-color-frame, left=2mm, bottomrule=.15mm, rightrule=.15mm, coltitle=black, colback=white]
 
 You can find the answers and code when you click on the toggle, but try
 to do as much as you can without looking at the answers first. You can
@@ -314,7 +312,7 @@ it doesn't hand the answer to you.
 
 \end{tcolorbox}
 
-\section{Data}\label{data}
+\subsection{Data description}\label{data-description}
 
 Let's work with some global height dataset. It was downloaded from the
 website \url{https://ncdrisc.org/data-downloads-height.html} and the
@@ -323,7 +321,7 @@ mean heights of adolescents of both boys and girls at different age
 groups. The mean height is the mean height of a certain age group in a
 specific year.
 
-\section{Part 1: exploration}\label{part-1-exploration}
+\subsection{Part 1: exploration}\label{part-1-exploration}
 
 \begin{itemize}
 \tightlist
@@ -334,7 +332,7 @@ specific year.
   \texttt{.csv} extension mean?
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, coltitle=black, toprule=.15mm, opacityback=0, breakable, colback=white, bottomtitle=1mm, leftrule=.75mm, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Answer}, toptitle=1mm, colbacktitle=quarto-callout-tip-color!10!white, titlerule=0mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, left=2mm, opacitybacktitle=0.6]
+\begin{tcolorbox}[enhanced jigsaw, breakable, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Answer}, toptitle=1mm, leftrule=.75mm, toprule=.15mm, colbacktitle=quarto-callout-tip-color!10!white, opacityback=0, opacitybacktitle=0.6, bottomtitle=1mm, arc=.35mm, titlerule=0mm, colframe=quarto-callout-tip-color-frame, left=2mm, bottomrule=.15mm, rightrule=.15mm, coltitle=black, colback=white]
 
 Csv stands for comma separated file. It is a file format to store tables
 (such as Excel files), where each line represents a data record, and
@@ -353,7 +351,7 @@ using tabs (\t) or spaces.
   e.g.~\texttt{data})\\
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, coltitle=black, toprule=.15mm, opacityback=0, breakable, colback=white, bottomtitle=1mm, leftrule=.75mm, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, colbacktitle=quarto-callout-tip-color!10!white, titlerule=0mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, left=2mm, opacitybacktitle=0.6]
+\begin{tcolorbox}[enhanced jigsaw, breakable, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, leftrule=.75mm, toprule=.15mm, colbacktitle=quarto-callout-tip-color!10!white, opacityback=0, opacitybacktitle=0.6, bottomtitle=1mm, arc=.35mm, titlerule=0mm, colframe=quarto-callout-tip-color-frame, left=2mm, bottomrule=.15mm, rightrule=.15mm, coltitle=black, colback=white]
 
 We are working within an R project, so we can use relative path names.
 If you prefer using the absolute path name, this might look different.
@@ -381,7 +379,7 @@ been done in iOS (Apple), but Windows looks different.
   How many data entries are there?
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, coltitle=black, toprule=.15mm, opacityback=0, breakable, colback=white, bottomtitle=1mm, leftrule=.75mm, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, colbacktitle=quarto-callout-tip-color!10!white, titlerule=0mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, left=2mm, opacitybacktitle=0.6]
+\begin{tcolorbox}[enhanced jigsaw, breakable, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, leftrule=.75mm, toprule=.15mm, colbacktitle=quarto-callout-tip-color!10!white, opacityback=0, opacitybacktitle=0.6, bottomtitle=1mm, arc=.35mm, titlerule=0mm, colframe=quarto-callout-tip-color-frame, left=2mm, bottomrule=.15mm, rightrule=.15mm, coltitle=black, colback=white]
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -400,7 +398,7 @@ been done in iOS (Apple), but Windows looks different.
   age group (i.e.~how old are those groups)?
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, coltitle=black, toprule=.15mm, opacityback=0, breakable, colback=white, bottomtitle=1mm, leftrule=.75mm, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, colbacktitle=quarto-callout-tip-color!10!white, titlerule=0mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, left=2mm, opacitybacktitle=0.6]
+\begin{tcolorbox}[enhanced jigsaw, breakable, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, leftrule=.75mm, toprule=.15mm, colbacktitle=quarto-callout-tip-color!10!white, opacityback=0, opacitybacktitle=0.6, bottomtitle=1mm, arc=.35mm, titlerule=0mm, colframe=quarto-callout-tip-color-frame, left=2mm, bottomrule=.15mm, rightrule=.15mm, coltitle=black, colback=white]
 
 First we need to know what columns there are in the data and what they
 are called, which can be done in different ways.
@@ -438,7 +436,7 @@ So 5 and 19, respectively.
 
 \end{tcolorbox}
 
-\section{Part 2: cleaning the data}\label{part-2-cleaning-the-data}
+\subsection{Part 2: cleaning the data}\label{part-2-cleaning-the-data}
 
 \begin{itemize}
 \tightlist
@@ -447,7 +445,7 @@ So 5 and 19, respectively.
   error?
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, coltitle=black, toprule=.15mm, opacityback=0, breakable, colback=white, bottomtitle=1mm, leftrule=.75mm, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, colbacktitle=quarto-callout-tip-color!10!white, titlerule=0mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, left=2mm, opacitybacktitle=0.6]
+\begin{tcolorbox}[enhanced jigsaw, breakable, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, leftrule=.75mm, toprule=.15mm, colbacktitle=quarto-callout-tip-color!10!white, opacityback=0, opacitybacktitle=0.6, bottomtitle=1mm, arc=.35mm, titlerule=0mm, colframe=quarto-callout-tip-color-frame, left=2mm, bottomrule=.15mm, rightrule=.15mm, coltitle=black, colback=white]
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -471,7 +469,7 @@ Both are characters/strings.
   numeric, right? What's causing this?
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, coltitle=black, toprule=.15mm, opacityback=0, breakable, colback=white, bottomtitle=1mm, leftrule=.75mm, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, colbacktitle=quarto-callout-tip-color!10!white, titlerule=0mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, left=2mm, opacitybacktitle=0.6]
+\begin{tcolorbox}[enhanced jigsaw, breakable, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, leftrule=.75mm, toprule=.15mm, colbacktitle=quarto-callout-tip-color!10!white, opacityback=0, opacitybacktitle=0.6, bottomtitle=1mm, arc=.35mm, titlerule=0mm, colframe=quarto-callout-tip-color-frame, left=2mm, bottomrule=.15mm, rightrule=.15mm, coltitle=black, colback=white]
 
 A classic coding issue, ``what's up with my data''? Figuring out why
 something is not behaving as expected will happen most of the time you
@@ -511,7 +509,7 @@ column as numeric now.
   Fix the error and change the data class to numeric
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, coltitle=black, toprule=.15mm, opacityback=0, breakable, colback=white, bottomtitle=1mm, leftrule=.75mm, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, colbacktitle=quarto-callout-tip-color!10!white, titlerule=0mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, left=2mm, opacitybacktitle=0.6]
+\begin{tcolorbox}[enhanced jigsaw, breakable, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, leftrule=.75mm, toprule=.15mm, colbacktitle=quarto-callout-tip-color!10!white, opacityback=0, opacitybacktitle=0.6, bottomtitle=1mm, arc=.35mm, titlerule=0mm, colframe=quarto-callout-tip-color-frame, left=2mm, bottomrule=.15mm, rightrule=.15mm, coltitle=black, colback=white]
 
 We can't correct the value because we don't know what happened with this
 boy's height measurement. So let's either remove the entire row or
@@ -567,7 +565,7 @@ to numeric.
 
 \end{tcolorbox}
 
-\section{Part 3: summary statistics}\label{part-3-summary-statistics}
+\subsection{Part 3: summary statistics}\label{part-3-summary-statistics}
 
 \begin{itemize}
 \tightlist
@@ -575,7 +573,7 @@ to numeric.
   What is the mean across years of the mean heights in the dataset?
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, coltitle=black, toprule=.15mm, opacityback=0, breakable, colback=white, bottomtitle=1mm, leftrule=.75mm, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, colbacktitle=quarto-callout-tip-color!10!white, titlerule=0mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, left=2mm, opacitybacktitle=0.6]
+\begin{tcolorbox}[enhanced jigsaw, breakable, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, leftrule=.75mm, toprule=.15mm, colbacktitle=quarto-callout-tip-color!10!white, opacityback=0, opacitybacktitle=0.6, bottomtitle=1mm, arc=.35mm, titlerule=0mm, colframe=quarto-callout-tip-color-frame, left=2mm, bottomrule=.15mm, rightrule=.15mm, coltitle=black, colback=white]
 
 The function that calculates means is, intuitively, \texttt{mean()}
 which is a base function (i.e.~you don't need to install a package for
@@ -601,7 +599,7 @@ can use \texttt{?mean}
   separately for boys and girls?
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, coltitle=black, toprule=.15mm, opacityback=0, breakable, colback=white, bottomtitle=1mm, leftrule=.75mm, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, colbacktitle=quarto-callout-tip-color!10!white, titlerule=0mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, left=2mm, opacitybacktitle=0.6]
+\begin{tcolorbox}[enhanced jigsaw, breakable, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, leftrule=.75mm, toprule=.15mm, colbacktitle=quarto-callout-tip-color!10!white, opacityback=0, opacitybacktitle=0.6, bottomtitle=1mm, arc=.35mm, titlerule=0mm, colframe=quarto-callout-tip-color-frame, left=2mm, bottomrule=.15mm, rightrule=.15mm, coltitle=black, colback=white]
 
 Here's where your preference can kick in: do you want to use dplyr or
 something else, like base R or data.table? I will show you multiple
@@ -647,7 +645,7 @@ Age group 12, and then look at what year the variance was the smallest
 I'll only show you the dplyr way, but you can use many different methods
 to get to the same answer here.
 
-\begin{tcolorbox}[enhanced jigsaw, coltitle=black, toprule=.15mm, opacityback=0, breakable, colback=white, bottomtitle=1mm, leftrule=.75mm, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, colbacktitle=quarto-callout-tip-color!10!white, titlerule=0mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, left=2mm, opacitybacktitle=0.6]
+\begin{tcolorbox}[enhanced jigsaw, breakable, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, leftrule=.75mm, toprule=.15mm, colbacktitle=quarto-callout-tip-color!10!white, opacityback=0, opacitybacktitle=0.6, bottomtitle=1mm, arc=.35mm, titlerule=0mm, colframe=quarto-callout-tip-color-frame, left=2mm, bottomrule=.15mm, rightrule=.15mm, coltitle=black, colback=white]
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -663,7 +661,7 @@ to get to the same answer here.
 
 \end{tcolorbox}
 
-\section{Part 4: plotting}\label{part-4-plotting}
+\subsection{Part 4: plotting}\label{part-4-plotting}
 
 \begin{itemize}
 \tightlist
@@ -673,7 +671,7 @@ to get to the same answer here.
   sex!
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, coltitle=black, toprule=.15mm, opacityback=0, breakable, colback=white, bottomtitle=1mm, leftrule=.75mm, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, colbacktitle=quarto-callout-tip-color!10!white, titlerule=0mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, left=2mm, opacitybacktitle=0.6]
+\begin{tcolorbox}[enhanced jigsaw, breakable, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, leftrule=.75mm, toprule=.15mm, colbacktitle=quarto-callout-tip-color!10!white, opacityback=0, opacitybacktitle=0.6, bottomtitle=1mm, arc=.35mm, titlerule=0mm, colframe=quarto-callout-tip-color-frame, left=2mm, bottomrule=.15mm, rightrule=.15mm, coltitle=black, colback=white]
 
 Let's get plotting! First choose: do you want to use ggplot2
 (recommended) or base R to make your plot?
