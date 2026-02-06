@@ -278,7 +278,6 @@ ggplot(subset(data, Age.group == 18), aes(x = Year, y = Mean.height)) + geom_poi
 # method 2: base R -- not sure how to do it
 ```
 
-
 As we see, both the mean height of girls and boys aged 18 years increased over time. What is also clear is that base R is a lot longer, and you require a lot of separate elements.
 
 :::
