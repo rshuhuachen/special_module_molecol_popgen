@@ -1,5 +1,15 @@
 [
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Special Module: Methods in Mol Ecol and Pop Gen",
+    "section": "",
+    "text": "1 Introduction\nThis webpage/document contains all the practical materials for the Spezial Modul entitled “Methods in Molecular Ecology and Population Genetics”.\nThe order of the practicals/tests on this webpage are in the order of the way we will discuss them throughout the course. Please don’t hestitate to ask David or Rebecca any questions throughout the course.\nIf anything is unclear or not working, please let us know!\nEach session will contain text, exercises and answers. We encourage you to really think before you reveal the answer, otherwise you won’t learn. If you need any help getting to the answer, you can also ask us questions to put you in the right direction. The same applies to helping you troubleshoot, of course.\nRemember, even the experts will google how to code things. Once you get more fluent in the language, you can do simple things by heart. But just like learning any langauge, this takes time and practise. So don’t be afraid to look into your notes or look up how to do things, this is how every person works in R\n\n\n\nUse the resources available to you!",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Methods in Mol Ecol and Pop Gen</span>"
+    ]
+  },
+  {
     "objectID": "tests/test_introduction.html",
     "href": "tests/test_introduction.html",
     "title": "2  Basic skills - a test",

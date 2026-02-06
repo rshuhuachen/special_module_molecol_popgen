@@ -1,0 +1,744 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrreprt}
+
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else  
+    % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{5}
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\newenvironment{Shaded}{}{}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.33,0.33}{\textbf{#1}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.42,0.45,0.49}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.84,0.23,0.29}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.36,0.77}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.84,0.23,0.29}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.01,0.18,0.38}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.42,0.45,0.49}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.42,0.45,0.49}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.36,0.77}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.84,0.23,0.29}{#1}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.84,0.23,0.29}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.36,0.77}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.42,0.45,0.49}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.33,0.33}{\underline{#1}}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.84,0.23,0.29}{\textbf{#1}}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.36,0.77}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.44,0.26,0.76}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.01,0.18,0.38}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.42,0.45,0.49}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.84,0.23,0.29}{#1}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.14,0.16,0.18}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.14,0.16,0.18}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.44,0.26,0.76}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.84,0.23,0.29}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.42,0.45,0.49}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.36,0.77}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.01,0.18,0.38}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.01,0.18,0.38}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.89,0.38,0.04}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.01,0.18,0.38}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{1.00,0.33,0.33}{#1}}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+\usepackage{fvextra}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+\DefineVerbatimEnvironment{OutputCode}{Verbatim}{breaklines,commandchars=\\\{\}}
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
+\@ifpackageloaded{fontawesome5}{}{\usepackage{fontawesome5}}
+\definecolor{quarto-callout-color}{HTML}{909090}
+\definecolor{quarto-callout-note-color}{HTML}{0758E5}
+\definecolor{quarto-callout-important-color}{HTML}{CC1914}
+\definecolor{quarto-callout-warning-color}{HTML}{EB9113}
+\definecolor{quarto-callout-tip-color}{HTML}{00A047}
+\definecolor{quarto-callout-caution-color}{HTML}{FC5300}
+\definecolor{quarto-callout-color-frame}{HTML}{acacac}
+\definecolor{quarto-callout-note-color-frame}{HTML}{4582ec}
+\definecolor{quarto-callout-important-color-frame}{HTML}{d9534f}
+\definecolor{quarto-callout-warning-color-frame}{HTML}{f0ad4e}
+\definecolor{quarto-callout-tip-color-frame}{HTML}{02b875}
+\definecolor{quarto-callout-caution-color-frame}{HTML}{fd7e14}
+\makeatother
+\makeatletter
+\@ifpackageloaded{bookmark}{}{\usepackage{bookmark}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+
+\usepackage{bookmark}
+
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Special Module: Methods in Mol Ecol and Pop Gen},
+  pdfauthor={Rebecca S. Chen},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Special Module: Methods in Mol Ecol and Pop Gen}
+\author{Rebecca S. Chen}
+\date{}
+
+\begin{document}
+\maketitle
+
+\renewcommand*\contentsname{Table of contents}
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{1}
+\tableofcontents
+}
+
+\bookmarksetup{startatroot}
+
+\chapter{Methods in Mol Ecol and Pop
+Gen}\label{methods-in-mol-ecol-and-pop-gen}
+
+\bookmarksetup{startatroot}
+
+\chapter{Introduction}\label{introduction}
+
+This webpage/document contains all the practical materials for the
+Spezial Modul entitled ``Methods in Molecular Ecology and Population
+Genetics''.
+
+The order of the practicals/tests on this webpage are in the order of
+the way we will discuss them throughout the course. Please don't
+hestitate to ask David or Rebecca any questions throughout the course.
+
+If anything is unclear or not working, please let us know!
+
+Each session will contain text, exercises and answers. We encourage you
+to really think before you reveal the answer, otherwise you won't learn.
+If you need any help getting to the answer, you can also ask us
+questions to put you in the right direction. The same applies to helping
+you troubleshoot, of course.
+
+Remember, even the experts will google how to code things. Once you get
+more fluent in the language, you can do simple things by heart. But just
+like learning any langauge, this takes time and practise. So don't be
+afraid to look into your notes or look up how to do things, this is how
+every person works in R
+
+\begin{figure}[H]
+
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{img/google.png}}
+
+}
+
+\caption{Use the resources available to you!}
+
+\end{figure}%
+
+\bookmarksetup{startatroot}
+
+\chapter{Basic skills - a test}\label{basic-skills---a-test}
+
+\bookmarksetup{startatroot}
+
+\chapter{Datacamp}\label{datacamp}
+
+In the first week, you will have almost two full days to learn the
+basics of R yourself. We have given you access to
+\href{https://datacamp.com/}{DataCamp}, a great interactive platform to
+learn R at any level. The courses we would like you to complete because
+they prepare you with all you need to know to follow the rest of the
+course are as follows:
+
+\begin{itemize}
+\tightlist
+\item
+  ``Introduction to R''
+\item
+  ``Introduction to tidyverse''
+\item
+  ``Introduction to dplyr''
+\end{itemize}
+
+Please follow them at your own speed. If you think something is too easy
+because you already have some prior experience, you can skip through it
+and learn at your own speed. Feel free to start other courses too. All
+we want you to be able to do, is gain the skills and experience to be
+able to complete the exercises below. These exercises are therefore not
+graded in any way, it's just a way to make sure you understand the
+basics to continue with the rest of the course.
+
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, toprule=.15mm, opacityback=0, breakable, colback=white, bottomtitle=1mm, leftrule=.75mm, colframe=quarto-callout-important-color-frame, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{A note on AI}, toptitle=1mm, colbacktitle=quarto-callout-important-color!10!white, titlerule=0mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, left=2mm, opacitybacktitle=0.6]
+
+You can find the answers and code when you click on the toggle, but try
+to do as much as you can without looking at the answers first. You can
+use Google or your notes from DataCamp to find the answers, but please
+don't use ChatGPT or other AI tools to help you find the answers
+directly. For example, don't just put the question as a prompt, but you
+could ask: how do I calculate the mean in R? Or: how can I make a basic
+plot with ggplot2 to visualise XYZ? In other words: don't `cheat', but
+if you want to use ChatGPT, use it in a way that will help you learn and
+it doesn't hand the answer to you.
+
+\end{tcolorbox}
+
+\section{Data}\label{data}
+
+Let's work with some global height dataset. It was downloaded from the
+website \url{https://ncdrisc.org/data-downloads-height.html} and the
+file can be found in the \texttt{data} directory. The data contain the
+mean heights of adolescents of both boys and girls at different age
+groups. The mean height is the mean height of a certain age group in a
+specific year.
+
+\section{Part 1: exploration}\label{part-1-exploration}
+
+\begin{itemize}
+\tightlist
+\item
+  The dataset is called
+  \texttt{NCD\_RisC\_Lancet\_2020\_heigh\_child\_adolescent\_global.csv}
+  and is stored in the \texttt{data} directory. What does the
+  \texttt{.csv} extension mean?
+\end{itemize}
+
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, toprule=.15mm, opacityback=0, breakable, colback=white, bottomtitle=1mm, leftrule=.75mm, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Answer}, toptitle=1mm, colbacktitle=quarto-callout-tip-color!10!white, titlerule=0mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, left=2mm, opacitybacktitle=0.6]
+
+Csv stands for comma separated file. It is a file format to store tables
+(such as Excel files), where each line represents a data record, and
+fields are separated by commas. CSV files are commonly used to store
+data, but you have to be careful if your data contains text that might
+include comma's, because it will think the sentence needs to be split up
+into different fields! Other ways to separate fields are for example by
+using tabs (\t) or spaces.
+
+\end{tcolorbox}
+
+\begin{itemize}
+\tightlist
+\item
+  Import the data set and assign it to a variable (called
+  e.g.~\texttt{data})\\
+\end{itemize}
+
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, toprule=.15mm, opacityback=0, breakable, colback=white, bottomtitle=1mm, leftrule=.75mm, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, colbacktitle=quarto-callout-tip-color!10!white, titlerule=0mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, left=2mm, opacitybacktitle=0.6]
+
+We are working within an R project, so we can use relative path names.
+If you prefer using the absolute path name, this might look different.
+Also, path specification is dependent on your operating system. This has
+been done in iOS (Apple), but Windows looks different.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# using read.csv}
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"../data/NCD\_RisC\_Lancet\_2020\_height\_child\_adolescent\_global.csv"}\NormalTok{)}
+
+\CommentTok{\# or absolute path name}
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"/Users/vistor/Documents/Work/GitHub/postdoc/special\_module\_molecol\_popgen/data/NCD\_RisC\_Lancet\_2020\_height\_child\_adolescent\_global.csv"}\NormalTok{) }
+
+\CommentTok{\# or using read table, make sure you specify there\textquotesingle{}s a header!}
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{read.table}\NormalTok{(}\StringTok{"../data/NCD\_RisC\_Lancet\_2020\_height\_child\_adolescent\_global.csv"}\NormalTok{, }\AttributeTok{sep =} \StringTok{","}\NormalTok{, }\AttributeTok{header=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\end{tcolorbox}
+
+\begin{itemize}
+\tightlist
+\item
+  How many data entries are there?
+\end{itemize}
+
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, toprule=.15mm, opacityback=0, breakable, colback=white, bottomtitle=1mm, leftrule=.75mm, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, colbacktitle=quarto-callout-tip-color!10!white, titlerule=0mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, left=2mm, opacitybacktitle=0.6]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{nrow}\NormalTok{(data) }
+\end{Highlighting}
+\end{Shaded}
+
+1050 entries because there are 1050 rows, excluding the header
+
+\end{tcolorbox}
+
+\begin{itemize}
+\tightlist
+\item
+  What is the youngest age group in the dataset, and what is the oldest
+  age group (i.e.~how old are those groups)?
+\end{itemize}
+
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, toprule=.15mm, opacityback=0, breakable, colback=white, bottomtitle=1mm, leftrule=.75mm, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, colbacktitle=quarto-callout-tip-color!10!white, titlerule=0mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, left=2mm, opacitybacktitle=0.6]
+
+First we need to know what columns there are in the data and what they
+are called, which can be done in different ways.
+
+Remember you can always view the data (by clicking on it in the
+environment or by calling \texttt{View(data})).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#this shows you just the structure of the table}
+\FunctionTok{str}\NormalTok{(data) }
+
+\CommentTok{\#this tells you the column names of the table}
+\FunctionTok{names}\NormalTok{(data) }
+
+\CommentTok{\# this shows you the first 6 entries and the column names}
+\FunctionTok{head}\NormalTok{(data) }
+\end{Highlighting}
+\end{Shaded}
+
+From this we can see that the column that stores the age is called
+\texttt{Age.group}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# minimum age i.e. youngest age class}
+\FunctionTok{min}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Age.group) }
+
+\CommentTok{\# maximum age i.e. oldest age class}
+\FunctionTok{max}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Age.group) }
+\end{Highlighting}
+\end{Shaded}
+
+So 5 and 19, respectively.
+
+\end{tcolorbox}
+
+\section{Part 2: cleaning the data}\label{part-2-cleaning-the-data}
+
+\begin{itemize}
+\tightlist
+\item
+  What is the data type / class of the mean height and its standard
+  error?
+\end{itemize}
+
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, toprule=.15mm, opacityback=0, breakable, colback=white, bottomtitle=1mm, leftrule=.75mm, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, colbacktitle=quarto-callout-tip-color!10!white, titlerule=0mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, left=2mm, opacitybacktitle=0.6]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# this tells us the class of a specific column}
+\FunctionTok{class}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Mean.height) }
+\FunctionTok{class}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Mean.height.standard.error) }
+
+\CommentTok{\# this tells us the class of all columns}
+\FunctionTok{str}\NormalTok{(data) }
+\end{Highlighting}
+\end{Shaded}
+
+Both are characters/strings.
+
+\end{tcolorbox}
+
+\begin{itemize}
+\tightlist
+\item
+  Hmm, this data class is probably incorrect\ldots{} It should be
+  numeric, right? What's causing this?
+\end{itemize}
+
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, toprule=.15mm, opacityback=0, breakable, colback=white, bottomtitle=1mm, leftrule=.75mm, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, colbacktitle=quarto-callout-tip-color!10!white, titlerule=0mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, left=2mm, opacitybacktitle=0.6]
+
+A classic coding issue, ``what's up with my data''? Figuring out why
+something is not behaving as expected will happen most of the time you
+are coding. How do we diagnose the problem?
+
+We can start by having a look at the data using e.g.~\texttt{View(data)}
+and by doing some tests.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# let\textquotesingle{}s see what happens when we change the data class to numeric, and store this in a test variable.}
+
+\NormalTok{test }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Mean.height)  }
+\end{Highlighting}
+\end{Shaded}
+
+It gives a warning which indicates it could not change one or more of
+the values to numeric so it had to be put to NA. Why?
+
+What sometimes works is to sort the column, this might help us diagnose
+what is happening in such a large table. When we look at
+\texttt{View(data)} / the data tab, we can click on the column
+\texttt{Mean.height} and it will sort it. Click on it again, and it will
+sort it in reverse order
+
+Whatever way you used, you might have identified the issue!
+
+There are two ``ERRORS'' at row number 112, a boy of age class 1992 and
+age 11. This text is causing the error, as R doesn't recognise this
+column as numeric now.
+
+\end{tcolorbox}
+
+\begin{itemize}
+\tightlist
+\item
+  Fix the error and change the data class to numeric
+\end{itemize}
+
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, toprule=.15mm, opacityback=0, breakable, colback=white, bottomtitle=1mm, leftrule=.75mm, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, colbacktitle=quarto-callout-tip-color!10!white, titlerule=0mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, left=2mm, opacitybacktitle=0.6]
+
+We can't correct the value because we don't know what happened with this
+boy's height measurement. So let's either remove the entire row or
+change the values to NA. You could do this manually by going into the
+raw data using e.g.~Excel. But a better practise is by doing this in the
+code - this way we can always track exactly what we did, and others can
+see it too because it is documented.
+
+In the first method below, we simply remove the 112'th row, so we remove
+the entire data point. It's always smart to store something in a
+different variable if you remove something so you do not override the
+original data, I'm showing you an example here but we'll continue with
+the `data' variable as we know it's all good.
+
+In the second and third method, we remove the text ``ERROR'' and instead
+replace it with the `official' NA value that R recognises as NA.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# method 1}
+\CommentTok{\# remove the row}
+\NormalTok{data\_clean }\OtherTok{\textless{}{-}}\NormalTok{ data[}\SpecialCharTok{{-}}\DecValTok{112}\NormalTok{,] }
+
+\CommentTok{\# then we change the data class to numeric and we do not get a warning}
+\NormalTok{data\_clean}\SpecialCharTok{$}\NormalTok{Mean.height }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data\_clean}\SpecialCharTok{$}\NormalTok{Mean.height) }
+\CommentTok{\# same for the SE}
+\NormalTok{data\_clean}\SpecialCharTok{$}\NormalTok{Mean.height.standard.error }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data\_clean}\SpecialCharTok{$}\NormalTok{Mean.height.standard.error) }
+
+\DocumentationTok{\#\# method 2}
+\CommentTok{\# this is what we had done before and automatically put the \textquotesingle{}character\textquotesingle{} ERROR as NA, you\textquotesingle{}ll get a warning but now we know why}
+
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{Mean.height }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Mean.height) }
+
+\CommentTok{\# same for the SE}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{Mean.height.standard.error }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Mean.height.standard.error) }
+
+\DocumentationTok{\#\# method 3}
+
+\CommentTok{\# this is the same as above, but manually which is a bit longer and more complex}
+
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{Mean.height[}\FunctionTok{which}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Mean.height}\SpecialCharTok{==}\StringTok{"ERROR"}\NormalTok{)] }\OtherTok{\textless{}{-}} \ConstantTok{NA} 
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{Mean.height.standard.error[}\FunctionTok{which}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Mean.height.standard.error}\SpecialCharTok{==}\StringTok{"ERROR"}\NormalTok{)] }\OtherTok{\textless{}{-}} \ConstantTok{NA} 
+
+\CommentTok{\# change to numeric, now we won\textquotesingle{}t get a warning}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{Mean.height }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Mean.height) }
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{Mean.height.standard.error }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Mean.height.standard.error) }
+\end{Highlighting}
+\end{Shaded}
+
+There we go! It's always good to check if things worked, so you can use
+e.g.~\texttt{str(data)} now to check that R indeed changed the columns
+to numeric.
+
+\end{tcolorbox}
+
+\section{Part 3: summary statistics}\label{part-3-summary-statistics}
+
+\begin{itemize}
+\tightlist
+\item
+  What is the mean across years of the mean heights in the dataset?
+\end{itemize}
+
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, toprule=.15mm, opacityback=0, breakable, colback=white, bottomtitle=1mm, leftrule=.75mm, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, colbacktitle=quarto-callout-tip-color!10!white, titlerule=0mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, left=2mm, opacitybacktitle=0.6]
+
+The function that calculates means is, intuitively, \texttt{mean()}
+which is a base function (i.e.~you don't need to install a package for
+this). If you want to know more details about how to use a function, you
+can use \texttt{?mean}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# we have to make sure we remove the NA when calculating the mean though!}
+\FunctionTok{mean}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Mean.height, }\AttributeTok{na.rm =}\NormalTok{ T) }
+
+\CommentTok{\# or we use the data that doesn\textquotesingle{}t contain the NA}
+\FunctionTok{mean}\NormalTok{(data\_clean}\SpecialCharTok{$}\NormalTok{Mean.height) }
+\end{Highlighting}
+\end{Shaded}
+
+\end{tcolorbox}
+
+\begin{itemize}
+\tightlist
+\item
+  What is the mean across years of the mean height, calculated
+  separately for boys and girls?
+\end{itemize}
+
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, toprule=.15mm, opacityback=0, breakable, colback=white, bottomtitle=1mm, leftrule=.75mm, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, colbacktitle=quarto-callout-tip-color!10!white, titlerule=0mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, left=2mm, opacitybacktitle=0.6]
+
+Here's where your preference can kick in: do you want to use dplyr or
+something else, like base R or data.table? I will show you multiple
+options, just see what looks more intuitive to you. To make sure we can
+use dplyr, we have to load the library.
+
+To answer this question, we have to do multiple steps: divide the data
+among the sexes somehow, and calculate the mean. This can be done in
+steps, or in one go. If you're a computational scientists, you would
+want things to be done in as little code as possible. But since we are
+learning, just do what makes most sense to you.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# method 1 with dplyr}
+\FunctionTok{library}\NormalTok{(dplyr) }\CommentTok{\# we can use dplyr to use the filter option}
+
+\NormalTok{girls }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(Sex }\SpecialCharTok{==} \StringTok{"Girls"}\NormalTok{)}
+\NormalTok{boys }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(Sex }\SpecialCharTok{==} \StringTok{"Boys"}\NormalTok{)}
+
+\FunctionTok{mean}\NormalTok{(girls}\SpecialCharTok{$}\NormalTok{Mean.height, }\AttributeTok{na.rm =}\NormalTok{ T) }
+\FunctionTok{mean}\NormalTok{(boys}\SpecialCharTok{$}\NormalTok{Mean.height, }\AttributeTok{na.rm =}\NormalTok{ T) }
+
+\CommentTok{\# method 2 without dplyr}
+\FunctionTok{mean}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Mean.height[}\FunctionTok{which}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Sex }\SpecialCharTok{==} \StringTok{"Girls"}\NormalTok{)], }\AttributeTok{na.rm=}\NormalTok{T) }
+\FunctionTok{mean}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Mean.height[}\FunctionTok{which}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Sex }\SpecialCharTok{==} \StringTok{"Boys"}\NormalTok{)], }\AttributeTok{na.rm=}\NormalTok{T) }
+\end{Highlighting}
+\end{Shaded}
+
+\end{tcolorbox}
+
+\begin{itemize}
+\tightlist
+\item
+  In what year was the standard error lowest for boys and girls
+  separately, for the age class 12? (i.e.~the variance smallest?)
+\end{itemize}
+
+Again, we need to take multiple steps here: only look at data from the
+Age group 12, and then look at what year the variance was the smallest
+(i.e.~the minimal variance).
+
+I'll only show you the dplyr way, but you can use many different methods
+to get to the same answer here.
+
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, toprule=.15mm, opacityback=0, breakable, colback=white, bottomtitle=1mm, leftrule=.75mm, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, colbacktitle=quarto-callout-tip-color!10!white, titlerule=0mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, left=2mm, opacitybacktitle=0.6]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# method 1: with dplyr}
+\NormalTok{girls\_12yr }\OtherTok{\textless{}{-}}\NormalTok{ girls }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(Age.group }\SpecialCharTok{==} \DecValTok{12}\NormalTok{)}
+\NormalTok{boys\_12yr }\OtherTok{\textless{}{-}}\NormalTok{ boys }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(Age.group }\SpecialCharTok{==} \DecValTok{12}\NormalTok{)}
+
+\NormalTok{girls\_12yr }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{arrange}\NormalTok{(Mean.height.standard.error) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{head}\NormalTok{() }\CommentTok{\# 2003, with a SE of 0.09367336}
+
+\NormalTok{boys\_12yr }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{arrange}\NormalTok{(Mean.height.standard.error) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{head}\NormalTok{() }\CommentTok{\# 2004, with a SE of 0.1342430}
+\end{Highlighting}
+\end{Shaded}
+
+\end{tcolorbox}
+
+\section{Part 4: plotting}\label{part-4-plotting}
+
+\begin{itemize}
+\tightlist
+\item
+  Make a plot that shows you whether the mean height of 18 year olds
+  increased or decreased over time. Bonus if you do it seperately per
+  sex!
+\end{itemize}
+
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, toprule=.15mm, opacityback=0, breakable, colback=white, bottomtitle=1mm, leftrule=.75mm, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, colbacktitle=quarto-callout-tip-color!10!white, titlerule=0mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, left=2mm, opacitybacktitle=0.6]
+
+Let's get plotting! First choose: do you want to use ggplot2
+(recommended) or base R to make your plot?
+
+Before you start making code, think what elements should be on the axes.
+What should be on the X axis, what variable on the Y axis, and what type
+of graph would represent the data best? A boxplot, scatterplot, line
+graph, pie chart? Choose the right element accordingly and then start
+writing the code.
+
+We also have to use a portion of the data only, again. We can use dplyr
+(\texttt{filter()}) but I will also show you another function here,
+\texttt{subset()} which is a base R function to do something similar to
+\texttt{filter()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# method 1: with ggplot}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+
+\FunctionTok{ggplot}\NormalTok{(}\FunctionTok{subset}\NormalTok{(data, Age.group }\SpecialCharTok{==} \DecValTok{18}\NormalTok{), }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Year, }\AttributeTok{y =}\NormalTok{ Mean.height)) }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{col =}\NormalTok{ Sex)) }\SpecialCharTok{+} \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{col =}\NormalTok{ Sex)) }\SpecialCharTok{+} \FunctionTok{theme\_classic}\NormalTok{()}
+
+\CommentTok{\# method 2: base R}
+\CommentTok{\# subset the data}
+\NormalTok{age\_18 }\OtherTok{\textless{}{-}} \FunctionTok{subset}\NormalTok{(data, Age.group }\SpecialCharTok{==} \DecValTok{18}\NormalTok{)}
+
+\CommentTok{\# set up empty plot}
+\FunctionTok{plot}\NormalTok{(}
+\NormalTok{  age\_18}\SpecialCharTok{$}\NormalTok{Year, age\_18}\SpecialCharTok{$}\NormalTok{Mean.height,}
+  \AttributeTok{type =} \StringTok{"n"}\NormalTok{,}
+  \AttributeTok{xlab =} \StringTok{"Year"}\NormalTok{,}
+  \AttributeTok{ylab =} \StringTok{"Mean height"}
+\NormalTok{)}
+
+\CommentTok{\# add points and lines by Sex}
+\ControlFlowTok{for}\NormalTok{ (s }\ControlFlowTok{in} \FunctionTok{levels}\NormalTok{(age\_18}\SpecialCharTok{$}\NormalTok{Sex)) \{}
+\NormalTok{  ds }\OtherTok{\textless{}{-}}\NormalTok{ age\_18[age\_18}\SpecialCharTok{$}\NormalTok{Sex }\SpecialCharTok{==}\NormalTok{ s, ]}
+  
+  \FunctionTok{points}\NormalTok{(ds}\SpecialCharTok{$}\NormalTok{Year, ds}\SpecialCharTok{$}\NormalTok{Mean.height,}
+         \AttributeTok{col =}\NormalTok{ cols[s], }\AttributeTok{pch =} \DecValTok{16}\NormalTok{)}
+  
+  \FunctionTok{lines}\NormalTok{(ds}\SpecialCharTok{$}\NormalTok{Year, ds}\SpecialCharTok{$}\NormalTok{Mean.height,}
+        \AttributeTok{col =}\NormalTok{ cols[s], }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\NormalTok{\}}
+
+\CommentTok{\# add legend}
+\FunctionTok{legend}\NormalTok{(}\StringTok{"topleft"}\NormalTok{,}
+       \AttributeTok{legend =} \FunctionTok{levels}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(age\_18}\SpecialCharTok{$}\NormalTok{Sex)),}
+       \AttributeTok{pch =} \DecValTok{16}\NormalTok{,}
+       \AttributeTok{lwd =} \DecValTok{2}\NormalTok{,}
+       \AttributeTok{bty =} \StringTok{"n"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+As we see, both the mean height of girls and boys aged 18 years
+increased over time. What is also clear is that base R is a lot longer,
+and you require a lot of separate elements.
+
+\end{tcolorbox}
+
+Well done! If you managed to answer all of the above, with or without
+some help from your notes and the internet, you're ready to explore
+genetic data and answer some pop gen questions.
+
+
+
+
+\end{document}
