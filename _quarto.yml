@@ -1,0 +1,38 @@
+project:
+  type: book
+  output-dir: docs
+
+engine: knitr
+
+book:
+  title: "Special Module: Methods in Mol Ecol and Pop Gen"
+  author: "Rebecca S. Chen"
+  chapters:
+    - index.qmd
+    - tests/test_introduction.qmd
+  navbar:
+    search: true
+  favicon: img/dna.jpg
+
+format:
+  html:
+    theme: flatly
+    toc: true
+    mainfont: Georgia, serif
+    code-fold: true
+  pdf:
+    toc: true
+    code-fold: true
+    number-sections: true
+    toc-depth: 2
+    highlight-style: github
+    keep-tex: true
+    include-in-header: 
+       text: |
+         \usepackage{fvextra}
+         \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+         \DefineVerbatimEnvironment{OutputCode}{Verbatim}{breaklines,commandchars=\\\{\}}
+
+editor: visual
+execute: 
+  eval: false
