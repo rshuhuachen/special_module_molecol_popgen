@@ -1,0 +1,172 @@
+---
+title: "Week 5 inbreeding"
+format: html
+editor: visual
+execute:
+  eval: true
+---
+
+We've just learned what inbreeding is and how we can measure it. In this practical, we will learn how to quantify the inbreeding coefficient using two different datasets and approaches.
+
+In the first analysis, we will use a microsatellite dataset to quantify the inbreeding coefficient sMLH using the package `inbreedR`. In the second analysis, we will identify homozygous stretches in the genome (HBD segments - homozygous by descent / ROHs - runs of homozygosity) from SNP data using the package `RZooRoh`.
+
+## Analysis 1 - microsatellites
+
+### Background 
+
+The dataset we are working with are microsatellite genotypes from black grouse (*Lyrurus tetrix*), a lekking bird. The dataset was taken from [this paper](https://onlinelibrary.wiley.com/doi/10.1111/eva.1352) which investigated the effects of hunting on inbreeding and gene flow. It is a large microsatellite dataset from female and male birds as well as chicks, sampled at 12 populations in Central Finland. For some populations, recreational hunting is allowed whereas others are protected.
+
+Inbreeding in this species is generally avoided by female-biased dispersal and non-overlapping generations (i.e. females have a shorter lifespan so will have probably died by the time she could hypothetically mate with her offspring). However, due to habitat fragmentation and destruction, inbreeding can still occur. The black grouse is not a threatened species and lives across all over Europe (including Germany). Nevertheless, it is locally threatened: in Germany there is only one population left: in the Lüneburger Heide. It is therefore important to understand inbreeding dynamics in this species.
+
+### The dataset
+Blood samples were collected between 2001 and 2007 from a total of 1878 adult black grouse, of which 1065 were males and 813 were females. The birds were captured in walk-in traps baited with oats, aged as yearlings or older according to the shape of the outmost primaries and marked with metal and colour rings for future identification. Blood (1–2 ml) was taken with a heparinized syringe from the brachial vein. After centrifugation, the red blood cells were stored in 70% ethanol at 4°C for subsequent DNA analysis. 
+
+In addition to the adults, 1370 chicks were sampled (370 females, 325 males and 675 individuals of unknown sex) from 200 different broods. The chicks were sampled at seven of the 12 sites between 2001 and 2006. Nesting sites were located after the lekking season and the hatching date of the chicks was estimated by floating the eggs in warm water. The chicks were then captured on the approximate day of hatching (in May/June) for blood sample collection where possible, and if not, egg shells were collected instead. 
+
+### Microsatellite datasets
+
+Microsatellite datasets can be stored in various ways. The most common way to note them down is: one row per individual, the loci (and its two alleles) in columns. Which means that for each locus, you have two columns: one for each allele, which is commonly noted as allele a and allele b. The value stored in these cells is the fragment length in base pairs, which therefore reflects the number of times the specific motif (e.g. AT) is repeated in this individual. 
+
+### Calculating sMLH
+
+Using this dataset, we will calculate the standardized multilocus heterozygosity (sMLH). Standardized Multilocus Heterozygosity (sMLH) is a measure of an individual's genetic diversity that divides their total number of heterozygous loci by the average observed heterozygosity of those specific, successfully typed loci in the population. What we are essentially looking at is whether two alleles are the same in length and thus homozygous, or whether the two alleles are different in length and thus heterozygous. sMLH measures heterozygosity: this is therefore the opposite of homozygosity. In other words, individuals with lower sMLH values are more inbred and vice versa.
+
+### Exercise 1
+
+- Load in the dataset. It can be found under `data/week_5_inbreeding` and is named msat_black_grouse - it is a .csv file with a header.
+- Investigate the structure of the dataset: how many microsatellite loci does the dataset contain? And how many individuals are there in the dataset? Also make sure to check whether all 12 populations are included in this dataset
+
+::: {.callout-tip title="Code and answer" collapse="true"}
+
+```{r exercise 1}
+# load in the dataset
+data <- read.csv("../data/week_5_inbreeding/msat_black_grouse.csv")
+head(data)
+
+# number of loci
+(ncol(data) - 2)/2 # there are two other columns 'id' and 'pop' which are not loci, and each locus has two alleles
+
+# number of individuals
+nrow(data)
+
+# checking the number of populations
+length(unique(data$pop))
+# or
+summary(as.factor(data$pop))
+
+```
+
+Number of loci: 12
+Number of individuals: 2078
+Yes, data from all 12 populations are included
+
+:::
+
+### Exercise 2
+
+Now, we want to calculate sMLH based on this dataset. We will do this using the R package `inbreedR`. Make sure to familiarise yourself with the package and browse through the [manual](https://cran.r-project.org/web/packages/inbreedR/vignettes/inbreedR_step_by_step.html).
+
+After reading through it, execute the following:
+- There are a few loci that have a lot of NAs. Which one is it / are they? Do you think it's a problem when we want to calculate sMLH?
+
+::: {.callout-tip title="Code and answer" collapse="true"}
+
+```{r}
+#easiest way to look across your dataset is with summary()
+summary(data) # at the bottom you will see the number of NA rows in each column
+```
+
+We see a few loci with a few NA's (<10): BG16, BG18, TTT1, TTD3, TUD6. But there is one locus with huge number of NA's (>1000) which is TTD2 and another with a significant amount of data missing: TTT2. But this is what's important about the `s` in `sMLH`: it calculates homozygosity across multiple loci but accounts for missing data. So it inheritently only looks at loci that have been successfully genotyped and therefore have a value. It is therefore fine for the calculation.
+
+However, if you sample less loci, you have a lower resolution. It is therefore important to investigate your data like this: we want to make sure that the number of loci used to calculate sMLH does not bias the sMLH values. Say all individuals in this dataset are homozygous for TTD2 (hypothetically), then the sMLH values of those individuals that were not genotyped at TTD2 might all have slighly higher sMLH values. It is good to investigate this later on.
+
+The short answer: no, this missing data does not matter for the calculation of sMLH, but we should keep an eye on it so we make sure this doesn't bias our results. 
+
+:::
+
+
+Before we calculate sMLH, we should clean up some of the data. Execute the following (not necessarily in this order):
+
+- The populations currently have a number: that's not ideal. Replace them with the actual location names which can be found in the .csv file stored in `data/week_5_inbreeding` titled `metadata_populations`. The second column `pop_num` refers to the number in the microsatellite dataset stored in the `pop` variable. 
+- Csv files don't like special characters: the names of population 1 and 5 therefore look weird. Change these names to Koskenpää and Nyrölä, respectively
+
+::: {.callout-tip title="Code and answer" collapse="true"}
+
+```{r}
+# load in the names of the populations
+pops <- read.csv("../data/week_5_inbreeding/metdata_populations.csv")
+head(pops)
+# change the names
+pops[1,1] <- "Koskenpää"
+pops[5,1] <- "Nyrölä"
+
+# approach 1: merge the two files and then only keep the written out population, not the number
+## load dplyr
+library(dplyr)
+## merge the pops file with the microsatellite data
+data_clean <- left_join(data, pops, by = c("pop" = "pop_num")) 
+## reorganise the columns
+data_clean <- data_clean[,c(1,27,3:26)] 
+## rename the column to pop instead of pop_num
+names(data_clean)[2] <- "pop"
+
+# approach 2: use a lookup table / using match
+## replace numeric pop codes with letters via lookup
+data$pop <- pops$pop[match(data$pop, pops$pop_num)]
+
+```
+
+:::
+
+So, now that the data are cleaned up and ready to analyse: let's calculate sMLH. Use the vignette to guide you through this process. 
+
+::: {.callout-tip title="Tips" collapse="true"}
+If you're struggling to find out how to do this, you can use these steps:
+1. inbreedR requires a certain format: the ids have to be the rownames, and the data should only contain the microsatellite genotypes (so no population info)
+2. to convert our dataframe to an inbreedR data format, you can use the function `convert_raw` from the inbreedR package. This function converts the genotypes to a binary distinction: 1 stands for heterozygous, 0 for homozygous for each of the loci.
+3. to calculate sMLH, we need the `sMLH` function
+
+:::
+
+::: {.callout-tip title="Code and answer" collapse="true"}
+```{r}
+
+## Change formats to be loaded into inbreedR (binary where rownames are id's and no populations)
+library(tibble)
+data_raw <- data_clean
+data_raw <- data_raw %>% remove_rownames %>% column_to_rownames(var="id")
+data_raw <- data_raw[,-1]
+
+# convert to inbreedR
+library(inbreedR)
+data_inbreedR <- convert_raw(data_raw)
+
+# calculate sMLH
+smlh <- sMLH(data_inbreedR) #sMLH
+summary(smlh)
+
+```
+:::
+
+Sweet, we got some sMLH values now!
+
+### Exercise 3
+
+Now that we have these values, we can do some analyses and plotting, and ask some research questions. We have the following data: sMLH values from 2078 individuals. These individuals were sampled at 12 different locations / from 12 populations, of which some allow recreational hunting (see the pops file). We have the exact coordinates of each population as well (see the pops file). 
+
+The individuals belong to three 'categories': males, females and chicks. Male IDs start with a D. Female IDs start with an H and do not have an appending number. Chicks also start with an H but the way they are named is their mother's ID and then an appending number (e.g. `H462.4`) separated with a dot (.). This means that this chick was the fourth chick of mother H462. Some chicks had unknown numbers and have an ID something like `UNK9`. For some chicks, a year is also appended: this happened when females had clutches across multiple years (e.g. `H441.7_2005`). At the bottom of the dataset there are also some chick IDs with unknown data and are instead named after the location they were found (e.g. `saaRTON.1`)
+
+You will find an additional dataset with metadata from the population, it is stored in `data/week_5_inbreeding/metadata_individuals.csv`. Here you will find the sex of the individual, but also the year of the sample, the density of that population in that year. There are more individuals in this metadata because all chicks of all broods are included: in the previous microsatellite dataset, only one chick was included per brood as they are related. 
+
+*Your next task: phrase a research question and answer it! *
+
+You will first have to phrase a research question which you find interesting: e.g. relate inbreeding to one of the other variables. You'll need to reshape the data to put it in a format that you can analyse (e.g. merge some data, or subset). To answer your research question, you can use some basic comparison, for example with a t-test or correlation test. To wrap it up, make a graph/figure that visualises the result of your test. And remember to annotate your code well to document what you're doing. You have full flexibility, and we are here for assistance with your question and how to code it, and also how to interpret the data.
+
+Remember you have the entire internet at your fingertips: use google, and you can use ChatGPT (or similar) for assistance as long as you understand what the code is doing! You can ask it for analytical advice, to help you interpret the output. To maximise your understanding, you can explicitly prompt it to guide you through the process. If you want a real human to double-check what ChatGPT is saying, feel free to ask our help. Allowing the use of ChatGPT is not an approach of lazy teaching, but rather to teach you to use it to your advantage while still staying critical and to make sure you stay smarter than ChatGPT (i.e. don't just copy paste without understanding the code).
+
+! Before you can move on to the next analysis using SNP data, present your mini-analysis to me (informally). Make sure to have the following:
+1. A research question
+2. A small analysis to answer this question (e.g. a t-test, correlation)
+3. A figure to show the results (using e.g. `ggplot()`)
+
+## Analysis 2 - SNPs

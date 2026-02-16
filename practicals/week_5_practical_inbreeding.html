@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Week 5 inbreeding</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="week_5_practical_inbreeding_files/libs/clipboard/clipboard.min.js"></script>
+<script src="week_5_practical_inbreeding_files/libs/quarto-html/quarto.js"></script>
+<script src="week_5_practical_inbreeding_files/libs/quarto-html/popper.min.js"></script>
+<script src="week_5_practical_inbreeding_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="week_5_practical_inbreeding_files/libs/quarto-html/anchor.min.js"></script>
+<link href="week_5_practical_inbreeding_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="week_5_practical_inbreeding_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="week_5_practical_inbreeding_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="week_5_practical_inbreeding_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="week_5_practical_inbreeding_files/libs/bootstrap/bootstrap-c0367b04c37547644fece4185067e4a7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Week 5 inbreeding</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>We’ve just learned what inbreeding is and how we can measure it. In this practical, we will learn how to quantify the inbreeding coefficient using two different datasets and approaches.</p>
+<p>In the first analysis, we will use a microsatellite dataset to quantify the inbreeding coefficient sMLH using the package <code>inbreedR</code>. In the second analysis, we will identify homozygous stretches in the genome (HBD segments - homozygous by descent / ROHs - runs of homozygosity) from SNP data using the package <code>RZooRoh</code>.</p>
+<section id="analysis-1---microsatellites" class="level2">
+<h2 class="anchored" data-anchor-id="analysis-1---microsatellites">Analysis 1 - microsatellites</h2>
+<section id="background" class="level3">
+<h3 class="anchored" data-anchor-id="background">Background</h3>
+<p>The dataset we are working with are microsatellite genotypes from black grouse (<em>Lyrurus tetrix</em>), a lekking bird. The dataset was taken from <a href="https://onlinelibrary.wiley.com/doi/10.1111/eva.1352">this paper</a> which investigated the effects of hunting on inbreeding and gene flow. It is a large microsatellite dataset from female and male birds as well as chicks, sampled at 12 populations in Central Finland. For some populations, recreational hunting is allowed whereas others are protected.</p>
+<p>Inbreeding in this species is generally avoided by female-biased dispersal and non-overlapping generations (i.e.&nbsp;females have a shorter lifespan so will have probably died by the time she could hypothetically mate with her offspring). However, due to habitat fragmentation and destruction, inbreeding can still occur. The black grouse is not a threatened species and lives across all over Europe (including Germany). Nevertheless, it is locally threatened: in Germany there is only one population left: in the Lüneburger Heide. It is therefore important to understand inbreeding dynamics in this species.</p>
+</section>
+<section id="the-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="the-dataset">The dataset</h3>
+<p>Blood samples were collected between 2001 and 2007 from a total of 1878 adult black grouse, of which 1065 were males and 813 were females. The birds were captured in walk-in traps baited with oats, aged as yearlings or older according to the shape of the outmost primaries and marked with metal and colour rings for future identification. Blood (1–2 ml) was taken with a heparinized syringe from the brachial vein. After centrifugation, the red blood cells were stored in 70% ethanol at 4°C for subsequent DNA analysis.</p>
+<p>In addition to the adults, 1370 chicks were sampled (370 females, 325 males and 675 individuals of unknown sex) from 200 different broods. The chicks were sampled at seven of the 12 sites between 2001 and 2006. Nesting sites were located after the lekking season and the hatching date of the chicks was estimated by floating the eggs in warm water. The chicks were then captured on the approximate day of hatching (in May/June) for blood sample collection where possible, and if not, egg shells were collected instead.</p>
+</section>
+<section id="microsatellite-datasets" class="level3">
+<h3 class="anchored" data-anchor-id="microsatellite-datasets">Microsatellite datasets</h3>
+<p>Microsatellite datasets can be stored in various ways. The most common way to note them down is: one row per individual, the loci (and its two alleles) in columns. Which means that for each locus, you have two columns: one for each allele, which is commonly noted as allele a and allele b. The value stored in these cells is the fragment length in base pairs, which therefore reflects the number of times the specific motif (e.g.&nbsp;AT) is repeated in this individual.</p>
+</section>
+<section id="calculating-smlh" class="level3">
+<h3 class="anchored" data-anchor-id="calculating-smlh">Calculating sMLH</h3>
+<p>Using this dataset, we will calculate the standardized multilocus heterozygosity (sMLH). Standardized Multilocus Heterozygosity (sMLH) is a measure of an individual’s genetic diversity that divides their total number of heterozygous loci by the average observed heterozygosity of those specific, successfully typed loci in the population. What we are essentially looking at is whether two alleles are the same in length and thus homozygous, or whether the two alleles are different in length and thus heterozygous. sMLH measures heterozygosity: this is therefore the opposite of homozygosity. In other words, individuals with lower sMLH values are more inbred and vice versa.</p>
+</section>
+<section id="exercise-1" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1">Exercise 1</h3>
+<ul>
+<li>Load in the dataset. It can be found under <code>data/week_5_inbreeding</code> and is named msat_black_grouse - it is a .csv file with a header.</li>
+<li>Investigate the structure of the dataset: how many microsatellite loci does the dataset contain? And how many individuals are there in the dataset? Also make sure to check whether all 12 populations are included in this dataset</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled" title="Code and answer">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Code and answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load in the dataset</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/week_5_inbreeding/msat_black_grouse.csv"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    id pop BG16a BG16b BG18a BG18b BG15a BG15b BG19a BG19b BG6a BG6b TTT1a
+1 D005  12   156   164   148   148   189   189   169   177  199  211   230
+2 D009   4   156   164   152   156   185   189   165   177  283  283   238
+3 D023   2   156   168   156   160   185   189   173   185  199  207   230
+4 D035  12   156   160   156   160   181   193   173   181  203  203   226
+5 D038  11   156   168   144   164   181   189   169   169  203  203   242
+6 D057   4   164   164   152   164   189   189   169   177  203  207   242
+  TTT1b TTD2a TTD2b TTD3a TTD3b TUD6a TUD6b TUT3a TUT3b TUT4a TUT4b TTT2a TTT2b
+1   246   149   149   136   138   184   186   156   160   173   173    NA    NA
+2   242   149   149   128   152   180   182   172   176   165   169    NA    NA
+3   250   149   153   152   152   186   194   168   168   161   169    NA    NA
+4   242   149   149   146   156   180   186   160   168   157   165    NA    NA
+5   242   149   149   138   154   186   186   160   168   169   181    NA    NA
+6   250   149   153   128   146   180   192   156   156   157   161    NA    NA</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># number of loci</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>(<span class="fu">ncol</span>(data) <span class="sc">-</span> <span class="dv">2</span>)<span class="sc">/</span><span class="dv">2</span> <span class="co"># there are two other columns 'id' and 'pop' which are not loci, and each locus has two alleles</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># number of individuals</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2078</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># checking the number of populations</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(data<span class="sc">$</span>pop))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">as.factor</span>(data<span class="sc">$</span>pop))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  1   2   3   4   5   6   7   8   9  10  11  12 
+274 364  46 210 320  59  62  40  91 184 350  78 </code></pre>
+</div>
+</div>
+<p>Number of loci: 12 Number of individuals: 2078 Yes, data from all 12 populations are included</p>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-2" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2">Exercise 2</h3>
+<p>Now, we want to calculate sMLH based on this dataset. We will do this using the R package <code>inbreedR</code>. Make sure to familiarise yourself with the package and browse through the <a href="https://cran.r-project.org/web/packages/inbreedR/vignettes/inbreedR_step_by_step.html">manual</a>.</p>
+<p>After reading through it, execute the following: - There are a few loci that have a lot of NAs. Which one is it / are they? Do you think it’s a problem when we want to calculate sMLH?</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Code and answer">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Code and answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#easiest way to look across your dataset is with summary()</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data) <span class="co"># at the bottom you will see the number of NA rows in each column</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      id                 pop             BG16a           BG16b      
+ Length:2078        Min.   : 1.000   Min.   :  0.0   Min.   :  0.0  
+ Class :character   1st Qu.: 2.000   1st Qu.:152.0   1st Qu.:160.0  
+ Mode  :character   Median : 5.000   Median :156.0   Median :164.0  
+                    Mean   : 5.839   Mean   :155.6   Mean   :161.9  
+                    3rd Qu.:10.000   3rd Qu.:160.0   3rd Qu.:164.0  
+                    Max.   :12.000   Max.   :172.0   Max.   :198.0  
+                                     NA's   :5       NA's   :5      
+     BG18a           BG18b           BG15a           BG15b      
+ Min.   :  0.0   Min.   :  0.0   Min.   :169.0   Min.   :181.0  
+ 1st Qu.:152.0   1st Qu.:160.0   1st Qu.:185.0   1st Qu.:189.0  
+ Median :156.0   Median :164.0   Median :185.0   Median :189.0  
+ Mean   :155.8   Mean   :163.2   Mean   :186.1   Mean   :191.2  
+ 3rd Qu.:160.0   3rd Qu.:168.0   3rd Qu.:189.0   3rd Qu.:193.0  
+ Max.   :172.0   Max.   :192.0   Max.   :197.0   Max.   :221.0  
+ NA's   :3       NA's   :3                                      
+     BG19a           BG19b            BG6a            BG6b         TTT1a      
+ Min.   :161.0   Min.   :161.0   Min.   :187.0   Min.   :195   Min.   :218.0  
+ 1st Qu.:165.0   1st Qu.:173.0   1st Qu.:199.0   1st Qu.:203   1st Qu.:234.0  
+ Median :169.0   Median :177.0   Median :199.0   Median :207   Median :238.0  
+ Mean   :169.5   Mean   :175.7   Mean   :200.6   Mean   :215   Mean   :238.5  
+ 3rd Qu.:173.0   3rd Qu.:177.0   3rd Qu.:203.0   3rd Qu.:211   3rd Qu.:242.0  
+ Max.   :185.0   Max.   :193.0   Max.   :287.0   Max.   :299   Max.   :258.0  
+                                                               NA's   :4      
+     TTT1b           TTD2a           TTD2b           TTD3a      
+ Min.   :222.0   Min.   :149.0   Min.   :149.0   Min.   :  0.0  
+ 1st Qu.:242.0   1st Qu.:149.0   1st Qu.:149.0   1st Qu.:134.0  
+ Median :246.0   Median :149.0   Median :149.0   Median :138.0  
+ Mean   :245.6   Mean   :149.2   Mean   :150.1   Mean   :138.3  
+ 3rd Qu.:250.0   3rd Qu.:149.0   3rd Qu.:149.0   3rd Qu.:146.0  
+ Max.   :258.0   Max.   :186.0   Max.   :198.0   Max.   :160.0  
+ NA's   :4       NA's   :1138    NA's   :1138    NA's   :4      
+     TTD3b           TUD6a           TUD6b           TUT3a      
+ Min.   :  0.0   Min.   :  0.0   Min.   :  0.0   Min.   :144.0  
+ 1st Qu.:146.0   1st Qu.:180.0   1st Qu.:184.0   1st Qu.:156.0  
+ Median :146.0   Median :182.0   Median :186.0   Median :160.0  
+ Mean   :147.3   Mean   :182.4   Mean   :185.4   Mean   :160.3  
+ 3rd Qu.:152.0   3rd Qu.:184.0   3rd Qu.:186.0   3rd Qu.:164.0  
+ Max.   :172.0   Max.   :192.0   Max.   :200.0   Max.   :176.0  
+ NA's   :6       NA's   :2       NA's   :2       NA's   :1      
+     TUT3b           TUT4a         TUT4b         TTT2a         TTT2b    
+ Min.   :152.0   Min.   :  0   Min.   :  0   Min.   :149   Min.   :149  
+ 1st Qu.:164.0   1st Qu.:161   1st Qu.:169   1st Qu.:149   1st Qu.:149  
+ Median :168.0   Median :165   Median :169   Median :149   Median :149  
+ Mean   :166.6   Mean   :165   Mean   :171   Mean   :149   Mean   :150  
+ 3rd Qu.:168.0   3rd Qu.:169   3rd Qu.:173   3rd Qu.:149   3rd Qu.:149  
+ Max.   :180.0   Max.   :185   Max.   :189   Max.   :157   Max.   :157  
+ NA's   :1                                   NA's   :213   NA's   :213  </code></pre>
+</div>
+</div>
+<p>We see a few loci with a few NA’s (&lt;10): BG16, BG18, TTT1, TTD3, TUD6. But there is one locus with huge number of NA’s (&gt;1000) which is TTD2 and another with a significant amount of data missing: TTT2. But this is what’s important about the <code>s</code> in <code>sMLH</code>: it calculates homozygosity across multiple loci but accounts for missing data. So it inheritently only looks at loci that have been successfully genotyped and therefore have a value. It is therefore fine for the calculation.</p>
+<p>However, if you sample less loci, you have a lower resolution. It is therefore important to investigate your data like this: we want to make sure that the number of loci used to calculate sMLH does not bias the sMLH values. Say all individuals in this dataset are homozygous for TTD2 (hypothetically), then the sMLH values of those individuals that were not genotyped at TTD2 might all have slighly higher sMLH values. It is good to investigate this later on.</p>
+<p>The short answer: no, this missing data does not matter for the calculation of sMLH, but we should keep an eye on it so we make sure this doesn’t bias our results.</p>
+</div>
+</div>
+</div>
+<p>Before we calculate sMLH, we should clean up some of the data. Execute the following (not necessarily in this order):</p>
+<ul>
+<li>The populations currently have a number: that’s not ideal. Replace them with the actual location names which can be found in the .csv file stored in <code>data/week_5_inbreeding</code> titled <code>metadata_populations</code>. The second column <code>pop_num</code> refers to the number in the microsatellite dataset stored in the <code>pop</code> variable.</li>
+<li>Csv files don’t like special characters: the names of population 1 and 5 therefore look weird. Change these names to Koskenpää and Nyrölä, respectively</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled" title="Code and answer">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Code and answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load in the names of the populations</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>pops <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/week_5_inbreeding/metdata_populations.csv"</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pops)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              pop pop_num     hunt        X        Y
+1 Koskenp\xe4\xe4       1   hunted 62.03983 25.20602
+2       Kummunsuo       2 unhunted 62.34530 24.76298
+3       Lauttasuo       3   hunted 62.50857 24.87211
+4        Lehtusuo       4 unhunted 62.25780 24.96876
+5    Nyr\xf6l\xe4       5 unhunted 62.32777 25.46674
+6         Palosuo       6   hunted 62.38357 25.27636</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># change the names</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>pops[<span class="dv">1</span>,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">"Koskenpää"</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>pops[<span class="dv">5</span>,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">"Nyrölä"</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># approach 1: merge the two files and then only keep the written out population, not the number</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="do">## load dplyr</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="do">## merge the pops file with the microsatellite data</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>data_clean <span class="ot">&lt;-</span> <span class="fu">left_join</span>(data, pops, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"pop"</span> <span class="ot">=</span> <span class="st">"pop_num"</span>)) </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="do">## reorganise the columns</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>data_clean <span class="ot">&lt;-</span> data_clean[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">27</span>,<span class="dv">3</span><span class="sc">:</span><span class="dv">26</span>)] </span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="do">## rename the column to pop instead of pop_num</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data_clean)[<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="st">"pop"</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co"># approach 2: use a lookup table / using match</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="do">## replace numeric pop codes with letters via lookup</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>pop <span class="ot">&lt;-</span> pops<span class="sc">$</span>pop[<span class="fu">match</span>(data<span class="sc">$</span>pop, pops<span class="sc">$</span>pop_num)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p>So, now that the data are cleaned up and ready to analyse: let’s calculate sMLH. Use the vignette to guide you through this process.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tips">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tips
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>If you’re struggling to find out how to do this, you can use these steps: 1. inbreedR requires a certain format: the ids have to be the rownames, and the data should only contain the microsatellite genotypes (so no population info) 2. to convert our dataframe to an inbreedR data format, you can use the function <code>convert_raw</code> from the inbreedR package. This function converts the genotypes to a binary distinction: 1 stands for heterozygous, 0 for homozygous for each of the loci. 3. to calculate sMLH, we need the <code>sMLH</code> function</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Code and answer">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Code and answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Change formats to be loaded into inbreedR (binary where rownames are id's and no populations)</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tibble' was built under R version 4.3.3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>data_raw <span class="ot">&lt;-</span> data_clean</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>data_raw <span class="ot">&lt;-</span> data_raw <span class="sc">%&gt;%</span> remove_rownames <span class="sc">%&gt;%</span> <span class="fu">column_to_rownames</span>(<span class="at">var=</span><span class="st">"id"</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>data_raw <span class="ot">&lt;-</span> data_raw[,<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># convert to inbreedR</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(inbreedR)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>data_inbreedR <span class="ot">&lt;-</span> <span class="fu">convert_raw</span>(data_raw)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate sMLH</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>smlh <span class="ot">&lt;-</span> <span class="fu">sMLH</span>(data_inbreedR) <span class="co">#sMLH</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(smlh)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.3618  0.8632  0.9865  1.0001  1.1099  1.4472 </code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Sweet, we got some sMLH values now!</p>
+</section>
+<section id="exercise-3" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-3">Exercise 3</h3>
+<p>Now that we have these values, we can do some analyses and plotting, and ask some research questions. We have the following data: sMLH values from 2078 individuals. These individuals were sampled at 12 different locations / from 12 populations, of which some allow recreational hunting (see the pops file). We have the exact coordinates of each population as well (see the pops file).</p>
+<p>The individuals belong to three ‘categories’: males, females and chicks. Male IDs start with a D. Female IDs start with an H and do not have an appending number. Chicks also start with an H but the way they are named is their mother’s ID and then an appending number (e.g.&nbsp;<code>H462.4</code>) separated with a dot (.). This means that this chick was the fourth chick of mother H462. Some chicks had unknown numbers and have an ID something like <code>UNK9</code>. For some chicks, a year is also appended: this happened when females had clutches across multiple years (e.g.&nbsp;<code>H441.7_2005</code>). At the bottom of the dataset there are also some chick IDs with unknown data and are instead named after the location they were found (e.g.&nbsp;<code>saaRTON.1</code>)</p>
+<p>You will find an additional dataset with metadata from the population, it is stored in <code>data/week_5_inbreeding/metadata_individuals.csv</code>. Here you will find the sex of the individual, but also the year of the sample, the density of that population in that year. There are more individuals in this metadata because all chicks of all broods are included: in the previous microsatellite dataset, only one chick was included per brood as they are related.</p>
+<p><em>Your next task: phrase a research question and answer it! </em></p>
+<p>You will first have to phrase a research question which you find interesting: e.g.&nbsp;relate inbreeding to one of the other variables. You’ll need to reshape the data to put it in a format that you can analyse (e.g.&nbsp;merge some data, or subset). To answer your research question, you can use some basic comparison, for example with a t-test or correlation test. To wrap it up, make a graph/figure that visualises the result of your test. And remember to annotate your code well to document what you’re doing. You have full flexibility, and we are here for assistance with your question and how to code it, and also how to interpret the data.</p>
+<p>Remember you have the entire internet at your fingertips: use google, and you can use ChatGPT (or similar) for assistance as long as you understand what the code is doing! You can ask it for analytical advice, to help you interpret the output. To maximise your understanding, you can explicitly prompt it to guide you through the process. If you want a real human to double-check what ChatGPT is saying, feel free to ask our help. Allowing the use of ChatGPT is not an approach of lazy teaching, but rather to teach you to use it to your advantage while still staying critical and to make sure you stay smarter than ChatGPT (i.e.&nbsp;don’t just copy paste without understanding the code).</p>
+<p>! Before you can move on to the next analysis using SNP data, present your mini-analysis to me (informally). Make sure to have the following: 1. A research question 2. A small analysis to answer this question (e.g.&nbsp;a t-test, correlation) 3. A figure to show the results (using e.g.&nbsp;<code>ggplot()</code>)</p>
+</section>
+</section>
+<section id="analysis-2---snps" class="level2">
+<h2 class="anchored" data-anchor-id="analysis-2---snps">Analysis 2 - SNPs</h2>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
