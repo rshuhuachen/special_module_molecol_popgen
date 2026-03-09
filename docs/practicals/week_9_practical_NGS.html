@@ -64,6 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../practicals/week_10_practical_ROHs.html" rel="next">
 <link href="../practicals/week_7_practical_inbreeding.html" rel="prev">
 <link href="../img/dna.jpg" rel="icon" type="image/jpeg">
 <script src="../site_libs/quarto-html/quarto.js"></script>
@@ -163,6 +164,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Week 9 NGS</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practicals/week_10_practical_ROHs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Week 10 ROHs</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -175,16 +182,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#day-1-sequencing-methods-fasta-files-and-reference-genomes" id="toc-day-1-sequencing-methods-fasta-files-and-reference-genomes" class="nav-link active" data-scroll-target="#day-1-sequencing-methods-fasta-files-and-reference-genomes"><span class="header-section-number">5</span> Day 1: sequencing methods, fasta files and reference genomes</a>
   <ul class="collapse">
-  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview"><span class="header-section-number">5.1</span> Overview</a>
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview"><span class="header-section-number">5.1</span> Overview</a></li>
+  <li><a href="#exercise-1-sequencing" id="toc-exercise-1-sequencing" class="nav-link" data-scroll-target="#exercise-1-sequencing"><span class="header-section-number">5.2</span> Exercise 1: sequencing</a></li>
+  <li><a href="#exercise-2-read-data" id="toc-exercise-2-read-data" class="nav-link" data-scroll-target="#exercise-2-read-data"><span class="header-section-number">5.3</span> Exercise 2: read data</a></li>
+  <li><a href="#exercise-3-explore-fq.gz-file" id="toc-exercise-3-explore-fq.gz-file" class="nav-link" data-scroll-target="#exercise-3-explore-fq.gz-file"><span class="header-section-number">5.4</span> Exercise 3: explore fq.gz file</a></li>
+  <li><a href="#exercise-4-reference-genomes" id="toc-exercise-4-reference-genomes" class="nav-link" data-scroll-target="#exercise-4-reference-genomes"><span class="header-section-number">5.5</span> Exercise 4: reference genomes</a></li>
+  <li><a href="#exercise-5-alignments" id="toc-exercise-5-alignments" class="nav-link" data-scroll-target="#exercise-5-alignments"><span class="header-section-number">5.6</span> Exercise 5: alignments</a></li>
+  </ul></li>
+  <li><a href="#day-2-single-nucleotide-polymorphisms" id="toc-day-2-single-nucleotide-polymorphisms" class="nav-link" data-scroll-target="#day-2-single-nucleotide-polymorphisms"><span class="header-section-number">6</span> Day 2: single nucleotide polymorphisms</a>
   <ul class="collapse">
-  <li><a href="#exercise-1-sequencing" id="toc-exercise-1-sequencing" class="nav-link" data-scroll-target="#exercise-1-sequencing"><span class="header-section-number">5.1.1</span> Exercise 1: sequencing</a></li>
-  <li><a href="#exercise-2-read-data" id="toc-exercise-2-read-data" class="nav-link" data-scroll-target="#exercise-2-read-data"><span class="header-section-number">5.1.2</span> Exercise 2: read data</a></li>
-  <li><a href="#exercise-3-explore-fq.gz-file" id="toc-exercise-3-explore-fq.gz-file" class="nav-link" data-scroll-target="#exercise-3-explore-fq.gz-file"><span class="header-section-number">5.1.3</span> Exercise 3: explore fq.gz file</a></li>
-  <li><a href="#exercise-4-reference-genomes" id="toc-exercise-4-reference-genomes" class="nav-link" data-scroll-target="#exercise-4-reference-genomes"><span class="header-section-number">5.1.4</span> Exercise 4: reference genomes</a></li>
-  <li><a href="#exercise-5-alignments" id="toc-exercise-5-alignments" class="nav-link" data-scroll-target="#exercise-5-alignments"><span class="header-section-number">5.1.5</span> Exercise 5: alignments</a></li>
+  <li><a href="#overview-1" id="toc-overview-1" class="nav-link" data-scroll-target="#overview-1"><span class="header-section-number">6.1</span> Overview</a></li>
+  <li><a href="#exercise-1-loading-in-.vcf-files" id="toc-exercise-1-loading-in-.vcf-files" class="nav-link" data-scroll-target="#exercise-1-loading-in-.vcf-files"><span class="header-section-number">6.2</span> Exercise 1: loading in .vcf files</a></li>
+  <li><a href="#exercise-2-cleaning-the-file" id="toc-exercise-2-cleaning-the-file" class="nav-link" data-scroll-target="#exercise-2-cleaning-the-file"><span class="header-section-number">6.3</span> Exercise 2: cleaning the file</a></li>
   </ul></li>
-  </ul></li>
-  <li><a href="#day-2-single-nucleotide-polymorphisms" id="toc-day-2-single-nucleotide-polymorphisms" class="nav-link" data-scroll-target="#day-2-single-nucleotide-polymorphisms"><span class="header-section-number">6</span> Day 2: single nucleotide polymorphisms</a></li>
   </ul>
 </nav>
     </div>
@@ -216,22 +226,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="5.1" class="anchored" data-anchor-id="overview"><span class="header-section-number">5.1</span> Overview</h2>
 <p>In today’s lecture, we learned about different sequencing technologies and the different bioinformatic steps that are taken in a typical workflow in molecol/popgen.</p>
 <p>The way that data are normally delivered are in fastq format. We’ll do some exploration with this data format so you get a feel for these type of files. In this practical, we will be working less with code because at this bioinformatic stage, R is generally not used. Instead, we use the command line which uses UNIX/bash. However, teaching you a second programming language in a single course is a bit of an overkill. We will therefore keep this practical mostly descriptive, test how much knowledge you retained from the lecture, and we will help you understand the files we’re working with and how information is stored.</p>
-<section id="exercise-1-sequencing" class="level3" data-number="5.1.1">
-<h3 data-number="5.1.1" class="anchored" data-anchor-id="exercise-1-sequencing"><span class="header-section-number">5.1.1</span> Exercise 1: sequencing</h3>
+</section>
+<section id="exercise-1-sequencing" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="exercise-1-sequencing"><span class="header-section-number">5.2</span> Exercise 1: sequencing</h2>
 <p>We started the day learning about different sequencing techniques. These days, it’s hard to imagine that Sanger sequencing was used to sequence the entire human genome! This sequencing technique was a breakthrough and is known for its high accuracy, but it’s not a surprise that it took more than a decade to assemble an entire genome (rather than just a single gene or genetic variant).</p>
 <p>There is a very extensive bioinformatics handbook online that describes DNA sequencing quite well. Read through the part about <a href="https://eriqande.github.io/eca-bioinf-handbook/dna-sequences-and-sequencing.html#sanger-sequencing">Sanger sequencing</a> and answer the following questions:</p>
 <ul>
 <li>Explain in your own words how a gel imagine like the one in 16.5 can be used to identify a DNA sequence</li>
 </ul>
 <div class="callout callout-style-default callout-tip callout-titled" title="Answer">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 Answer
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>In Sanger sequencing, DNA polymerase synthesizes a new DNA strand using normal dNTPs, but occasionally incorporates a dideoxynucleotide (ddNTP).</p>
 <p>ddNTPs lack a 3′ hydroxyl group, which means that once incorporated, no further nucleotides can be added — the chain is terminated.</p>
@@ -241,59 +254,69 @@ Answer
 <p>In this case, we see that a fragment ended in A, G, G and C with increasing fragment length, and we can therefore deduce the sequence likely starts with AGGC, and so forth.</p>
 </div>
 </div>
+</div>
 <ul>
 <li>Why is/was it difficult to sequence an entire genome with Sanger sequencing?</li>
 </ul>
 <div class="callout callout-style-default callout-tip callout-titled" title="Answer">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 Answer
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>It is expensive and takes a lot of effort to know the sequence of just a short fragment of say these 20 bases. Sanger sequencing typically reads a few hundred basepairs at a time. Imagine doing the whole process for all 1 billion bases! It’s laborious, to a large extent manual or semi-automated, and technically challenging. These days, other sequencing methods exist but Sanger sequencing is still used to sequence a specific gene for example.</p>
 </div>
 </div>
+</div>
 <p>These days, we mostly use Illumina sequencing or other sequencing by synthesis methods to obtain our genetic data. Continue reading section 16.3 on Illumina Sequencing, and watch the video (the same we watched in the lecture). Look through the question he poses, but note this a level of understanding I don’t expect you to have. You can try to answer them to get a better understanding of the process.</p>
 </section>
-<section id="exercise-2-read-data" class="level3" data-number="5.1.2">
-<h3 data-number="5.1.2" class="anchored" data-anchor-id="exercise-2-read-data"><span class="header-section-number">5.1.2</span> Exercise 2: read data</h3>
+<section id="exercise-2-read-data" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="exercise-2-read-data"><span class="header-section-number">5.3</span> Exercise 2: read data</h2>
 <p>Fasta and fastq files are the most common way to store (raw) sequencing data.</p>
 <ul>
 <li>What is the difference between a fasta and a fastq file?</li>
 </ul>
 <div class="callout callout-style-default callout-tip callout-titled" title="Answer">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 Answer
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Fasta files can be for nucleotide data (DNA/RNA) and protein data (amino acids) but fastq files are only for nucleotides</p>
 <p>Fastq files also contain information about read quality rather than bases alone, and is therefore more standard to use</p>
 </div>
 </div>
+</div>
 <p>Sequencing technologies and bioinformatic pipelines often use the inherent complementary binding of nucleotide bases. What would the complementary strand look like for the sequence below?</p>
 <pre><code>5'--ACTCGACCT--3'</code></pre>
 <div class="callout callout-style-default callout-tip callout-titled" title="Answer">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 Answer
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <pre><code>3'--TGAGCTGGA--5' </code></pre>
 <p>and if we were to write it in standard 5’ to 3’ order:</p>
 <pre><code>5'--AGGTCGAGT--3'</code></pre>
+</div>
 </div>
 </div>
 <p>Our friend Eric also describes fastq formats. Read <a href="https://eriqande.github.io/eca-bioinf-handbook/bioinformatic-file-formats.html#bioinformatic-file-formats">Chapter 17</a> from his handbook until section 17.2.3 (so finish with answering the question about the ASCII characters). A bit of this is repetition of the lecture - just differently phrased - but we dig a bit deeper into the headers and how we measure base quality.</p>
@@ -302,14 +325,16 @@ Answer
 <li>Why do you think the scale starts with ASCII character 33?</li>
 </ul>
 <div class="callout callout-style-default callout-tip callout-titled" title="Answer">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 Answer
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
 <li><p>The characters are !, +, 5, ? and I for quality scores 0, 10, 20, 30 and 40, respectively</p></li>
@@ -317,23 +342,26 @@ Answer
 </ul>
 </div>
 </div>
+</div>
 </section>
-<section id="exercise-3-explore-fq.gz-file" class="level3" data-number="5.1.3">
-<h3 data-number="5.1.3" class="anchored" data-anchor-id="exercise-3-explore-fq.gz-file"><span class="header-section-number">5.1.3</span> Exercise 3: explore fq.gz file</h3>
+<section id="exercise-3-explore-fq.gz-file" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="exercise-3-explore-fq.gz-file"><span class="header-section-number">5.4</span> Exercise 3: explore fq.gz file</h2>
 <p>Let’s get our hands dirty! As mentioned, fasta files are generally handed outside of the R environment. But that doesn’t mean we can’t have a look at some of the data in R to get a better feeling of it.</p>
 <p>The dataset described by Eric was imported, and we will follow his tutorial with slight modifications here. I only copied the first thousand lines of the fq.gz files. You don’t have to look at the tutorial from Eric at the same time, all you need is in this one.</p>
 <ul>
 <li>Load in the chinook data, one dataframe per file (you can call it e.g.&nbsp;R1 for read 1 and R2 for read 2). They can be found in the <code>data</code> folder under <code>week_9_NGS</code> with names <code>Battle_Creek_09_chinook_R1.fq.gz</code> and similar for the reverse strand. First: use the <code>read_lines</code> command from the tidyverse package without specifying anything else. Check out the data. That’s a bit of an annoying format, right? What happened?</li>
 </ul>
 <div class="callout callout-style-default callout-tip callout-titled" title="Code and answer">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 Code and answer
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <details class="code-fold">
@@ -346,16 +374,19 @@ Code and answer
 <p>That is indeed annoying to work with. Unlike excel tables where we have different variables in different columns, fastq files don’t look like that. Data are stored sequentially, row-by-row. Every one in every 4 rows represents the header, then we get the sequence, the <code>#</code>, and then the read quality. Inconvenient!</p>
 </div>
 </div>
+</div>
 <p>What we can do is use the <code>matrix()</code> function to force the data to get stored into different columns. That way, we can force lines 1-4 into 4 columns, and then move onto the next line. What we end up with is a matrix where each row represents a read, and the columns the headers, sequence, hashtag symbol, and read quality. Just use the ‘annoying’ format from above and ‘pipe’ it using <code>%&gt;%</code> with the following code: <code>matrix(ncol = 4, byrow = TRUE)</code> and store it into a variable.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Code and answer">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 Code and answer
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <details class="code-fold">
@@ -366,16 +397,19 @@ Code and answer
 </div>
 </div>
 </div>
+</div>
 <p>Obviously, the column that just says <code>#</code> is a bit useless. Remove it in the next step, and force it to be a dataframe instead of a matrix so we can access variables easier. Also give the columns headers.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Code and answer">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 Code and answer
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <details class="code-fold">
@@ -385,6 +419,7 @@ Code and answer
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>R2 <span class="ot">&lt;-</span> R2[,<span class="sc">-</span><span class="dv">3</span>] <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(R2) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"header"</span>, <span class="st">"sequence"</span>, <span class="st">"quality"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+</div>
 </div>
 </div>
 </div>
@@ -412,14 +447,16 @@ Tip
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Code and answer">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 Code and answer
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <details class="code-fold">
@@ -450,7 +487,7 @@ Code and answer
 </details>
 </div>
 <p>We learned how to interpret the Phred-scaled quality scores with this ASCII-character chart. It would be ideal if the symbols in the <code>quality</code> column would actually show us the values, right?</p>
-<p>Luckily, these ASCII-characters are standard and common, and there’s a built-in R function for this! Use <code>utf8ToInt()</code> to get the associated numeric values of the symbols: !, +, 5, ? and I. ::: {.callout-tip title=“Code and answer”}</p>
+<p>Luckily, these ASCII-characters are standard and common, and there’s a built-in R function for this! Use <code>utf8ToInt()</code> to get the associated numeric values of the symbols: !, +, 5, ? and I. ::: {.callout-tip title=“Code and answer” collapse=“true”}</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -459,22 +496,26 @@ Code and answer
 </div>
 </div>
 </div>
+</div>
 <p>Woah, that was easy! But… these don’t translate to the Phred-scaled values yet right? Make the necessary adjustment in the code to translate into their Phred-scaled scores.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Code and answer">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 Code and answer
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">utf8ToInt</span>(<span class="st">"!+5?I"</span>) <span class="sc">-</span> <span class="dv">33</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+</div>
 </div>
 </div>
 </div>
@@ -486,14 +527,16 @@ Code and answer
 <li>Make a plot with the distribution of mean quality scores (just of the forward or reverse strength). Describe the distribution in a 1-2 lines.</li>
 </ul>
 <div class="callout callout-style-default callout-tip callout-titled" title="Code and answer">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 Code and answer
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <details class="code-fold">
@@ -524,16 +567,19 @@ Code and answer
 <p>These reads are 151 bp long (standard is 150). The minimum and maximum Phred scores for all reads are 2 and 41, respectively The majority of reads have quality scores above 35, with a few poor quality reads with quality scores around 25, equivalent to a probability of error of 0.003 / 1 in 333 error.</p>
 </div>
 </div>
+</div>
 <p>After exploring raw reads, we can remove reads that have a low quality. This is one of many sequence filtering steps you can do before aligning to a reference genome. What would you do - would you remove any of the reads in our dataset?</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Answer">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 Answer
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>There’s no right or wrong here!</p>
 <p>There are many steps that researchers can make when processing their data. Some things are standard, but most things depend on what you want to do with the data. In this case, I think a mean quality score of 25 is still pretty good. We wouldn’t want to waste precious data!</p>
@@ -541,9 +587,10 @@ Answer
 <p>You wouldn’t explore the data in this much detail when you’re looking at millions to billions of reads though. Most of the time, the software used in the next steps can be used to filter for e.g.&nbsp;read quality, or incorporates the quality information in its analysis.</p>
 </div>
 </div>
+</div>
 </section>
-<section id="exercise-4-reference-genomes" class="level3" data-number="5.1.4">
-<h3 data-number="5.1.4" class="anchored" data-anchor-id="exercise-4-reference-genomes"><span class="header-section-number">5.1.4</span> Exercise 4: reference genomes</h3>
+<section id="exercise-4-reference-genomes" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="exercise-4-reference-genomes"><span class="header-section-number">5.5</span> Exercise 4: reference genomes</h2>
 <p>Even though we do not strictly need a reference genome to align sequences, it makes the process a lot more reliable and easy. Plus, a reference genome enables us to know more about the genes if it is annotated. For example, without a reference genome, we wouldn’t know where base 1236123 on chromosome 2 is located - is it in a gene? If so, what kind of gene is it? This is of course very valuable information.</p>
 <p>There is a large public database that stores genetic data, including reference genomes. This database is called <a href="http://ncbi.nlm.nih.gov/">NCBI</a>. It’s a large website, with lots of information.</p>
 <p>At the start of this course, you chose a species to design a mini-project for. Do the following:</p>
@@ -554,14 +601,16 @@ Answer
 <li>If you were to design a project with this species, do you think the genome assembly is good enough?</li>
 </ul>
 <div class="callout callout-style-default callout-tip callout-titled" title="Tips">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 Tips
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
 <li>In the search bar, type the common or latin name of your species and filter for ‘Assembly’</li>
@@ -570,21 +619,24 @@ Tips
 </ul>
 </div>
 </div>
+</div>
 </section>
-<section id="exercise-5-alignments" class="level3" data-number="5.1.5">
-<h3 data-number="5.1.5" class="anchored" data-anchor-id="exercise-5-alignments"><span class="header-section-number">5.1.5</span> Exercise 5: alignments</h3>
+<section id="exercise-5-alignments" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="exercise-5-alignments"><span class="header-section-number">5.6</span> Exercise 5: alignments</h2>
 <p>When we align fq files to a reference genome, we get a .sam file. Generally, we don’t do a whole lot with these files as they just serve as an intermediate step before we detect genetic variants. So - no need to understand this in fine detail.</p>
 <p>Depending on the time, read through chapter <a href="https://eriqande.github.io/eca-bioinf-handbook/bioinformatic-file-formats.html#sambamfiles">17.4</a> from the bioinformatic handbook from Eric. Don’t worry about executing the coding examples.</p>
 <p>Answer the following questions: - What is the difference between a .sam and a .bam file? - What column in a SAM file tells us something about the reference sequence that the read aligned to?</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Tips">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 Tips
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
 <li>A .bam file is the binary version of a .sam file</li>
@@ -592,15 +644,164 @@ Tips
 </ul>
 </div>
 </div>
+</div>
 <p>That’s it for today! In tomorrow’s lecture and practical, we will focus on identifying genetic variants.</p>
 <p>:::</p>
 </section>
 </section>
-</section>
 <section id="day-2-single-nucleotide-polymorphisms" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> Day 2: single nucleotide polymorphisms</h1>
+<p>In today’s practical, we will explore SNPs and work with the files in which genetic variants are normally stored in (a .vcf file). Similar to yesterday’s practical, we don’t typically work in R when dealing with SAM, BAM, and .vcf files - this is generally done in UNIX/bash but we will try to explore them in R for the sake of the practical. The files that we are typically working with are huge, which would be slow to work with in R. Nevertheless, it’s not impossible and we can handle part of the files within R.</p>
+<section id="overview-1" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="overview-1"><span class="header-section-number">6.1</span> Overview</h2>
+</section>
+<section id="exercise-1-loading-in-.vcf-files" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="exercise-1-loading-in-.vcf-files"><span class="header-section-number">6.2</span> Exercise 1: loading in .vcf files</h2>
+<p>There is a .vcf file containing SNPs located on chromosome 30 stored in the <code>data/week5_inbreeding</code> folder, called <code>snps_chr30.vcf.gz</code>. The <code>.gz</code> means it is gzipped to reduce its size.</p>
+<p>Load this vcf file into R. Use both the fread() from the <code>data.table</code> package and the read.table() commands and compare the dataframes. What is the difference?</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Code and answer">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Code and answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>vcf_1 <span class="ot">&lt;-</span> data.table<span class="sc">::</span><span class="fu">fread</span>(<span class="st">"../data/week_5_inbreeding/snps_chr30.vcf.gz"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>vcf_2 <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"../data/week_5_inbreeding/snps_chr30.vcf.gz"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+</div>
+</div>
+<p>Using <code>fread()</code>, we get a dataframe with 21,979 rows and 2 variables, using <code>read.table()</code> we get 3786 rows and 245 variables. The difference is that fread included the metadata (starting with ##) and the header (starting with #) which resulted in a weird way of storing the data, and we can actually only see the headers. This is because it ‘stopped early’ because it expected 2 fields. We could change this by setting fill=TRUE within the command, but it still reads the headers and stores the data in an inconvenient way. If we use <code>read.table</code>, the metadata gets excluded automatically and we only see the actual data.</p>
+<p>Even though the metadata gets stored in a way that we cannot work with it, it still contains valuable information. Answer the following:</p>
+<ul>
+<li>Are we working with genotypes or genotype likelihoods in this file?</li>
+<li>Can we figure out what species we are working with from the metadata?</li>
+<li>In the metadata, we can see information about the INFO field etc., followed by a long list of rows that start with <code>contig</code>. What information do you think we can find here? Tip: look up what a contig, scaffold and chromosome is.</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled" title="Answers">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answers
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>In the 5th row, it states “##FORMAT=&lt;ID=GT,Number=1,Type=String,Description=”Genotype”&gt;“. This means that the format of the data in the ‘GT’ slot is a genotype, not a genotype likelihood. If we were working with likelihoods, we would instead see something like”GL” and “Description = Genotype likelihood”. Alternatively, you could check out the actual information about the loci, which is stored in binary format which indicates it is a genotype.</p></li>
+<li><p>Typically, this info would be stored in the first few rows. Unfortunately, that information is missing here. But, if we browse through the metadata, we also see a lot of other information is stored. Including the actual command used to call the variants using the tool bcftools. This line can be found in the 30th row of the metadata.</p></li>
+</ul>
+<p><code>bcftoolsCommand=mpileup -f /vol/cluster-data/rchen/annotation/PO2979_Lyrurus_tetrix_black_grouse.RepeatMasked.fasta  -a DP -C 50 -q 20 -b /vol/cluster-data/rchen/wgr/chicks_genomes/output/list_bam_all.txt -I --threads 12</code></p>
+<p>Even though we will not go into the details of how this is typically done or what any of this means, it is good to know that we can find a lot of useful information in this metadata header. So this was a bit of a trick(y) question: we can see from this command that a certain Latin name is mentioned used for variant calling. Which is <em>Lyrurus tetrix</em>, followed by its common name the black grouse. Which is the data we’re working with, what a surprise!</p>
+<ul>
+<li>A contig is a stretch of a contiguous DNA fragment, meaning there are no gaps between the bases. A reference genome typically consists of information on each chromosome. When contigs are combined, they form a scaffold. So: contigs are contiguous, gapless DNA sequences; scaffolds link multiple contigs together (often with unknown gaps ‘N’); and chromosomes are the highest level, representing whole, ordered DNA molecules. The information we can find here (e.g.&nbsp;the 34th row <code>##contig=&lt;ID=ScEsiA3_1;HRSCAF=11,length=5887&gt;</code>) starts with the name of the contig <code>ScEsiA3_1;HRSCAF=11</code> which forms part of scaffold 11, and its length measured in basepairs. This is information that comes from the reference genome. The name of the contig here is also used in the rest of the .vcf file when we are looking at specific basepairs on each contig (i.e.&nbsp;each row within the actual data part of the file)</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-2-cleaning-the-file" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="exercise-2-cleaning-the-file"><span class="header-section-number">6.3</span> Exercise 2: cleaning the file</h2>
+<p>Although the metadata is useful, we will stop looking at it now and instead focus on the genotype data. I.e. you can get rid of the <code>vcf_1</code> dataframe and only look at <code>vcf_2</code>, perhaps we can also rename it.</p>
+<p>Next, we want to add some column names to make it easier to deal with the genotype data. Rename the first 9 columns (the columns that do not contain genotype data) in the dataframe. In a random order, this is the data that can typically be found in a .vcf file (recap from the lecture): info about the location of the SNP, the reference and alternative allele, quality score, whether data were filtered, the info column, the format in which the genotypes are presented in. Look up the usual order and names. Tip: there are two columns that only contain NA’s (represented as dots .): remove them.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Code and answer">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Code and answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remove vcf_1</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(vcf_1)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># rename vcf_2 to vcf</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>vcf <span class="ot">&lt;-</span> vcf_2</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># remove vcf_2</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(vcf_2)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>vcf <span class="ot">&lt;-</span> vcf[,<span class="sc">-</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">7</span>)] <span class="co">#remove columns 3 and 7 which are empty / all NA</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(vcf)[<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"CHROM"</span>, <span class="st">"POS"</span>, <span class="st">"REF"</span>, <span class="st">"ALT"</span>, <span class="st">"QUAL"</span>, <span class="st">"INFO"</span>, <span class="st">"FORMAT"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="exercise-3-handling-and-filtering" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="exercise-3-handling-and-filtering"><span class="header-section-number">6.4</span> Exercise 3: handling and filtering</h2>
+<ol type="1">
+<li>How many SNPs are in this vcf file?</li>
+<li>And how many individuals are in the file?</li>
+<li>On chromosome/contig <code>ScEsiA3_18236;HRSCAF=21586</code> at position <code>14454</code>, what basepair does 1 refer to and what genotype does an individual with coded genotype 0/0 have?</li>
+<li>If we were to filter this VCF file to make sure we are only working with high-quality SNPs, what could we do?</li>
+<li>What is a biallelic SNP? Do you think this file only contains biallelic SNPs or also triallelic SNPs?</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled" title="Code and answer">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Code and answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Each row represents a unique SNP, which means the number of rows gives us the answer as to how many SNPs are in the file</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(vcf)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Each individual genotype is stored in the columns after 'FORMAT'. There are 7 columns including 'FORMAT', so we can subtract that from the number of total columns in the file</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(vcf) <span class="sc">-</span> <span class="dv">7</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Let's first filter the row that corresponds to the mentioned SNP</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>snp <span class="ot">&lt;-</span> vcf <span class="sc">%&gt;%</span> <span class="fu">filter</span>(CHROM <span class="sc">==</span> <span class="st">"ScEsiA3_18236;HRSCAF=21586"</span> <span class="sc">&amp;</span> POS <span class="sc">==</span> <span class="dv">14454</span>)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>snp[,<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>] <span class="co"># check out the main columns and the first genotype</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co"># we see that the reference allele at this SNP is C, and the alternative allele is T</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co"># this means that basepair '1' corresponds to T (the alternative allele) and a genotype of 0/0 means that the individual is homozygous for the reference allele, so has a genotype of C/C at this locus/SNP. The individual genotype stored in V10 has a 0/0 (C/C) genotype</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. We can see in the 'FORMAT' column that information PL and DP are available, these correspond to the normalized phred-scaled likelihood and the read depth, respectively. Common vcf filtering steps are: filtering for quality (PL), minimum and maximum depth (DP), missingness, minor allele frequency, hardy-weinberg equilibrium and linkage. We can see there are missing genotypes (denoted as ./.), so it would be good to investigate this in more detail. Whether we filter for MAF, HWE and LD depends on the analysis we want to conduct. If we want to make sure that very rare alleles are excluded as they might represent a genotyping error, we might want to filter for MAF (e.g. exclude alleles that have a frequency of less than 0.05 in the population).</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. A biallelic SNP is a common form of genetic variation at a single nucleotide position in the genome, where only two distinct nucleotides (alleles) are observed across a population. This file only contains biallelic SNPs, otherwise we would have seen multiple variants in the 'ALT' column. If there were triallelic SNPs, we would see two bases in the ALT column, separated by a comma. The genotype column would then include 0, 1, and 2's which denote for 0 = reference allele, 1 = 1st alternative allele and 2 = 2nd alternative allele.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-4-comparing-snps-and-microsatellites" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="exercise-4-comparing-snps-and-microsatellites"><span class="header-section-number">6.5</span> Exercise 4: comparing SNPs and microsatellites</h2>
+<p>Even though SNPs are very commonly used, microsatellite genotyping is still very valuable as well. The method you use depends on the purpose of the study, what you want to find out, and how much budget you have.</p>
+<p>The next exercise is not coding based, but literature based.</p>
+<p>Find 2 papers published that used both microsatellites and SNPs and answer the following: 1. How many microsatellites were used and how many high-quality SNPs? 2. What filtering steps were performed for the microsatellite and SNP datasets? 3. What was the main research question they addressed? 4. Did they draw different conclusions based on the two different datasets? 5. Do they conclude whether SNPs or microsatellites were more informative or reliable?</p>
+<p>Once you have the answers to these questions for both papers, present them to me and you are done for the day!</p>
 
 
+</section>
+</div>
+</div>
+</div>
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -1028,6 +1229,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../practicals/week_10_practical_ROHs.html" class="pagination-link" aria-label="Week 10 ROHs">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Week 10 ROHs</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

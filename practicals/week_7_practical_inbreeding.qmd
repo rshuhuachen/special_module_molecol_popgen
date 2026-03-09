@@ -10,7 +10,7 @@ execute:
 
 We've just learned what inbreeding is and how we can measure it. In this practical, we will learn how to quantify heterozygosity (the inverse of inbreeding) using a real-life dataset.
 
-In the analysis, we will use a microsatellite dataset to quantify the inbreeding coefficient sMLH using the package `inbreedR`. In the second analysis, we will identify homozygous stretches in the genome (HBD segments - homozygous by descent / ROHs - runs of homozygosity) from SNP data using the package `RZooRoh`.
+In the analysis, we will use a microsatellite dataset to quantify the inbreeding coefficient sMLH using the package `inbreedR`. 
 
 ## Background
 
@@ -37,7 +37,7 @@ Using this dataset, we will calculate the standardized multilocus heterozygosity
 -   Load in the dataset. It can be found under `data/week_5_inbreeding` and is named msat_black_grouse - it is a .csv file with a header.
 -   Investigate the structure of the dataset: how many microsatellite loci does the dataset contain? And how many individuals are there in the dataset? Also make sure to check whether all 12 populations are included in this dataset
 
-::: {.callout-tip title="Code and answer"}
+::: {.callout-tip title="Code and answer" collapse="true"}
 ```{r exercise 1}
 # load in the dataset
 data <- read.csv("../data/week_5_inbreeding/msat_black_grouse.csv")

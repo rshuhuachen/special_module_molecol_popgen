@@ -10,14 +10,14 @@ In today's lecture, we learned about different sequencing technologies and the d
 
 The way that data are normally delivered are in fastq format. We'll do some exploration with this data format so you get a feel for these type of files. In this practical, we will be working less with code because at this bioinformatic stage, R is generally not used. Instead, we use the command line which uses UNIX/bash. However, teaching you a second programming language in a single course is a bit of an overkill. We will therefore keep this practical mostly descriptive, test how much knowledge you retained from the lecture, and we will help you understand the files we're working with and how information is stored.
 
-### Exercise 1: sequencing
+## Exercise 1: sequencing
 We started the day learning about different sequencing techniques. These days, it's hard to imagine that Sanger sequencing was used to sequence the entire human genome! This sequencing technique was a breakthrough and is known for its high accuracy, but it's not a surprise that it took more than a decade to assemble an entire genome (rather than just a single gene or genetic variant).
 
 There is a very extensive bioinformatics handbook online that describes DNA sequencing quite well. Read through the part about [Sanger sequencing](https://eriqande.github.io/eca-bioinf-handbook/dna-sequences-and-sequencing.html#sanger-sequencing) and answer the following questions:
 
 - Explain in your own words how a gel imagine like the one in 16.5 can be used to identify a DNA sequence
 
-::: {.callout-tip title="Answer"}
+::: {.callout-tip title="Answer" collapse="true"}
 In Sanger sequencing, DNA polymerase synthesizes a new DNA strand using normal dNTPs, but occasionally incorporates a dideoxynucleotide (ddNTP).
 
 ddNTPs lack a 3′ hydroxyl group, which means that once incorporated, no further nucleotides can be added — the chain is terminated.
@@ -33,20 +33,20 @@ In this case, we see that a fragment ended in A, G, G and C with increasing frag
 
 - Why is/was it difficult to sequence an entire genome with Sanger sequencing?
 
-::: {.callout-tip title="Answer"}
+::: {.callout-tip title="Answer" collapse="true"}
 It is expensive and takes a lot of effort to know the sequence of just a short fragment of say these 20 bases. Sanger sequencing typically reads a few hundred basepairs at a time. Imagine doing the whole process for all 1 billion bases! It's laborious, to a large extent manual or semi-automated, and technically challenging. These days, other sequencing methods exist but Sanger sequencing is still used to sequence a specific gene for example.
 :::
 
 These days, we mostly use Illumina sequencing or other sequencing by synthesis methods to obtain our genetic data. Continue reading section 16.3 on Illumina Sequencing, and watch the video (the same we watched in the lecture). Look through the question he poses, but note this a level of understanding I don't expect you to have. You can try to answer them to get a better understanding of the process.
 
 
-### Exercise 2: read data
+## Exercise 2: read data
 
 Fasta and fastq files are the most common way to store (raw) sequencing data.
 
 - What is the difference between a fasta and a fastq file?
 
-::: {.callout-tip title="Answer"}
+::: {.callout-tip title="Answer" collapse="true"}
 Fasta files can be for nucleotide data (DNA/RNA) and protein data (amino acids) but fastq files are only for nucleotides
 
 Fastq files also contain information about read quality rather than bases alone, and is therefore more standard to use
@@ -59,7 +59,7 @@ Sequencing technologies and bioinformatic pipelines often use the inherent compl
 5'--ACTCGACCT--3'
 ```
 
-::: {.callout-tip title="Answer"}
+::: {.callout-tip title="Answer" collapse="true"}
 ``` 
 3'--TGAGCTGGA--5' 
 ```
@@ -77,7 +77,7 @@ Answer the two questions that Eric asks:
 
 - Why do you think the scale starts with ASCII character 33?
 
-::: {.callout-tip title="Answer"}
+::: {.callout-tip title="Answer" collapse="true"}
 - The characters are !, +, 5, ? and I for quality scores 0, 10, 20, 30 and 40, respectively
 
 - The point of this system is to have one symbol per base, therefore the first 'one symbol' character starts at 33.
@@ -85,7 +85,7 @@ Answer the two questions that Eric asks:
 :::
 
 
-### Exercise 3: explore fq.gz file
+## Exercise 3: explore fq.gz file
 
 Let's get our hands dirty! As mentioned, fasta files are generally handed outside of the R environment. But that doesn't mean we can't have a look at some of the data in R to get a better feeling of it. 
 
@@ -93,7 +93,7 @@ The dataset described by Eric was imported, and we will follow his tutorial with
 
 - Load in the chinook data, one dataframe per file (you can call it e.g. R1 for read 1 and R2 for read 2). They can be found in the `data` folder under `week_9_NGS` with names `Battle_Creek_09_chinook_R1.fq.gz` and similar for the reverse strand. First: use the `read_lines` command from the tidyverse package without specifying anything else. Check out the data. That's a bit of an annoying format, right? What happened?
 
-::: {.callout-tip title="Code and answer"}
+::: {.callout-tip title="Code and answer" collapse="true"}
 ```{r}
 library(tidyverse)
 R1 <- read_lines("../data/week_9_NGS/Battle_Creek_09_chinook_R1.fq.gz")
@@ -106,7 +106,7 @@ That is indeed annoying to work with. Unlike excel tables where we have differen
 
 What we can do is use the `matrix()` function to force the data to get stored into different columns. That way, we can force lines 1-4 into 4 columns, and then move onto the next line. What we end up with is a matrix where each row represents a read, and the columns the headers, sequence, hashtag symbol, and read quality. Just use the 'annoying' format from above and 'pipe' it using `%>%` with the following code: `matrix(ncol = 4, byrow = TRUE)` and store it into a variable.
 
-::: {.callout-tip title="Code and answer"}
+::: {.callout-tip title="Code and answer" collapse="true"}
 ```{r}
 R1 <- R1 %>% matrix(ncol=4,byrow=T) 
 R2 <- R2 %>% matrix(ncol=4,byrow=T) 
@@ -115,7 +115,7 @@ R2 <- R2 %>% matrix(ncol=4,byrow=T)
 
 Obviously, the column that just says `#` is a bit useless. Remove it in the next step, and force it to be a dataframe instead of a matrix so we can access variables easier. Also give the columns headers.
 
-::: {.callout-tip title="Code and answer"}
+::: {.callout-tip title="Code and answer" collapse="true"}
 ```{r}
 R1 <- R1[,-3] %>% as.data.frame() 
 names(R1) <- c("header", "sequence", "quality")
@@ -153,7 +153,7 @@ Make sure to remove the original headers, and to make sure the data types are co
 - Use the `convert` argument for the function to make the best guess what type of data things are (instead of using the default string)
 :::
 
-::: {.callout-tip title="Code and answer"}
+::: {.callout-tip title="Code and answer" collapse="true"}
 
 ```{r}
 R1 <- R1 %>% separate(header, into = c("id", "part2"),sep = " ") %>%
@@ -185,7 +185,7 @@ R2 <- R2 %>% separate(part2,
 We learned how to interpret the Phred-scaled quality scores with this ASCII-character chart. It would be ideal if the symbols in the `quality` column would actually show us the values, right?
 
 Luckily, these ASCII-characters are standard and common, and there's a built-in R function for this! Use `utf8ToInt()` to get the associated numeric values of the symbols: !, +, 5, ? and I.
-::: {.callout-tip title="Code and answer"}
+::: {.callout-tip title="Code and answer" collapse="true"}
 
 ```{r}
 utf8ToInt("!+5?I")
@@ -194,7 +194,7 @@ utf8ToInt("!+5?I")
 
 Woah, that was easy! But... these don't translate to the Phred-scaled values yet right? Make the necessary adjustment in the code to translate into their Phred-scaled scores.
 
-::: {.callout-tip title="Code and answer"}
+::: {.callout-tip title="Code and answer" collapse="true"}
 ```{r}
 utf8ToInt("!+5?I") - 33
 ```
@@ -207,7 +207,7 @@ So, each row represents a read, with a specific sequence and for each base calle
 - Do the same to calculate the minimum and maximum Phred score for each read - to they vary among reads?
 - Make a plot with the distribution of mean quality scores (just of the forward or reverse strength). Describe the distribution in a 1-2 lines.
 
-::: {.callout-tip title="Code and answer"}
+::: {.callout-tip title="Code and answer" collapse="true"}
 ```{r}
 # how long are the reads?
 nchar(R1$sequence[1])
@@ -241,7 +241,7 @@ The majority of reads have quality scores above 35, with a few poor quality read
 
 After exploring raw reads, we can remove reads that have a low quality. This is one of many sequence filtering steps you can do before aligning to a reference genome. What would you do - would you remove any of the reads in our dataset?
 
-::: {.callout-tip title="Answer"}
+::: {.callout-tip title="Answer" collapse="true"}
 There's no right or wrong here! 
 
 There are many steps that researchers can make when processing their data. Some things are standard, but most things depend on what you want to do with the data. In this case, I think a mean quality score of 25 is still pretty good. We wouldn't want to waste precious data! 
@@ -251,7 +251,7 @@ But we could, for example, see how many bases have a poor quality. Are there mul
 You wouldn't explore the data in this much detail when you're looking at millions to billions of reads though. Most of the time, the software used in the next steps can be used to filter for e.g. read quality, or incorporates the quality information in its analysis.
 :::
 
-### Exercise 4: reference genomes
+## Exercise 4: reference genomes
 
 Even though we do not strictly need a reference genome to align sequences, it makes the process a lot more reliable and easy. Plus, a reference genome enables us to know more about the genes if it is annotated. For example, without a reference genome, we wouldn't know where base 1236123 on chromosome 2 is located - is it in a gene? If so, what kind of gene is it? This is of course very valuable information.
 
@@ -264,13 +264,13 @@ At the start of this course, you chose a species to design a mini-project for. D
 - Browse around the page. How many chromosomes does your species have? How many base pairs is the largest chromosome (or the largest scaffold)? 
 - If you were to design a project with this species, do you think the genome assembly is good enough?
 
-::: {.callout-tip title="Tips"}
+::: {.callout-tip title="Tips" collapse="true"}
 - In the search bar, type the common or latin name of your species and filter for 'Assembly'
 - In the URL, you will see that (if your species has an assembly), the URL will be something like `ncbi.nlm.nih.gov/datasets/genome/GCA****`. The `GCA` is something typical of genome assemblies, it's the accession prefix (allegedly stands for GenBank Assembly, but not sure where the C is coming from)
 - You will find lots of metadata on the page of the assembly: genome size, how many pieces it consists of (chromosomes or scaffolds), GC percent, coverage of the genome, just to name a few
 :::
 
-### Exercise 5: alignments
+## Exercise 5: alignments
 
 When we align fq files to a reference genome, we get a .sam file. Generally, we don't do a whole lot with these files as they just serve as an intermediate step before we detect genetic variants. So - no need to understand this in fine detail.
 
@@ -280,7 +280,7 @@ Answer the following questions:
 - What is the difference between a .sam and a .bam file?
 - What column in a SAM file tells us something about the reference sequence that the read aligned to?
 
-::: {.callout-tip title="Tips"}
+::: {.callout-tip title="Tips" collapse="true"}
 - A .bam file is the binary version of a .sam file
 - The @SQ header: "typically the most abundant SAM header lines, each of these gives information about a sequence in the reference genome aligned to"
 :::
@@ -292,5 +292,110 @@ That's it for today! In tomorrow's lecture and practical, we will focus on ident
 # Day 2: single nucleotide polymorphisms
 
 
-In today's practical, we will explore SNPs and work with the files in which genetic variants are normally stored in. Similar to yesterday's practical, we don't typically work in R when dealing with SAM, BAM, and .vcf files - this is generally done in UNIX/bash. The files that we are typically working with are huge, which would be slow to work with in R. Nevertheless, it's not impossible and we can handle part of the files within R.
+In today's practical, we will explore SNPs and work with the files in which genetic variants are normally stored in (a .vcf file). Similar to yesterday's practical, we don't typically work in R when dealing with SAM, BAM, and .vcf files - this is generally done in UNIX/bash but we will try to explore them in R for the sake of the practical. The files that we are typically working with are huge, which would be slow to work with in R. Nevertheless, it's not impossible and we can handle part of the files within R.
+
+## Overview
+
+## Exercise 1: loading in .vcf files
+
+There is a .vcf file containing SNPs located on chromosome 30 stored in the `data/week5_inbreeding` folder, called `snps_chr30.vcf.gz`. The `.gz` means it is gzipped to reduce its size. 
+
+Load this vcf file into R. Use both the fread() from the `data.table` package and the read.table() commands and compare the dataframes. What is the difference?
+
+::: {.callout-tip title="Code and answer" collapse="true"}
+```{r}
+vcf_1 <- data.table::fread("../data/week_5_inbreeding/snps_chr30.vcf.gz")
+vcf_2 <- read.table("../data/week_5_inbreeding/snps_chr30.vcf.gz")
+```
+:::
+
+Using `fread()`, we get a dataframe with 21,979 rows and 2 variables, using `read.table()` we get 3786 rows and 245 variables. The difference is that fread included the metadata (starting with ##) and the header (starting with #) which resulted in a weird way of storing the data, and we can actually only see the headers. This is because it 'stopped early' because it expected 2 fields. We could change this by setting fill=TRUE within the command, but it still reads the headers and stores the data in an inconvenient way. If we use `read.table`, the metadata gets excluded automatically and we only see the actual data.
+
+Even though the metadata gets stored in a way that we cannot work with it, it still contains valuable information. Answer the following:
+
+- Are we working with genotypes or genotype likelihoods in this file?
+- Can we figure out what species we are working with from the metadata?
+- In the metadata, we can see information about the INFO field etc., followed by a long list of rows that start with `contig`. What information do you think we can find here? Tip: look up what a contig, scaffold and chromosome is.
+
+::: {.callout-tip title="Answers" collapse="true"}
+
+- In the 5th row, it states "##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">". This means that the format of the data in the 'GT' slot is a genotype, not a genotype likelihood. If we were working with likelihoods, we would instead see something like "GL" and "Description = Genotype likelihood". Alternatively, you could check out the actual information about the loci, which is stored in binary format which indicates it is a genotype.
+  
+- Typically, this info would be stored in the first few rows. Unfortunately, that information is missing here. But, if we browse through the metadata, we also see a lot of other information is stored. Including the actual command used to call the variants using the tool bcftools. This line can be found in the 30th row of the metadata. 
+
+`bcftoolsCommand=mpileup -f /vol/cluster-data/rchen/annotation/PO2979_Lyrurus_tetrix_black_grouse.RepeatMasked.fasta  -a DP -C 50 -q 20 -b /vol/cluster-data/rchen/wgr/chicks_genomes/output/list_bam_all.txt -I --threads 12`
+
+Even though we will not go into the details of how this is typically done or what any of this means, it is good to know that we can find a lot of useful information in this metadata header. So this was a bit of a trick(y) question: we can see from this command that a certain Latin name is mentioned used for variant calling. Which is *Lyrurus tetrix*, followed by its common name the black grouse. Which is the data we're working with, what a surprise!
+
+- A contig is a stretch of a contiguous DNA fragment, meaning there are no gaps between the bases. A reference genome typically consists of information on each chromosome. When contigs are combined, they form a scaffold. So: contigs are contiguous, gapless DNA sequences; scaffolds link multiple contigs together (often with unknown gaps 'N'); and chromosomes are the highest level, representing whole, ordered DNA molecules. The information we can find here (e.g. the 34th row `##contig=<ID=ScEsiA3_1;HRSCAF=11,length=5887>`) starts with the name of the contig `ScEsiA3_1;HRSCAF=11` which forms part of scaffold 11, and its length measured in basepairs. This is information that comes from the reference genome. The name of the contig here is also used in the rest of the .vcf file when we are looking at specific basepairs on each contig (i.e. each row within the actual data part of the file)
+
+:::
+
+## Exercise 2: cleaning the file
+
+Although the metadata is useful, we will stop looking at it now and instead focus on the genotype data. I.e. you can get rid of the `vcf_1` dataframe and only look at `vcf_2`, perhaps we can also rename it.
+
+Next, we want to add some column names to make it easier to deal with the genotype data. Rename the first 9 columns (the columns that do not contain genotype data) in the dataframe. In a random order, this is the data that can typically be found in a .vcf file (recap from the lecture): info about the location of the SNP, the reference and alternative allele, quality score, whether data were filtered, the info column, the format in which the genotypes are presented in. Look up the usual order and names. Tip: there are two columns that only contain NA's (represented as dots .): remove them.
+
+::: {.callout-tip title="Code and answer" collapse="true"}
+
+```{r}
+# remove vcf_1
+rm(vcf_1)
+# rename vcf_2 to vcf
+vcf <- vcf_2
+# remove vcf_2
+rm(vcf_2)
+
+vcf <- vcf[,-c(3,7)] #remove columns 3 and 7 which are empty / all NA
+names(vcf)[1:7] <- c("CHROM", "POS", "REF", "ALT", "QUAL", "INFO", "FORMAT")
+
+```
+
+## Exercise 3: handling and filtering
+
+1. How many SNPs are in this vcf file? 
+2. And how many individuals are in the file?
+3. On chromosome/contig `ScEsiA3_18236;HRSCAF=21586` at position `14454`, what basepair does 1 refer to and what genotype does an individual with coded genotype 0/0 have?
+4. If we were to filter this VCF file to make sure we are only working with high-quality SNPs, what could we do?
+5. What is a biallelic SNP? Do you think this file only contains biallelic SNPs or also triallelic SNPs? 
+
+::: {.callout-tip title="Code and answer" collapse="true"}
+
+```{r}
+
+# 1. Each row represents a unique SNP, which means the number of rows gives us the answer as to how many SNPs are in the file
+nrow(vcf)
+
+# 2. Each individual genotype is stored in the columns after 'FORMAT'. There are 7 columns including 'FORMAT', so we can subtract that from the number of total columns in the file
+ncol(vcf) - 7
+
+# 3. Let's first filter the row that corresponds to the mentioned SNP
+library(dplyr)
+snp <- vcf %>% filter(CHROM == "ScEsiA3_18236;HRSCAF=21586" & POS == 14454)
+snp[,1:8] # check out the main columns and the first genotype
+# we see that the reference allele at this SNP is C, and the alternative allele is T
+# this means that basepair '1' corresponds to T (the alternative allele) and a genotype of 0/0 means that the individual is homozygous for the reference allele, so has a genotype of C/C at this locus/SNP. The individual genotype stored in V10 has a 0/0 (C/C) genotype
+
+# 4. We can see in the 'FORMAT' column that information PL and DP are available, these correspond to the normalized phred-scaled likelihood and the read depth, respectively. Common vcf filtering steps are: filtering for quality (PL), minimum and maximum depth (DP), missingness, minor allele frequency, hardy-weinberg equilibrium and linkage. We can see there are missing genotypes (denoted as ./.), so it would be good to investigate this in more detail. Whether we filter for MAF, HWE and LD depends on the analysis we want to conduct. If we want to make sure that very rare alleles are excluded as they might represent a genotyping error, we might want to filter for MAF (e.g. exclude alleles that have a frequency of less than 0.05 in the population).
+
+# 5. A biallelic SNP is a common form of genetic variation at a single nucleotide position in the genome, where only two distinct nucleotides (alleles) are observed across a population. This file only contains biallelic SNPs, otherwise we would have seen multiple variants in the 'ALT' column. If there were triallelic SNPs, we would see two bases in the ALT column, separated by a comma. The genotype column would then include 0, 1, and 2's which denote for 0 = reference allele, 1 = 1st alternative allele and 2 = 2nd alternative allele.
+```
+
+:::
+
+## Exercise 4: comparing SNPs and microsatellites
+
+Even though SNPs are very commonly used, microsatellite genotyping is still very valuable as well. The method you use depends on the purpose of the study, what you want to find out, and how much budget you have.
+
+The next exercise is not coding based, but literature based. 
+
+Find 2 papers published that used both microsatellites and SNPs and answer the following:
+  1. How many microsatellites were used and how many high-quality SNPs?
+  2. What filtering steps were performed for the microsatellite and SNP datasets?
+  3. What was the main research question they addressed?
+  4. Did they draw different conclusions based on the two different datasets?
+  5. Do they conclude whether SNPs or microsatellites were more informative or reliable?
+  
+Once you have the answers to these questions for both papers, present them to me and you are done for the day!
 

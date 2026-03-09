@@ -164,6 +164,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Week 9 NGS</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practicals/week_10_practical_ROHs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Week 10 ROHs</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -207,7 +213,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>We’ve just learned what inbreeding is and how we can measure it. In this practical, we will learn how to quantify heterozygosity (the inverse of inbreeding) using a real-life dataset.</p>
-<p>In the analysis, we will use a microsatellite dataset to quantify the inbreeding coefficient sMLH using the package <code>inbreedR</code>. In the second analysis, we will identify homozygous stretches in the genome (HBD segments - homozygous by descent / ROHs - runs of homozygosity) from SNP data using the package <code>RZooRoh</code>.</p>
+<p>In the analysis, we will use a microsatellite dataset to quantify the inbreeding coefficient sMLH using the package <code>inbreedR</code>.</p>
 <section id="background" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="background"><span class="header-section-number">3.1</span> Background</h2>
 <p>The dataset we are working with are microsatellite genotypes from black grouse (<em>Lyrurus tetrix</em>), a lekking bird. The dataset was taken from <a href="https://onlinelibrary.wiley.com/doi/10.1111/eva.1352">this paper</a> which investigated the effects of hunting on inbreeding and gene flow. It is a large microsatellite dataset from female and male birds as well as chicks, sampled at 12 populations in Central Finland. For some populations, recreational hunting is allowed whereas others are protected.</p>
@@ -233,14 +239,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Investigate the structure of the dataset: how many microsatellite loci does the dataset contain? And how many individuals are there in the dataset? Also make sure to check whether all 12 populations are included in this dataset</li>
 </ul>
 <div class="callout callout-style-default callout-tip callout-titled" title="Code and answer">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 Code and answer
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <details class="code-fold">
@@ -300,6 +308,7 @@ Code and answer
 </div>
 </div>
 <p>Number of loci: 12 Number of individuals: 2078 Yes, data from all 12 populations are included</p>
+</div>
 </div>
 </div>
 </section>
