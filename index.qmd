@@ -6,7 +6,7 @@ title: "Methods in Mol Ecol and Pop Gen"
 
 This webpage/document contains all the practical materials for the Spezial Modul entitled "Methods in Molecular Ecology and Population Genetics".
 
-The order of the practicals/tests on this webpage are in the order of the way we will discuss them throughout the course. Please don't hestitate to ask David or Rebecca any questions throughout the course. 
+The order of the practicals/tests on this webpage are in the order of the way we will discuss them throughout the course. Please don't hestitate to ask David or Rebecca any questions throughout the course.
 
 If anything is unclear or not working, please let us know!
 
@@ -15,5 +15,3 @@ Each session will contain text, exercises and answers. We encourage you to reall
 Remember, even the experts will google how to code things. Once you get more fluent in the language, you can do simple things by heart. But just like learning any langauge, this takes time and practise. So don't be afraid to look into your notes or look up how to do things, this is how every person works in R
 
 ![Use the resources available to you!](img/google.png)
-
-

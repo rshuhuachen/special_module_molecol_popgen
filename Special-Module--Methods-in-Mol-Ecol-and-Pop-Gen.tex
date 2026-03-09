@@ -298,12 +298,17 @@ able to complete the exercises below. These exercises are therefore not
 graded in any way, it's just a way to make sure you understand the
 basics to continue with the rest of the course.
 
-\begin{tcolorbox}[enhanced jigsaw, breakable, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{A note on AI}, toptitle=1mm, leftrule=.75mm, toprule=.15mm, colbacktitle=quarto-callout-important-color!10!white, opacityback=0, opacitybacktitle=0.6, bottomtitle=1mm, arc=.35mm, titlerule=0mm, colframe=quarto-callout-important-color-frame, left=2mm, bottomrule=.15mm, rightrule=.15mm, coltitle=black, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacitybacktitle=0.6, toprule=.15mm, breakable, colback=white, coltitle=black, colframe=quarto-callout-important-color-frame, opacityback=0, colbacktitle=quarto-callout-important-color!10!white, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{A note on AI}, toptitle=1mm, rightrule=.15mm, arc=.35mm, bottomtitle=1mm, titlerule=0mm, bottomrule=.15mm, leftrule=.75mm]
 
 You can find the answers and code when you click on the toggle, but try
 to do as much as you can without looking at the answers first. You can
-use Google or your notes from DataCamp to find the answers, but please
-don't use ChatGPT or other AI tools to help you find the answers
+also see that you will find the answer and then the code, after clicking
+on it. This is another way in which you can get a `hint' - i.e.~the
+answer, to make you think about what kind of code you need to receive
+such an answer.
+
+You can use Google or your notes from DataCamp to find the answers, but
+please don't use ChatGPT or other AI tools to help you find the answers
 directly. For example, don't just put the question as a prompt, but you
 could ask: how do I calculate the mean in R? Or: how can I make a basic
 plot with ggplot2 to visualise XYZ? In other words: don't `cheat', but
@@ -316,10 +321,10 @@ it doesn't hand the answer to you.
 
 Let's work with some global height dataset. It was downloaded from the
 website \url{https://ncdrisc.org/data-downloads-height.html} and the
-file can be found in the \texttt{data} directory. The data contain the
-mean heights of adolescents of both boys and girls at different age
-groups. The mean height is the mean height of a certain age group in a
-specific year.
+file can be found in the \texttt{data} directory under
+\texttt{week\_4\_test}. The data contain the mean heights of adolescents
+of both boys and girls at different age groups. The mean height is the
+mean height of a certain age group in a specific year.
 
 \subsection{Part 1: exploration}\label{part-1-exploration}
 
@@ -328,11 +333,11 @@ specific year.
 \item
   The dataset is called
   \texttt{NCD\_RisC\_Lancet\_2020\_heigh\_child\_adolescent\_global.csv}
-  and is stored in the \texttt{data} directory. What does the
-  \texttt{.csv} extension mean?
+  and is stored in the \texttt{data} directory under
+  \texttt{week\_4\_test}. What does the \texttt{.csv} extension mean?
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, breakable, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Answer}, toptitle=1mm, leftrule=.75mm, toprule=.15mm, colbacktitle=quarto-callout-tip-color!10!white, opacityback=0, opacitybacktitle=0.6, bottomtitle=1mm, arc=.35mm, titlerule=0mm, colframe=quarto-callout-tip-color-frame, left=2mm, bottomrule=.15mm, rightrule=.15mm, coltitle=black, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacitybacktitle=0.6, toprule=.15mm, breakable, colback=white, coltitle=black, colframe=quarto-callout-tip-color-frame, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Answer}, toptitle=1mm, rightrule=.15mm, arc=.35mm, bottomtitle=1mm, titlerule=0mm, bottomrule=.15mm, leftrule=.75mm]
 
 Csv stands for comma separated file. It is a file format to store tables
 (such as Excel files), where each line represents a data record, and
@@ -351,7 +356,7 @@ using tabs (\t) or spaces.
   e.g.~\texttt{data})\\
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, breakable, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, leftrule=.75mm, toprule=.15mm, colbacktitle=quarto-callout-tip-color!10!white, opacityback=0, opacitybacktitle=0.6, bottomtitle=1mm, arc=.35mm, titlerule=0mm, colframe=quarto-callout-tip-color-frame, left=2mm, bottomrule=.15mm, rightrule=.15mm, coltitle=black, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacitybacktitle=0.6, toprule=.15mm, breakable, colback=white, coltitle=black, colframe=quarto-callout-tip-color-frame, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, rightrule=.15mm, arc=.35mm, bottomtitle=1mm, titlerule=0mm, bottomrule=.15mm, leftrule=.75mm]
 
 We are working within an R project, so we can use relative path names.
 If you prefer using the absolute path name, this might look different.
@@ -361,13 +366,13 @@ been done in iOS (Apple), but Windows looks different.
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# using read.csv}
-\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"../data/NCD\_RisC\_Lancet\_2020\_height\_child\_adolescent\_global.csv"}\NormalTok{)}
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"../data/week\_4\_test/NCD\_RisC\_Lancet\_2020\_height\_child\_adolescent\_global.csv"}\NormalTok{)}
 
 \CommentTok{\# or absolute path name}
-\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"/Users/vistor/Documents/Work/GitHub/postdoc/special\_module\_molecol\_popgen/data/NCD\_RisC\_Lancet\_2020\_height\_child\_adolescent\_global.csv"}\NormalTok{) }
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"/Users/vistor/Documents/Work/GitHub/postdoc/special\_module\_molecol\_popgen/data/week\_4\_test/NCD\_RisC\_Lancet\_2020\_height\_child\_adolescent\_global.csv"}\NormalTok{) }
 
 \CommentTok{\# or using read table, make sure you specify there\textquotesingle{}s a header!}
-\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{read.table}\NormalTok{(}\StringTok{"../data/NCD\_RisC\_Lancet\_2020\_height\_child\_adolescent\_global.csv"}\NormalTok{, }\AttributeTok{sep =} \StringTok{","}\NormalTok{, }\AttributeTok{header=}\NormalTok{T)}
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{read.table}\NormalTok{(}\StringTok{"../data/week\_4\_test/NCD\_RisC\_Lancet\_2020\_height\_child\_adolescent\_global.csv"}\NormalTok{, }\AttributeTok{sep =} \StringTok{","}\NormalTok{, }\AttributeTok{header=}\NormalTok{T)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -379,7 +384,10 @@ been done in iOS (Apple), but Windows looks different.
   How many data entries are there?
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, breakable, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, leftrule=.75mm, toprule=.15mm, colbacktitle=quarto-callout-tip-color!10!white, opacityback=0, opacitybacktitle=0.6, bottomtitle=1mm, arc=.35mm, titlerule=0mm, colframe=quarto-callout-tip-color-frame, left=2mm, bottomrule=.15mm, rightrule=.15mm, coltitle=black, colback=white]
+Number of data entries = number of rows, because we are dealing with a
+data table.
+
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacitybacktitle=0.6, toprule=.15mm, breakable, colback=white, coltitle=black, colframe=quarto-callout-tip-color-frame, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, rightrule=.15mm, arc=.35mm, bottomtitle=1mm, titlerule=0mm, bottomrule=.15mm, leftrule=.75mm]
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -387,7 +395,11 @@ been done in iOS (Apple), but Windows looks different.
 \end{Highlighting}
 \end{Shaded}
 
-1050 entries because there are 1050 rows, excluding the header
+\begin{verbatim}
+[1] 1050
+\end{verbatim}
+
+So 1050 entries = this excludes the header.
 
 \end{tcolorbox}
 
@@ -398,7 +410,7 @@ been done in iOS (Apple), but Windows looks different.
   age group (i.e.~how old are those groups)?
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, breakable, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, leftrule=.75mm, toprule=.15mm, colbacktitle=quarto-callout-tip-color!10!white, opacityback=0, opacitybacktitle=0.6, bottomtitle=1mm, arc=.35mm, titlerule=0mm, colframe=quarto-callout-tip-color-frame, left=2mm, bottomrule=.15mm, rightrule=.15mm, coltitle=black, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacitybacktitle=0.6, toprule=.15mm, breakable, colback=white, coltitle=black, colframe=quarto-callout-tip-color-frame, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, rightrule=.15mm, arc=.35mm, bottomtitle=1mm, titlerule=0mm, bottomrule=.15mm, leftrule=.75mm]
 
 First we need to know what columns there are in the data and what they
 are called, which can be done in different ways.
@@ -408,16 +420,49 @@ environment or by calling \texttt{View(data})).
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\#this shows you just the structure of the table}
+\CommentTok{\# this shows you just the structure of the table}
 \FunctionTok{str}\NormalTok{(data) }
+\end{Highlighting}
+\end{Shaded}
 
-\CommentTok{\#this tells you the column names of the table}
+\begin{verbatim}
+'data.frame':   1050 obs. of  5 variables:
+ $ Sex                       : chr  "Boys" "Boys" "Boys" "Boys" ...
+ $ Year                      : int  1985 1985 1985 1985 1985 1985 1985 1985 1985 1985 ...
+ $ Age.group                 : int  5 6 7 8 9 10 11 12 13 14 ...
+ $ Mean.height               : chr  "105.6490519" "111.6353523" "117.1894908" "122.4381031" ...
+ $ Mean.height.standard.error: chr  "0.258115469" "0.227526225" "0.210784409" "0.199455168" ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# this tells you the column names of the table}
 \FunctionTok{names}\NormalTok{(data) }
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+[1] "Sex"                        "Year"                      
+[3] "Age.group"                  "Mean.height"               
+[5] "Mean.height.standard.error"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \CommentTok{\# this shows you the first 6 entries and the column names}
 \FunctionTok{head}\NormalTok{(data) }
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+   Sex Year Age.group Mean.height Mean.height.standard.error
+1 Boys 1985         5 105.6490519                0.258115469
+2 Boys 1985         6 111.6353523                0.227526225
+3 Boys 1985         7 117.1894908                0.210784409
+4 Boys 1985         8 122.4381031                0.199455168
+5 Boys 1985         9 127.4997942                0.194521726
+6 Boys 1985        10 132.7080987                0.187002286
+\end{verbatim}
 
 From this we can see that the column that stores the age is called
 \texttt{Age.group}
@@ -426,11 +471,23 @@ From this we can see that the column that stores the age is called
 \begin{Highlighting}[]
 \CommentTok{\# minimum age i.e. youngest age class}
 \FunctionTok{min}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Age.group) }
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+[1] 5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \CommentTok{\# maximum age i.e. oldest age class}
 \FunctionTok{max}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Age.group) }
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+[1] 19
+\end{verbatim}
 
 So 5 and 19, respectively.
 
@@ -445,18 +502,44 @@ So 5 and 19, respectively.
   error?
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, breakable, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, leftrule=.75mm, toprule=.15mm, colbacktitle=quarto-callout-tip-color!10!white, opacityback=0, opacitybacktitle=0.6, bottomtitle=1mm, arc=.35mm, titlerule=0mm, colframe=quarto-callout-tip-color-frame, left=2mm, bottomrule=.15mm, rightrule=.15mm, coltitle=black, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacitybacktitle=0.6, toprule=.15mm, breakable, colback=white, coltitle=black, colframe=quarto-callout-tip-color-frame, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, rightrule=.15mm, arc=.35mm, bottomtitle=1mm, titlerule=0mm, bottomrule=.15mm, leftrule=.75mm]
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# this tells us the class of a specific column}
 \FunctionTok{class}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Mean.height) }
-\FunctionTok{class}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Mean.height.standard.error) }
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+[1] "character"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{class}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Mean.height.standard.error) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "character"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \CommentTok{\# this tells us the class of all columns}
 \FunctionTok{str}\NormalTok{(data) }
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+'data.frame':   1050 obs. of  5 variables:
+ $ Sex                       : chr  "Boys" "Boys" "Boys" "Boys" ...
+ $ Year                      : int  1985 1985 1985 1985 1985 1985 1985 1985 1985 1985 ...
+ $ Age.group                 : int  5 6 7 8 9 10 11 12 13 14 ...
+ $ Mean.height               : chr  "105.6490519" "111.6353523" "117.1894908" "122.4381031" ...
+ $ Mean.height.standard.error: chr  "0.258115469" "0.227526225" "0.210784409" "0.199455168" ...
+\end{verbatim}
 
 Both are characters/strings.
 
@@ -469,7 +552,7 @@ Both are characters/strings.
   numeric, right? What's causing this?
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, breakable, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, leftrule=.75mm, toprule=.15mm, colbacktitle=quarto-callout-tip-color!10!white, opacityback=0, opacitybacktitle=0.6, bottomtitle=1mm, arc=.35mm, titlerule=0mm, colframe=quarto-callout-tip-color-frame, left=2mm, bottomrule=.15mm, rightrule=.15mm, coltitle=black, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacitybacktitle=0.6, toprule=.15mm, breakable, colback=white, coltitle=black, colframe=quarto-callout-tip-color-frame, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, rightrule=.15mm, arc=.35mm, bottomtitle=1mm, titlerule=0mm, bottomrule=.15mm, leftrule=.75mm]
 
 A classic coding issue, ``what's up with my data''? Figuring out why
 something is not behaving as expected will happen most of the time you
@@ -485,6 +568,10 @@ and by doing some tests.
 \NormalTok{test }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Mean.height)  }
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+Warning: NAs introduced by coercion
+\end{verbatim}
 
 It gives a warning which indicates it could not change one or more of
 the values to numeric so it had to be put to NA. Why?
@@ -509,7 +596,7 @@ column as numeric now.
   Fix the error and change the data class to numeric
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, breakable, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, leftrule=.75mm, toprule=.15mm, colbacktitle=quarto-callout-tip-color!10!white, opacityback=0, opacitybacktitle=0.6, bottomtitle=1mm, arc=.35mm, titlerule=0mm, colframe=quarto-callout-tip-color-frame, left=2mm, bottomrule=.15mm, rightrule=.15mm, coltitle=black, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacitybacktitle=0.6, toprule=.15mm, breakable, colback=white, coltitle=black, colframe=quarto-callout-tip-color-frame, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, rightrule=.15mm, arc=.35mm, bottomtitle=1mm, titlerule=0mm, bottomrule=.15mm, leftrule=.75mm]
 
 We can't correct the value because we don't know what happened with this
 boy's height measurement. So let's either remove the entire row or
@@ -542,10 +629,26 @@ replace it with the `official' NA value that R recognises as NA.
 \CommentTok{\# this is what we had done before and automatically put the \textquotesingle{}character\textquotesingle{} ERROR as NA, you\textquotesingle{}ll get a warning but now we know why}
 
 \NormalTok{data}\SpecialCharTok{$}\NormalTok{Mean.height }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Mean.height) }
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+Warning: NAs introduced by coercion
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \CommentTok{\# same for the SE}
 \NormalTok{data}\SpecialCharTok{$}\NormalTok{Mean.height.standard.error }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Mean.height.standard.error) }
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+Warning: NAs introduced by coercion
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \DocumentationTok{\#\# method 3}
 
 \CommentTok{\# this is the same as above, but manually which is a bit longer and more complex}
@@ -573,7 +676,7 @@ to numeric.
   What is the mean across years of the mean heights in the dataset?
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, breakable, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, leftrule=.75mm, toprule=.15mm, colbacktitle=quarto-callout-tip-color!10!white, opacityback=0, opacitybacktitle=0.6, bottomtitle=1mm, arc=.35mm, titlerule=0mm, colframe=quarto-callout-tip-color-frame, left=2mm, bottomrule=.15mm, rightrule=.15mm, coltitle=black, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacitybacktitle=0.6, toprule=.15mm, breakable, colback=white, coltitle=black, colframe=quarto-callout-tip-color-frame, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, rightrule=.15mm, arc=.35mm, bottomtitle=1mm, titlerule=0mm, bottomrule=.15mm, leftrule=.75mm]
 
 The function that calculates means is, intuitively, \texttt{mean()}
 which is a base function (i.e.~you don't need to install a package for
@@ -584,11 +687,23 @@ can use \texttt{?mean}
 \begin{Highlighting}[]
 \CommentTok{\# we have to make sure we remove the NA when calculating the mean though!}
 \FunctionTok{mean}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Mean.height, }\AttributeTok{na.rm =}\NormalTok{ T) }
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+[1] 141.7635
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \CommentTok{\# or we use the data that doesn\textquotesingle{}t contain the NA}
 \FunctionTok{mean}\NormalTok{(data\_clean}\SpecialCharTok{$}\NormalTok{Mean.height) }
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+[1] 141.7635
+\end{verbatim}
 
 \end{tcolorbox}
 
@@ -599,7 +714,7 @@ can use \texttt{?mean}
   separately for boys and girls?
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, breakable, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, leftrule=.75mm, toprule=.15mm, colbacktitle=quarto-callout-tip-color!10!white, opacityback=0, opacitybacktitle=0.6, bottomtitle=1mm, arc=.35mm, titlerule=0mm, colframe=quarto-callout-tip-color-frame, left=2mm, bottomrule=.15mm, rightrule=.15mm, coltitle=black, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacitybacktitle=0.6, toprule=.15mm, breakable, colback=white, coltitle=black, colframe=quarto-callout-tip-color-frame, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, rightrule=.15mm, arc=.35mm, bottomtitle=1mm, titlerule=0mm, bottomrule=.15mm, leftrule=.75mm]
 
 Here's where your preference can kick in: do you want to use dplyr or
 something else, like base R or data.table? I will show you multiple
@@ -616,18 +731,69 @@ learning, just do what makes most sense to you.
 \begin{Highlighting}[]
 \CommentTok{\# method 1 with dplyr}
 \FunctionTok{library}\NormalTok{(dplyr) }\CommentTok{\# we can use dplyr to use the filter option}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+
+Attaching package: 'dplyr'
+\end{verbatim}
+
+\begin{verbatim}
+The following objects are masked from 'package:stats':
+
+    filter, lag
+\end{verbatim}
+
+\begin{verbatim}
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{girls }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(Sex }\SpecialCharTok{==} \StringTok{"Girls"}\NormalTok{)}
 \NormalTok{boys }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(Sex }\SpecialCharTok{==} \StringTok{"Boys"}\NormalTok{)}
 
 \FunctionTok{mean}\NormalTok{(girls}\SpecialCharTok{$}\NormalTok{Mean.height, }\AttributeTok{na.rm =}\NormalTok{ T) }
-\FunctionTok{mean}\NormalTok{(boys}\SpecialCharTok{$}\NormalTok{Mean.height, }\AttributeTok{na.rm =}\NormalTok{ T) }
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+[1] 140.02
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(boys}\SpecialCharTok{$}\NormalTok{Mean.height, }\AttributeTok{na.rm =}\NormalTok{ T) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 143.5103
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \CommentTok{\# method 2 without dplyr}
 \FunctionTok{mean}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Mean.height[}\FunctionTok{which}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Sex }\SpecialCharTok{==} \StringTok{"Girls"}\NormalTok{)], }\AttributeTok{na.rm=}\NormalTok{T) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 140.02
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \FunctionTok{mean}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Mean.height[}\FunctionTok{which}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Sex }\SpecialCharTok{==} \StringTok{"Boys"}\NormalTok{)], }\AttributeTok{na.rm=}\NormalTok{T) }
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+[1] 143.5103
+\end{verbatim}
 
 \end{tcolorbox}
 
@@ -645,7 +811,7 @@ Age group 12, and then look at what year the variance was the smallest
 I'll only show you the dplyr way, but you can use many different methods
 to get to the same answer here.
 
-\begin{tcolorbox}[enhanced jigsaw, breakable, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, leftrule=.75mm, toprule=.15mm, colbacktitle=quarto-callout-tip-color!10!white, opacityback=0, opacitybacktitle=0.6, bottomtitle=1mm, arc=.35mm, titlerule=0mm, colframe=quarto-callout-tip-color-frame, left=2mm, bottomrule=.15mm, rightrule=.15mm, coltitle=black, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacitybacktitle=0.6, toprule=.15mm, breakable, colback=white, coltitle=black, colframe=quarto-callout-tip-color-frame, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, rightrule=.15mm, arc=.35mm, bottomtitle=1mm, titlerule=0mm, bottomrule=.15mm, leftrule=.75mm]
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -654,10 +820,34 @@ to get to the same answer here.
 \NormalTok{boys\_12yr }\OtherTok{\textless{}{-}}\NormalTok{ boys }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(Age.group }\SpecialCharTok{==} \DecValTok{12}\NormalTok{)}
 
 \NormalTok{girls\_12yr }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{arrange}\NormalTok{(Mean.height.standard.error) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{head}\NormalTok{() }\CommentTok{\# 2003, with a SE of 0.09367336}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+    Sex Year Age.group Mean.height Mean.height.standard.error
+1 Girls 2003        12    146.6524                 0.09367336
+2 Girls 2004        12    146.7459                 0.09369505
+3 Girls 2005        12    146.8387                 0.09382388
+4 Girls 2002        12    146.5615                 0.09397351
+5 Girls 2006        12    146.9259                 0.09423025
+6 Girls 2001        12    146.4734                 0.09451832
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{boys\_12yr }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{arrange}\NormalTok{(Mean.height.standard.error) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{head}\NormalTok{() }\CommentTok{\# 2004, with a SE of 0.1342430}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+   Sex Year Age.group Mean.height Mean.height.standard.error
+1 Boys 2004        12    144.8178                  0.1342430
+2 Boys 2003        12    144.7568                  0.1343755
+3 Boys 2005        12    144.8627                  0.1347293
+4 Boys 2002        12    144.6810                  0.1349744
+5 Boys 2006        12    144.8881                  0.1355101
+6 Boys 2001        12    144.5841                  0.1360441
+\end{verbatim}
 
 \end{tcolorbox}
 
@@ -671,7 +861,7 @@ to get to the same answer here.
   sex!
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, breakable, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, leftrule=.75mm, toprule=.15mm, colbacktitle=quarto-callout-tip-color!10!white, opacityback=0, opacitybacktitle=0.6, bottomtitle=1mm, arc=.35mm, titlerule=0mm, colframe=quarto-callout-tip-color-frame, left=2mm, bottomrule=.15mm, rightrule=.15mm, coltitle=black, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacitybacktitle=0.6, toprule=.15mm, breakable, colback=white, coltitle=black, colframe=quarto-callout-tip-color-frame, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, rightrule=.15mm, arc=.35mm, bottomtitle=1mm, titlerule=0mm, bottomrule=.15mm, leftrule=.75mm]
 
 Let's get plotting! First choose: do you want to use ggplot2
 (recommended) or base R to make your plot?
@@ -693,36 +883,14 @@ We also have to use a portion of the data only, again. We can use dplyr
 \FunctionTok{library}\NormalTok{(ggplot2)}
 
 \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{subset}\NormalTok{(data, Age.group }\SpecialCharTok{==} \DecValTok{18}\NormalTok{), }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Year, }\AttributeTok{y =}\NormalTok{ Mean.height)) }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{col =}\NormalTok{ Sex)) }\SpecialCharTok{+} \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{col =}\NormalTok{ Sex)) }\SpecialCharTok{+} \FunctionTok{theme\_classic}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
 
-\CommentTok{\# method 2: base R}
-\CommentTok{\# subset the data}
-\NormalTok{age\_18 }\OtherTok{\textless{}{-}} \FunctionTok{subset}\NormalTok{(data, Age.group }\SpecialCharTok{==} \DecValTok{18}\NormalTok{)}
+\pandocbounded{\includegraphics[keepaspectratio]{tests/test_introduction_files/figure-pdf/exercise 11-1.pdf}}
 
-\CommentTok{\# set up empty plot}
-\FunctionTok{plot}\NormalTok{(}
-\NormalTok{  age\_18}\SpecialCharTok{$}\NormalTok{Year, age\_18}\SpecialCharTok{$}\NormalTok{Mean.height,}
-  \AttributeTok{type =} \StringTok{"n"}\NormalTok{,}
-  \AttributeTok{xlab =} \StringTok{"Year"}\NormalTok{,}
-  \AttributeTok{ylab =} \StringTok{"Mean height"}
-\NormalTok{)}
-
-\CommentTok{\# add points and lines by Sex}
-\ControlFlowTok{for}\NormalTok{ (s }\ControlFlowTok{in} \FunctionTok{levels}\NormalTok{(age\_18}\SpecialCharTok{$}\NormalTok{Sex)) \{}
-\NormalTok{  ds }\OtherTok{\textless{}{-}}\NormalTok{ age\_18[age\_18}\SpecialCharTok{$}\NormalTok{Sex }\SpecialCharTok{==}\NormalTok{ s, ]}
-  
-  \FunctionTok{points}\NormalTok{(ds}\SpecialCharTok{$}\NormalTok{Year, ds}\SpecialCharTok{$}\NormalTok{Mean.height,}
-         \AttributeTok{col =}\NormalTok{ cols[s], }\AttributeTok{pch =} \DecValTok{16}\NormalTok{)}
-  
-  \FunctionTok{lines}\NormalTok{(ds}\SpecialCharTok{$}\NormalTok{Year, ds}\SpecialCharTok{$}\NormalTok{Mean.height,}
-        \AttributeTok{col =}\NormalTok{ cols[s], }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
-\NormalTok{\}}
-
-\CommentTok{\# add legend}
-\FunctionTok{legend}\NormalTok{(}\StringTok{"topleft"}\NormalTok{,}
-       \AttributeTok{legend =} \FunctionTok{levels}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(age\_18}\SpecialCharTok{$}\NormalTok{Sex)),}
-       \AttributeTok{pch =} \DecValTok{16}\NormalTok{,}
-       \AttributeTok{lwd =} \DecValTok{2}\NormalTok{,}
-       \AttributeTok{bty =} \StringTok{"n"}\NormalTok{)}
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# method 2: base R {-}{-} not sure how to do it}
 \end{Highlighting}
 \end{Shaded}
 
@@ -735,6 +903,1188 @@ and you require a lot of separate elements.
 Well done! If you managed to answer all of the above, with or without
 some help from your notes and the internet, you're ready to explore
 genetic data and answer some pop gen questions.
+
+\bookmarksetup{startatroot}
+
+\chapter{Week 7 inbreeding}\label{week-7-inbreeding}
+
+We've just learned what inbreeding is and how we can measure it. In this
+practical, we will learn how to quantify heterozygosity (the inverse of
+inbreeding) using a real-life dataset.
+
+In the analysis, we will use a microsatellite dataset to quantify the
+inbreeding coefficient sMLH using the package \texttt{inbreedR}. In the
+second analysis, we will identify homozygous stretches in the genome
+(HBD segments - homozygous by descent / ROHs - runs of homozygosity)
+from SNP data using the package \texttt{RZooRoh}.
+
+\section{Background}\label{background}
+
+The dataset we are working with are microsatellite genotypes from black
+grouse (\emph{Lyrurus tetrix}), a lekking bird. The dataset was taken
+from \href{https://onlinelibrary.wiley.com/doi/10.1111/eva.1352}{this
+paper} which investigated the effects of hunting on inbreeding and gene
+flow. It is a large microsatellite dataset from female and male birds as
+well as chicks, sampled at 12 populations in Central Finland. For some
+populations, recreational hunting is allowed whereas others are
+protected.
+
+Inbreeding in this species is generally avoided by female-biased
+dispersal and non-overlapping generations (i.e.~females have a shorter
+lifespan so will have probably died by the time she could hypothetically
+mate with her offspring). However, due to habitat fragmentation and
+destruction, inbreeding can still occur. The black grouse is not a
+threatened species and lives across all over Europe (including Germany).
+Nevertheless, it is locally threatened: in Germany there is only one
+population left: in the Lüneburger Heide. It is therefore important to
+understand inbreeding dynamics in this species.
+
+\section{The dataset}\label{the-dataset}
+
+Blood samples were collected between 2001 and 2007 from a total of 1878
+adult black grouse, of which 1065 were males and 813 were females. The
+birds were captured in walk-in traps baited with oats, aged as yearlings
+or older according to the shape of the outmost primaries and marked with
+metal and colour rings for future identification. Blood (1--2 ml) was
+taken with a heparinized syringe from the brachial vein. After
+centrifugation, the red blood cells were stored in 70\% ethanol at 4°C
+for subsequent DNA analysis.
+
+In addition to the adults, 1370 chicks were sampled (370 females, 325
+males and 675 individuals of unknown sex) from 200 different broods. The
+chicks were sampled at seven of the 12 sites between 2001 and 2006.
+Nesting sites were located after the lekking season and the hatching
+date of the chicks was estimated by floating the eggs in warm water. The
+chicks were then captured on the approximate day of hatching (in
+May/June) for blood sample collection where possible, and if not, egg
+shells were collected instead.
+
+\section{Microsatellite datasets}\label{microsatellite-datasets}
+
+Microsatellite data can be stored in various ways. The most common way
+to note them down is: one row per individual, the loci (and its two
+alleles) in columns. Which means that for each locus, you have two
+columns: one for each allele, which is commonly noted as allele a and
+allele b. The value stored in these cells is the fragment length in base
+pairs, which therefore reflects the number of times the specific motif
+(e.g.~AT) is repeated in a given individual at a given locus.
+
+\section{Calculating sMLH}\label{calculating-smlh}
+
+Using this dataset, we will calculate the standardized multilocus
+heterozygosity. Standardized Multilocus Heterozygosity (sMLH) is a
+measure of an individual's genetic diversity that divides their total
+number of heterozygous loci by the average observed heterozygosity of
+those specific, successfully typed loci in the population. What we are
+essentially looking at is whether two alleles are the same in length and
+thus homozygous, or whether the two alleles are different in length and
+thus heterozygous. sMLH measures heterozygosity: this is therefore the
+opposite of homozygosity. In other words, individuals with lower sMLH
+values are more inbred and vice versa. The paper that describes how to
+calculate sMLH with the \texttt{inbreedR} package can be found
+\href{https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.12588}{here}.
+
+\section{Exercise 1 (day 1)}\label{exercise-1-day-1}
+
+\begin{itemize}
+\tightlist
+\item
+  Load in the dataset. It can be found under
+  \texttt{data/week\_5\_inbreeding} and is named msat\_black\_grouse -
+  it is a .csv file with a header.
+\item
+  Investigate the structure of the dataset: how many microsatellite loci
+  does the dataset contain? And how many individuals are there in the
+  dataset? Also make sure to check whether all 12 populations are
+  included in this dataset
+\end{itemize}
+
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacitybacktitle=0.6, toprule=.15mm, breakable, colback=white, coltitle=black, colframe=quarto-callout-tip-color-frame, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, rightrule=.15mm, arc=.35mm, bottomtitle=1mm, titlerule=0mm, bottomrule=.15mm, leftrule=.75mm]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# load in the dataset}
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"../data/week\_5\_inbreeding/msat\_black\_grouse.csv"}\NormalTok{)}
+\FunctionTok{head}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+    id pop BG16a BG16b BG18a BG18b BG15a BG15b BG19a BG19b BG6a BG6b TTT1a
+1 D005  12   156   164   148   148   189   189   169   177  199  211   230
+2 D009   4   156   164   152   156   185   189   165   177  283  283   238
+3 D023   2   156   168   156   160   185   189   173   185  199  207   230
+4 D035  12   156   160   156   160   181   193   173   181  203  203   226
+5 D038  11   156   168   144   164   181   189   169   169  203  203   242
+6 D057   4   164   164   152   164   189   189   169   177  203  207   242
+  TTT1b TTD2a TTD2b TTD3a TTD3b TUD6a TUD6b TUT3a TUT3b TUT4a TUT4b TTT2a TTT2b
+1   246   149   149   136   138   184   186   156   160   173   173    NA    NA
+2   242   149   149   128   152   180   182   172   176   165   169    NA    NA
+3   250   149   153   152   152   186   194   168   168   161   169    NA    NA
+4   242   149   149   146   156   180   186   160   168   157   165    NA    NA
+5   242   149   149   138   154   186   186   160   168   169   181    NA    NA
+6   250   149   153   128   146   180   192   156   156   157   161    NA    NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# number of loci}
+\NormalTok{(}\FunctionTok{ncol}\NormalTok{(data) }\SpecialCharTok{{-}} \DecValTok{2}\NormalTok{)}\SpecialCharTok{/}\DecValTok{2} \CommentTok{\# there are two other columns \textquotesingle{}id\textquotesingle{} and \textquotesingle{}pop\textquotesingle{} which are not loci, and each locus has two alleles}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 12
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# number of individuals}
+\FunctionTok{nrow}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 2078
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# checking the number of populations}
+\FunctionTok{length}\NormalTok{(}\FunctionTok{unique}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{pop))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 12
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# or}
+\FunctionTok{summary}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{pop))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  1   2   3   4   5   6   7   8   9  10  11  12 
+274 364  46 210 320  59  62  40  91 184 350  78 
+\end{verbatim}
+
+Number of loci: 12 Number of individuals: 2078 Yes, data from all 12
+populations are included
+
+\end{tcolorbox}
+
+\section{Exercise 2 (day 1)}\label{exercise-2-day-1}
+
+Now, we want to calculate sMLH based on this dataset. We will do this
+using the R package \texttt{inbreedR}. Make sure to familiarise yourself
+with the package and read through the
+\href{https://cran.r-project.org/web/packages/inbreedR/vignettes/inbreedR_step_by_step.html}{manual}
+/
+\href{https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.12588}{paper}.
+
+After reading through it, execute the following:
+
+\begin{itemize}
+\tightlist
+\item
+  There are a loci that have NAs. Which one is it / are they? Do you
+  think it's a problem when we want to calculate sMLH?
+\end{itemize}
+
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacitybacktitle=0.6, toprule=.15mm, breakable, colback=white, coltitle=black, colframe=quarto-callout-tip-color-frame, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, rightrule=.15mm, arc=.35mm, bottomtitle=1mm, titlerule=0mm, bottomrule=.15mm, leftrule=.75mm]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#easiest way to look across your dataset is with summary()}
+\FunctionTok{summary}\NormalTok{(data) }\CommentTok{\# at the bottom you will see the number of NA rows in each column}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+      id                 pop             BG16a           BG16b      
+ Length:2078        Min.   : 1.000   Min.   :  0.0   Min.   :  0.0  
+ Class :character   1st Qu.: 2.000   1st Qu.:152.0   1st Qu.:160.0  
+ Mode  :character   Median : 5.000   Median :156.0   Median :164.0  
+                    Mean   : 5.839   Mean   :155.6   Mean   :161.9  
+                    3rd Qu.:10.000   3rd Qu.:160.0   3rd Qu.:164.0  
+                    Max.   :12.000   Max.   :172.0   Max.   :198.0  
+                                     NA's   :5       NA's   :5      
+     BG18a           BG18b           BG15a           BG15b      
+ Min.   :  0.0   Min.   :  0.0   Min.   :169.0   Min.   :181.0  
+ 1st Qu.:152.0   1st Qu.:160.0   1st Qu.:185.0   1st Qu.:189.0  
+ Median :156.0   Median :164.0   Median :185.0   Median :189.0  
+ Mean   :155.8   Mean   :163.2   Mean   :186.1   Mean   :191.2  
+ 3rd Qu.:160.0   3rd Qu.:168.0   3rd Qu.:189.0   3rd Qu.:193.0  
+ Max.   :172.0   Max.   :192.0   Max.   :197.0   Max.   :221.0  
+ NA's   :3       NA's   :3                                      
+     BG19a           BG19b            BG6a            BG6b         TTT1a      
+ Min.   :161.0   Min.   :161.0   Min.   :187.0   Min.   :195   Min.   :218.0  
+ 1st Qu.:165.0   1st Qu.:173.0   1st Qu.:199.0   1st Qu.:203   1st Qu.:234.0  
+ Median :169.0   Median :177.0   Median :199.0   Median :207   Median :238.0  
+ Mean   :169.5   Mean   :175.7   Mean   :200.6   Mean   :215   Mean   :238.5  
+ 3rd Qu.:173.0   3rd Qu.:177.0   3rd Qu.:203.0   3rd Qu.:211   3rd Qu.:242.0  
+ Max.   :185.0   Max.   :193.0   Max.   :287.0   Max.   :299   Max.   :258.0  
+                                                               NA's   :4      
+     TTT1b           TTD2a           TTD2b           TTD3a      
+ Min.   :222.0   Min.   :149.0   Min.   :149.0   Min.   :  0.0  
+ 1st Qu.:242.0   1st Qu.:149.0   1st Qu.:149.0   1st Qu.:134.0  
+ Median :246.0   Median :149.0   Median :149.0   Median :138.0  
+ Mean   :245.6   Mean   :149.2   Mean   :150.1   Mean   :138.3  
+ 3rd Qu.:250.0   3rd Qu.:149.0   3rd Qu.:149.0   3rd Qu.:146.0  
+ Max.   :258.0   Max.   :186.0   Max.   :198.0   Max.   :160.0  
+ NA's   :4       NA's   :1138    NA's   :1138    NA's   :4      
+     TTD3b           TUD6a           TUD6b           TUT3a      
+ Min.   :  0.0   Min.   :  0.0   Min.   :  0.0   Min.   :144.0  
+ 1st Qu.:146.0   1st Qu.:180.0   1st Qu.:184.0   1st Qu.:156.0  
+ Median :146.0   Median :182.0   Median :186.0   Median :160.0  
+ Mean   :147.3   Mean   :182.4   Mean   :185.4   Mean   :160.3  
+ 3rd Qu.:152.0   3rd Qu.:184.0   3rd Qu.:186.0   3rd Qu.:164.0  
+ Max.   :172.0   Max.   :192.0   Max.   :200.0   Max.   :176.0  
+ NA's   :6       NA's   :2       NA's   :2       NA's   :1      
+     TUT3b           TUT4a         TUT4b         TTT2a         TTT2b    
+ Min.   :152.0   Min.   :  0   Min.   :  0   Min.   :149   Min.   :149  
+ 1st Qu.:164.0   1st Qu.:161   1st Qu.:169   1st Qu.:149   1st Qu.:149  
+ Median :168.0   Median :165   Median :169   Median :149   Median :149  
+ Mean   :166.6   Mean   :165   Mean   :171   Mean   :149   Mean   :150  
+ 3rd Qu.:168.0   3rd Qu.:169   3rd Qu.:173   3rd Qu.:149   3rd Qu.:149  
+ Max.   :180.0   Max.   :185   Max.   :189   Max.   :157   Max.   :157  
+ NA's   :1                                   NA's   :213   NA's   :213  
+\end{verbatim}
+
+We see a few loci with a few NA's (\textless10): BG16, BG18, TTT1, TTD3,
+TUD6. But there is one locus with huge number of NA's (\textgreater1000)
+which is TTD2 and another with a significant amount of data missing:
+TTT2. But this is what's important about the \texttt{s} in
+\texttt{sMLH}: it calculates homozygosity across multiple loci but
+accounts for missing data. So it inheritently only looks at loci that
+have been successfully genotyped and therefore have a value. It is
+therefore fine for the calculation.
+
+However, if you sample less loci, you have a lower resolution. It is
+therefore important to investigate your data like this: we want to make
+sure that the number of loci used to calculate sMLH does not bias the
+sMLH values. Say all individuals in this dataset are homozygous for TTD2
+(hypothetically), then the sMLH values of those individuals that were
+not genotyped at TTD2 might all have slighly higher sMLH values. It is
+good to investigate this later on.
+
+The short answer: no, this missing data does not matter for the
+calculation of sMLH, but we should keep an eye on it so we make sure
+this doesn't bias our results.
+
+\end{tcolorbox}
+
+Before we calculate sMLH, we should clean up some of the data. Execute
+the following (not necessarily in this order):
+
+\begin{itemize}
+\tightlist
+\item
+  The populations currently have a number: that's not ideal. Replace
+  them with the actual location names which can be found in the .csv
+  file stored in \texttt{data/week\_5\_inbreeding} titled
+  \texttt{metadata\_populations}. The second column \texttt{pop\_num}
+  refers to the number in the microsatellite dataset stored in the
+  \texttt{pop} variable.
+\item
+  csv files don't like special characters: the names of population 1 and
+  5 therefore look weird. Change these names to Koskenpää and Nyrölä,
+  respectively
+\end{itemize}
+
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacitybacktitle=0.6, toprule=.15mm, breakable, colback=white, coltitle=black, colframe=quarto-callout-tip-color-frame, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, rightrule=.15mm, arc=.35mm, bottomtitle=1mm, titlerule=0mm, bottomrule=.15mm, leftrule=.75mm]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# load in the names of the populations}
+\NormalTok{pops }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"../data/week\_5\_inbreeding/metdata\_populations.csv"}\NormalTok{)}
+\FunctionTok{head}\NormalTok{(pops)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+              pop pop_num     hunt        X        Y
+1 Koskenp\xe4\xe4       1   hunted 62.03983 25.20602
+2       Kummunsuo       2 unhunted 62.34530 24.76298
+3       Lauttasuo       3   hunted 62.50857 24.87211
+4        Lehtusuo       4 unhunted 62.25780 24.96876
+5    Nyr\xf6l\xe4       5 unhunted 62.32777 25.46674
+6         Palosuo       6   hunted 62.38357 25.27636
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# change the names}
+\NormalTok{pops[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Koskenpää"}
+\NormalTok{pops[}\DecValTok{5}\NormalTok{,}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"Nyrölä"}
+
+\CommentTok{\# approach 1: merge the two files and then only keep the written out population, not the number}
+\DocumentationTok{\#\# load dplyr}
+\FunctionTok{library}\NormalTok{(dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Attaching package: 'dplyr'
+\end{verbatim}
+
+\begin{verbatim}
+The following objects are masked from 'package:stats':
+
+    filter, lag
+\end{verbatim}
+
+\begin{verbatim}
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# merge the pops file with the microsatellite data}
+\NormalTok{data\_clean }\OtherTok{\textless{}{-}} \FunctionTok{left\_join}\NormalTok{(data, pops, }\AttributeTok{by =} \FunctionTok{c}\NormalTok{(}\StringTok{"pop"} \OtherTok{=} \StringTok{"pop\_num"}\NormalTok{)) }
+\DocumentationTok{\#\# reorganise the columns}
+\NormalTok{data\_clean }\OtherTok{\textless{}{-}}\NormalTok{ data\_clean[,}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{27}\NormalTok{,}\DecValTok{3}\SpecialCharTok{:}\DecValTok{26}\NormalTok{)] }
+\DocumentationTok{\#\# rename the column to pop instead of pop\_num}
+\FunctionTok{names}\NormalTok{(data\_clean)[}\DecValTok{2}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"pop"}
+
+\CommentTok{\# approach 2: use a lookup table / using match}
+\DocumentationTok{\#\# replace numeric pop codes with letters via lookup}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{pop }\OtherTok{\textless{}{-}}\NormalTok{ pops}\SpecialCharTok{$}\NormalTok{pop[}\FunctionTok{match}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{pop, pops}\SpecialCharTok{$}\NormalTok{pop\_num)]}
+\end{Highlighting}
+\end{Shaded}
+
+\end{tcolorbox}
+
+So, now that the data are cleaned up and ready to analyse: let's
+calculate sMLH. Use the vignette to guide you through this process.
+
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacitybacktitle=0.6, toprule=.15mm, breakable, colback=white, coltitle=black, colframe=quarto-callout-tip-color-frame, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Tips}, toptitle=1mm, rightrule=.15mm, arc=.35mm, bottomtitle=1mm, titlerule=0mm, bottomrule=.15mm, leftrule=.75mm]
+
+If you're struggling to find out how to do this, you can use these
+steps: 1. inbreedR requires a certain format: the ids have to be the
+rownames, and the data should only contain the microsatellite genotypes
+(so no population info) 2. to convert our dataframe to an inbreedR data
+format, you can use the function \texttt{convert\_raw} from the inbreedR
+package. This function converts the genotypes to a binary distinction: 1
+stands for heterozygous, 0 for homozygous for each of the loci. 3. to
+calculate sMLH, we need the \texttt{sMLH} function
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacitybacktitle=0.6, toprule=.15mm, breakable, colback=white, coltitle=black, colframe=quarto-callout-tip-color-frame, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, rightrule=.15mm, arc=.35mm, bottomtitle=1mm, titlerule=0mm, bottomrule=.15mm, leftrule=.75mm]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Change formats to be loaded into inbreedR (binary where rownames are id\textquotesingle{}s and no populations)}
+\FunctionTok{library}\NormalTok{(tibble)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Warning: package 'tibble' was built under R version 4.3.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data\_raw }\OtherTok{\textless{}{-}}\NormalTok{ data\_clean}
+\NormalTok{data\_raw }\OtherTok{\textless{}{-}}\NormalTok{ data\_raw }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ remove\_rownames }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{column\_to\_rownames}\NormalTok{(}\AttributeTok{var=}\StringTok{"id"}\NormalTok{)}
+\NormalTok{data\_raw }\OtherTok{\textless{}{-}}\NormalTok{ data\_raw[,}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{]}
+
+\CommentTok{\# convert to inbreedR}
+\FunctionTok{library}\NormalTok{(inbreedR)}
+\NormalTok{data\_inbreedR }\OtherTok{\textless{}{-}} \FunctionTok{convert\_raw}\NormalTok{(data\_raw)}
+
+\CommentTok{\# calculate sMLH}
+\NormalTok{smlh }\OtherTok{\textless{}{-}} \FunctionTok{sMLH}\NormalTok{(data\_inbreedR) }\CommentTok{\#sMLH}
+\end{Highlighting}
+\end{Shaded}
+
+\end{tcolorbox}
+
+Sweet, we got some sMLH values now!
+
+Let's do some exploration with it. Answer the following:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  What are the highest and lowest sMLH values?
+\item
+  What is the mean, median and mode sMLH?
+\item
+  What does it mean to have a negative sMLH (sMLH \textless{} 0)?
+\item
+  Plot the distribution of sMLH in a figure (histogram)
+\item
+  Why is the distribution not smooth? We see gaps between the bars of
+  the histogram, why?
+\end{enumerate}
+
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacitybacktitle=0.6, toprule=.15mm, breakable, colback=white, coltitle=black, colframe=quarto-callout-tip-color-frame, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, rightrule=.15mm, arc=.35mm, bottomtitle=1mm, titlerule=0mm, bottomrule=.15mm, leftrule=.75mm]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# 1. highest and lowest}
+\FunctionTok{summary}\NormalTok{(smlh) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.3618  0.8632  0.9865  1.0001  1.1099  1.4472 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# or:}
+\FunctionTok{min}\NormalTok{(smlh)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 0.3617918
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{max}\NormalTok{ (smlh)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 1.447167
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# 2 averages}
+\FunctionTok{mean}\NormalTok{(smlh)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 1.000059
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{median}\NormalTok{(smlh)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 0.9865481
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# no built in function for mode:}
+\CommentTok{\# install.packages("DescTools") {-}\textgreater{} only install if not already installed}
+\FunctionTok{library}\NormalTok{(}\StringTok{"DescTools"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Warning: package 'DescTools' was built under R version 4.3.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{Mode}\NormalTok{(smlh)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 1.109867
+attr(,"freq")
+[1] 322
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# or use a custom function}
+\NormalTok{getmode }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(v) \{}
+\NormalTok{   uniqv }\OtherTok{\textless{}{-}} \FunctionTok{unique}\NormalTok{(v)}
+\NormalTok{   uniqv[}\FunctionTok{which.max}\NormalTok{(}\FunctionTok{tabulate}\NormalTok{(}\FunctionTok{match}\NormalTok{(v, uniqv)))]}
+\NormalTok{\}}
+\FunctionTok{getmode}\NormalTok{(smlh)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 1.109867
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 4. figure}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{ggplot}\NormalTok{(}\FunctionTok{as.data.frame}\NormalTok{(smlh), }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ smlh)) }\SpecialCharTok{+} \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{bins=}\DecValTok{40}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{theme\_classic}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"sMLH"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Count"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{practicals/week_7_practical_inbreeding_files/figure-pdf/unnamed-chunk-4-1.pdf}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  min = 0.3618, max = 1.4472
+\item
+  mean = 1.00, median = 0.99, mode = 1.11
+\item
+  A negative sMLH means the individual has a lower heterozygosity
+  compared to the population average (i.e.~more inbred)
+\item
+  sMLH is a continuous variable, but we don't get a smooth distribution.
+  Actually, when we check out the data more closely using
+  e.g.~\texttt{summary(as.factor(smlh))} (this forces the sMLH values to
+  be categorical, and we see how many values are in each category), we
+  see that there are specific sMLH values that individuals have. This is
+  an `artifact' as to how sMLH is calculated. sMLH is a proportion of
+  the number of microsatellites that are heterozygous (because we divide
+  by the number of successfully genotyped loci), and therefore there are
+  only a set number of sMLH values that an individual can have. The more
+  loci, the higher the resolution, and the more possible sMLH values a
+  population has. For example, if there is just one locus, sMLH values
+  can be 0 or 1. If there are two loci, sMLH values can be 0, 0.5 and 1,
+  and so on.
+\end{enumerate}
+
+\end{tcolorbox}
+
+\section{Exercise 3 (day 2)}\label{exercise-3-day-2}
+
+Now that we have these values, we can do some analyses and plotting, and
+ask some research questions. We have the following data: sMLH values
+from 2078 individuals. These individuals were sampled at 12 different
+locations / from 12 populations, of which some allow recreational
+hunting (see the pops file). We have the exact coordinates of each
+population as well (see the pops file).
+
+The individuals belong to three `categories': males, females and chicks.
+Male IDs start with a D. Female IDs start with an H and do not have an
+appending number. Chicks also start with an H but the way they are named
+is their mother's ID and then an appending number (e.g.~\texttt{H462.4})
+separated with a dot (.). This means that this chick was the fourth
+chick of mother H462. Some chicks had unknown numbers and have an ID
+something like \texttt{UNK9}. For some chicks, a year is also appended:
+this happened when females had clutches across multiple years
+(e.g.~\texttt{H441.7\_2005}). At the bottom of the dataset there are
+also some chick IDs with unknown data and are instead named after the
+location they were found (e.g.~\texttt{saaRTON.1})
+
+You will find an additional dataset with metadata from the population,
+it is stored in
+\texttt{data/week\_5\_inbreeding/metadata\_individuals.csv}. Here you
+will find the sex of the individual, but also the year of the sample,
+the density of that population in that year. There are more individuals
+in this metadata because all chicks of all broods are included: in the
+previous microsatellite dataset, only one chick was included per brood
+as they are related.
+
+\textbf{Your next task: phrase a research question and answer it!}
+
+You will first have to phrase a research question which you find
+interesting: e.g.~relate inbreeding to one of the other variables.
+You'll need to reshape the data to put it in a format that you can
+analyse (e.g.~merge some data, or subset). To answer your research
+question, you can use some basic comparisons, for example with a t-test
+or correlation test. To wrap it up, make a graph/figure that visualises
+the result of your test. And remember to annotate your code well to
+document what you're doing. You have full flexibility, and we are here
+for assistance with your question and advise on how to code it, and also
+how to interpret the data.
+
+Remember you have the entire internet at your fingertips: use google,
+and you can use ChatGPT (or similar) for assistance as long as you
+understand what the code is doing! You can ask it for analytical advice,
+to help you interpret the output. To maximise your understanding, you
+can explicitly prompt it to guide you through the process. If you want a
+real human to double-check what ChatGPT is saying, feel free to ask our
+help. Allowing the use of ChatGPT is not an approach of lazy teaching,
+but rather to teach you to use it to your advantage while still staying
+critical and to make sure you stay smarter than ChatGPT (i.e.~don't just
+copy paste without understanding the code).
+
+Note: this order of execution - calculating something and only
+afterwards phrase a research question - is not a good research approach,
+we're just doing this for the sake of the practical ;)
+
+\textbf{! To finish the practical, present your mini-analysis to me
+(informally). Make sure to have the following:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  A research question and hypothesis
+\item
+  A small analysis to answer this question (e.g.~a t-test, correlation)
+\item
+  A figure to show the results (using e.g.~\texttt{ggplot()})
+\item
+  The code in an organised way, from the start of importing data to the
+  end which shows the figure. Label and annotate your steps!
+\end{enumerate}
+
+Here are some tips to make your code cleaner: - Use the hashtag
+\texttt{\#} to make a comment (this text won't be executed). - You can
+use 4 hashtags before and after text to mark a header like this
+\texttt{\#\#\#\#\ Header\ \#\#\#\#}. You can quickly get to a header
+within RStudio (bottom of the script). If you add another hashtag at the
+end, it will insert a sub-header.
+
+\bookmarksetup{startatroot}
+
+\chapter{Week 9 NGS}\label{week-9-ngs}
+
+\bookmarksetup{startatroot}
+
+\chapter{Day 1: sequencing methods, fasta files and reference
+genomes}\label{day-1-sequencing-methods-fasta-files-and-reference-genomes}
+
+\section{Overview}\label{overview}
+
+In today's lecture, we learned about different sequencing technologies
+and the different bioinformatic steps that are taken in a typical
+workflow in molecol/popgen.
+
+The way that data are normally delivered are in fastq format. We'll do
+some exploration with this data format so you get a feel for these type
+of files. In this practical, we will be working less with code because
+at this bioinformatic stage, R is generally not used. Instead, we use
+the command line which uses UNIX/bash. However, teaching you a second
+programming language in a single course is a bit of an overkill. We will
+therefore keep this practical mostly descriptive, test how much
+knowledge you retained from the lecture, and we will help you understand
+the files we're working with and how information is stored.
+
+\subsection{Exercise 1: sequencing}\label{exercise-1-sequencing}
+
+We started the day learning about different sequencing techniques. These
+days, it's hard to imagine that Sanger sequencing was used to sequence
+the entire human genome! This sequencing technique was a breakthrough
+and is known for its high accuracy, but it's not a surprise that it took
+more than a decade to assemble an entire genome (rather than just a
+single gene or genetic variant).
+
+There is a very extensive bioinformatics handbook online that describes
+DNA sequencing quite well. Read through the part about
+\href{https://eriqande.github.io/eca-bioinf-handbook/dna-sequences-and-sequencing.html\#sanger-sequencing}{Sanger
+sequencing} and answer the following questions:
+
+\begin{itemize}
+\tightlist
+\item
+  Explain in your own words how a gel imagine like the one in 16.5 can
+  be used to identify a DNA sequence
+\end{itemize}
+
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacitybacktitle=0.6, toprule=.15mm, breakable, colback=white, coltitle=black, colframe=quarto-callout-tip-color-frame, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Answer}, toptitle=1mm, rightrule=.15mm, arc=.35mm, bottomtitle=1mm, titlerule=0mm, bottomrule=.15mm, leftrule=.75mm]
+
+In Sanger sequencing, DNA polymerase synthesizes a new DNA strand using
+normal dNTPs, but occasionally incorporates a dideoxynucleotide (ddNTP).
+
+ddNTPs lack a 3′ hydroxyl group, which means that once incorporated, no
+further nucleotides can be added --- the chain is terminated.
+
+Each of the four ddNTPs (ddATP, ddCTP, ddGTP, ddTTP), on the x-axis
+here, is labelled with a different fluorescent dye, allowing us to
+identify which base caused termination. Side note: this separation of
+bases was common using an old method where you would have four lanes,
+one per base. Now, all four bases are run in one capillary and we use
+fluorescent dye / colour to identify the base.
+
+The resulting DNA fragments differ in length depending on where
+termination occurred. During capillary electrophoresis, shorter
+fragments migrate further than longer fragments.
+
+By reading fragments from shortest to longest and identifying the
+fluorescent label at each position, we reconstruct the DNA sequence one
+base at a time.
+
+In this case, we see that a fragment ended in A, G, G and C with
+increasing fragment length, and we can therefore deduce the sequence
+likely starts with AGGC, and so forth.
+
+\end{tcolorbox}
+
+\begin{itemize}
+\tightlist
+\item
+  Why is/was it difficult to sequence an entire genome with Sanger
+  sequencing?
+\end{itemize}
+
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacitybacktitle=0.6, toprule=.15mm, breakable, colback=white, coltitle=black, colframe=quarto-callout-tip-color-frame, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Answer}, toptitle=1mm, rightrule=.15mm, arc=.35mm, bottomtitle=1mm, titlerule=0mm, bottomrule=.15mm, leftrule=.75mm]
+
+It is expensive and takes a lot of effort to know the sequence of just a
+short fragment of say these 20 bases. Sanger sequencing typically reads
+a few hundred basepairs at a time. Imagine doing the whole process for
+all 1 billion bases! It's laborious, to a large extent manual or
+semi-automated, and technically challenging. These days, other
+sequencing methods exist but Sanger sequencing is still used to sequence
+a specific gene for example.
+
+\end{tcolorbox}
+
+These days, we mostly use Illumina sequencing or other sequencing by
+synthesis methods to obtain our genetic data. Continue reading section
+16.3 on Illumina Sequencing, and watch the video (the same we watched in
+the lecture). Look through the question he poses, but note this a level
+of understanding I don't expect you to have. You can try to answer them
+to get a better understanding of the process.
+
+\subsection{Exercise 2: read data}\label{exercise-2-read-data}
+
+Fasta and fastq files are the most common way to store (raw) sequencing
+data.
+
+\begin{itemize}
+\tightlist
+\item
+  What is the difference between a fasta and a fastq file?
+\end{itemize}
+
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacitybacktitle=0.6, toprule=.15mm, breakable, colback=white, coltitle=black, colframe=quarto-callout-tip-color-frame, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Answer}, toptitle=1mm, rightrule=.15mm, arc=.35mm, bottomtitle=1mm, titlerule=0mm, bottomrule=.15mm, leftrule=.75mm]
+
+Fasta files can be for nucleotide data (DNA/RNA) and protein data (amino
+acids) but fastq files are only for nucleotides
+
+Fastq files also contain information about read quality rather than
+bases alone, and is therefore more standard to use
+
+\end{tcolorbox}
+
+Sequencing technologies and bioinformatic pipelines often use the
+inherent complementary binding of nucleotide bases. What would the
+complementary strand look like for the sequence below?
+
+\begin{verbatim}
+5'--ACTCGACCT--3'
+\end{verbatim}
+
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacitybacktitle=0.6, toprule=.15mm, breakable, colback=white, coltitle=black, colframe=quarto-callout-tip-color-frame, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Answer}, toptitle=1mm, rightrule=.15mm, arc=.35mm, bottomtitle=1mm, titlerule=0mm, bottomrule=.15mm, leftrule=.75mm]
+
+\begin{verbatim}
+3'--TGAGCTGGA--5' 
+\end{verbatim}
+
+and if we were to write it in standard 5' to 3' order:
+
+\begin{verbatim}
+5'--AGGTCGAGT--3'
+\end{verbatim}
+
+\end{tcolorbox}
+
+Our friend Eric also describes fastq formats. Read
+\href{https://eriqande.github.io/eca-bioinf-handbook/bioinformatic-file-formats.html\#bioinformatic-file-formats}{Chapter
+17} from his handbook until section 17.2.3 (so finish with answering the
+question about the ASCII characters). A bit of this is repetition of the
+lecture - just differently phrased - but we dig a bit deeper into the
+headers and how we measure base quality.
+
+Answer the two questions that Eric asks: - Find the characters
+corresponding to base quality scores of 0, 10, 20, 30, and 40. Remember
+that the base quality score is the character's decimal representation
+minus 33.
+
+\begin{itemize}
+\tightlist
+\item
+  Why do you think the scale starts with ASCII character 33?
+\end{itemize}
+
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacitybacktitle=0.6, toprule=.15mm, breakable, colback=white, coltitle=black, colframe=quarto-callout-tip-color-frame, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Answer}, toptitle=1mm, rightrule=.15mm, arc=.35mm, bottomtitle=1mm, titlerule=0mm, bottomrule=.15mm, leftrule=.75mm]
+
+\begin{itemize}
+\item
+  The characters are !, +, 5, ? and I for quality scores 0, 10, 20, 30
+  and 40, respectively
+\item
+  The point of this system is to have one symbol per base, therefore the
+  first `one symbol' character starts at 33.
+\end{itemize}
+
+\end{tcolorbox}
+
+\subsection{Exercise 3: explore fq.gz
+file}\label{exercise-3-explore-fq.gz-file}
+
+Let's get our hands dirty! As mentioned, fasta files are generally
+handed outside of the R environment. But that doesn't mean we can't have
+a look at some of the data in R to get a better feeling of it.
+
+The dataset described by Eric was imported, and we will follow his
+tutorial with slight modifications here. I only copied the first
+thousand lines of the fq.gz files. You don't have to look at the
+tutorial from Eric at the same time, all you need is in this one.
+
+\begin{itemize}
+\tightlist
+\item
+  Load in the chinook data, one dataframe per file (you can call it
+  e.g.~R1 for read 1 and R2 for read 2). They can be found in the
+  \texttt{data} folder under \texttt{week\_9\_NGS} with names
+  \texttt{Battle\_Creek\_09\_chinook\_R1.fq.gz} and similar for the
+  reverse strand. First: use the \texttt{read\_lines} command from the
+  tidyverse package without specifying anything else. Check out the
+  data. That's a bit of an annoying format, right? What happened?
+\end{itemize}
+
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacitybacktitle=0.6, toprule=.15mm, breakable, colback=white, coltitle=black, colframe=quarto-callout-tip-color-frame, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, rightrule=.15mm, arc=.35mm, bottomtitle=1mm, titlerule=0mm, bottomrule=.15mm, leftrule=.75mm]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\NormalTok{R1 }\OtherTok{\textless{}{-}} \FunctionTok{read\_lines}\NormalTok{(}\StringTok{"../data/week\_9\_NGS/Battle\_Creek\_09\_chinook\_R1.fq.gz"}\NormalTok{)}
+\NormalTok{R2 }\OtherTok{\textless{}{-}} \FunctionTok{read\_lines}\NormalTok{(}\StringTok{"../data/week\_9\_NGS/Battle\_Creek\_09\_chinook\_R2.fq.gz"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+That is indeed annoying to work with. Unlike excel tables where we have
+different variables in different columns, fastq files don't look like
+that. Data are stored sequentially, row-by-row. Every one in every 4
+rows represents the header, then we get the sequence, the \texttt{\#},
+and then the read quality. Inconvenient!
+
+\end{tcolorbox}
+
+What we can do is use the \texttt{matrix()} function to force the data
+to get stored into different columns. That way, we can force lines 1-4
+into 4 columns, and then move onto the next line. What we end up with is
+a matrix where each row represents a read, and the columns the headers,
+sequence, hashtag symbol, and read quality. Just use the `annoying'
+format from above and `pipe' it using \texttt{\%\textgreater{}\%} with
+the following code: \texttt{matrix(ncol\ =\ 4,\ byrow\ =\ TRUE)} and
+store it into a variable.
+
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacitybacktitle=0.6, toprule=.15mm, breakable, colback=white, coltitle=black, colframe=quarto-callout-tip-color-frame, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, rightrule=.15mm, arc=.35mm, bottomtitle=1mm, titlerule=0mm, bottomrule=.15mm, leftrule=.75mm]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{R1 }\OtherTok{\textless{}{-}}\NormalTok{ R1 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{matrix}\NormalTok{(}\AttributeTok{ncol=}\DecValTok{4}\NormalTok{,}\AttributeTok{byrow=}\NormalTok{T) }
+\NormalTok{R2 }\OtherTok{\textless{}{-}}\NormalTok{ R2 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{matrix}\NormalTok{(}\AttributeTok{ncol=}\DecValTok{4}\NormalTok{,}\AttributeTok{byrow=}\NormalTok{T) }
+\end{Highlighting}
+\end{Shaded}
+
+\end{tcolorbox}
+
+Obviously, the column that just says \texttt{\#} is a bit useless.
+Remove it in the next step, and force it to be a dataframe instead of a
+matrix so we can access variables easier. Also give the columns headers.
+
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacitybacktitle=0.6, toprule=.15mm, breakable, colback=white, coltitle=black, colframe=quarto-callout-tip-color-frame, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, rightrule=.15mm, arc=.35mm, bottomtitle=1mm, titlerule=0mm, bottomrule=.15mm, leftrule=.75mm]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{R1 }\OtherTok{\textless{}{-}}\NormalTok{ R1[,}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{] }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{as.data.frame}\NormalTok{() }
+\FunctionTok{names}\NormalTok{(R1) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"header"}\NormalTok{, }\StringTok{"sequence"}\NormalTok{, }\StringTok{"quality"}\NormalTok{)}
+\NormalTok{R2 }\OtherTok{\textless{}{-}}\NormalTok{ R2[,}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{] }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{as.data.frame}\NormalTok{()}
+\FunctionTok{names}\NormalTok{(R2) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"header"}\NormalTok{, }\StringTok{"sequence"}\NormalTok{, }\StringTok{"quality"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\end{tcolorbox}
+
+Check out the header of the first sequence. That's a lot of information!
+Different sequencing companies and sequencing technologies will give you
+different types of information. What we're looking at here is the
+following:
+
+\texttt{@E00430:101:HKT7WCCXY:1:1101:6411:1204\ 1:N:0:NGATGT}
+
+We have the first section of the header, with information separated by a
+colon \texttt{:}, and then a second section separated by a space. That's
+complex!
+
+This is what the different elements mean: - E00430 = the machine - 101 =
+the run - HKT7WCCXY = the flowcell - 1 = the lane - 1101 = the tile -
+6411 = the x - 1204 = the y - 1 = which read of the pair - N = has the
+data been filtered (Y/N) - 0 = control number (0 on HiSeq and NextSeq
+machines) - NGATGT = barcode on the read
+
+It would be good if we can access all these different elements
+separately, so they are stored in different columns. Use the package
+\texttt{tidyr} and its function \texttt{separate} to break the string of
+the header into columns. You can use \texttt{?separate()} to find the
+instructions. Only if you can't figure it out with the instructions,
+google around to help you.
+
+Make sure to remove the original headers, and to make sure the data
+types are correct (i.e.~numers are indeed numbers, not strings)
+
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacitybacktitle=0.6, toprule=.15mm, breakable, colback=white, coltitle=black, colframe=quarto-callout-tip-color-frame, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Tip}, toptitle=1mm, rightrule=.15mm, arc=.35mm, bottomtitle=1mm, titlerule=0mm, bottomrule=.15mm, leftrule=.75mm]
+
+\begin{itemize}
+\tightlist
+\item
+  To use the \texttt{tidyr::separate()} function using the name of the
+  column you want to separate in the first argument, followed by using
+  the arguments \texttt{into} and \texttt{sep} to define the names of
+  the columns it should create and what character should define how to
+  split the string of the column you want to separate
+\item
+  Use the \texttt{remove} argument to remove the original column
+\item
+  Use the \texttt{convert} argument for the function to make the best
+  guess what type of data things are (instead of using the default
+  string)
+\end{itemize}
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacitybacktitle=0.6, toprule=.15mm, breakable, colback=white, coltitle=black, colframe=quarto-callout-tip-color-frame, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, rightrule=.15mm, arc=.35mm, bottomtitle=1mm, titlerule=0mm, bottomrule=.15mm, leftrule=.75mm]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{R1 }\OtherTok{\textless{}{-}}\NormalTok{ R1 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{separate}\NormalTok{(header, }\AttributeTok{into =} \FunctionTok{c}\NormalTok{(}\StringTok{"id"}\NormalTok{, }\StringTok{"part2"}\NormalTok{),}\AttributeTok{sep =} \StringTok{" "}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{separate}\NormalTok{(id,}
+           \AttributeTok{into =} \FunctionTok{c}\NormalTok{(}\StringTok{"machine"}\NormalTok{, }\StringTok{"run"}\NormalTok{, }\StringTok{"flow\_cell"}\NormalTok{, }\StringTok{"lane"}\NormalTok{, }\StringTok{"tile"}\NormalTok{, }\StringTok{"x"}\NormalTok{, }\StringTok{"y"}\NormalTok{), }
+           \AttributeTok{sep =} \StringTok{":"}\NormalTok{,}
+           \AttributeTok{remove =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{convert =} \ConstantTok{TRUE}\NormalTok{)}
+
+\NormalTok{R1 }\OtherTok{\textless{}{-}}\NormalTok{ R1 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{separate}\NormalTok{(part2,}
+                      \AttributeTok{into =} \FunctionTok{c}\NormalTok{(}\StringTok{"read"}\NormalTok{, }\StringTok{"filter"}\NormalTok{, }\StringTok{"cnum"}\NormalTok{, }\StringTok{"barcode"}\NormalTok{),}
+                      \AttributeTok{sep =} \StringTok{":"}\NormalTok{,}
+                      \AttributeTok{remove =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{convert =} \ConstantTok{TRUE}\NormalTok{)}
+
+\CommentTok{\# same for R2}
+
+\NormalTok{R2 }\OtherTok{\textless{}{-}}\NormalTok{ R2 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{separate}\NormalTok{(header, }\AttributeTok{into =} \FunctionTok{c}\NormalTok{(}\StringTok{"id"}\NormalTok{, }\StringTok{"part2"}\NormalTok{), }\AttributeTok{sep =} \StringTok{" "}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{separate}\NormalTok{(id, }
+             \AttributeTok{into =} \FunctionTok{c}\NormalTok{(}\StringTok{"machine"}\NormalTok{, }\StringTok{"run"}\NormalTok{, }\StringTok{"flow\_cell"}\NormalTok{, }\StringTok{"lane"}\NormalTok{, }\StringTok{"tile"}\NormalTok{, }\StringTok{"x"}\NormalTok{, }\StringTok{"y"}\NormalTok{), }
+             \AttributeTok{sep =} \StringTok{":"}\NormalTok{,}
+             \AttributeTok{remove =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{convert =} \ConstantTok{TRUE}\NormalTok{)}
+
+\NormalTok{R2 }\OtherTok{\textless{}{-}}\NormalTok{ R2 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{separate}\NormalTok{(part2,}
+                      \AttributeTok{into =} \FunctionTok{c}\NormalTok{(}\StringTok{"read"}\NormalTok{, }\StringTok{"filter"}\NormalTok{, }\StringTok{"cnum"}\NormalTok{, }\StringTok{"barcode"}\NormalTok{),}
+                      \AttributeTok{sep =} \StringTok{":"}\NormalTok{,}
+                      \AttributeTok{remove =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{convert =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+We learned how to interpret the Phred-scaled quality scores with this
+ASCII-character chart. It would be ideal if the symbols in the
+\texttt{quality} column would actually show us the values, right?
+
+Luckily, these ASCII-characters are standard and common, and there's a
+built-in R function for this! Use \texttt{utf8ToInt()} to get the
+associated numeric values of the symbols: !, +, 5, ? and I. :::
+\{.callout-tip title=``Code and answer''\}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{utf8ToInt}\NormalTok{(}\StringTok{"!+5?I"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\end{tcolorbox}
+
+Woah, that was easy! But\ldots{} these don't translate to the
+Phred-scaled values yet right? Make the necessary adjustment in the code
+to translate into their Phred-scaled scores.
+
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacitybacktitle=0.6, toprule=.15mm, breakable, colback=white, coltitle=black, colframe=quarto-callout-tip-color-frame, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, rightrule=.15mm, arc=.35mm, bottomtitle=1mm, titlerule=0mm, bottomrule=.15mm, leftrule=.75mm]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{utf8ToInt}\NormalTok{(}\StringTok{"!+5?I"}\NormalTok{) }\SpecialCharTok{{-}} \DecValTok{33}
+\end{Highlighting}
+\end{Shaded}
+
+\end{tcolorbox}
+
+So, each row represents a read, with a specific sequence and for each
+base called, a Phred quality score. Do/answer the following:
+
+\begin{itemize}
+\tightlist
+\item
+  How long are the sequence reads? I.e. how many bases per sequence?
+\item
+  Create a column that calculates the mean Phred score per read. This is
+  quite advanced coding, so here is what the core code looks like
+  \texttt{mutate(mean\_qual\ =\ map\_dbl(.x\ =\ quality,\ .f\ =\ function(x)\ mean(utf8ToInt(x)\ -\ 33))}.
+  Now you just have to use this code to create a new column
+\item
+  Do the same to calculate the minimum and maximum Phred score for each
+  read - to they vary among reads?
+\item
+  Make a plot with the distribution of mean quality scores (just of the
+  forward or reverse strength). Describe the distribution in a 1-2
+  lines.
+\end{itemize}
+
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacitybacktitle=0.6, toprule=.15mm, breakable, colback=white, coltitle=black, colframe=quarto-callout-tip-color-frame, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Code and answer}, toptitle=1mm, rightrule=.15mm, arc=.35mm, bottomtitle=1mm, titlerule=0mm, bottomrule=.15mm, leftrule=.75mm]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# how long are the reads?}
+\FunctionTok{nchar}\NormalTok{(R1}\SpecialCharTok{$}\NormalTok{sequence[}\DecValTok{1}\NormalTok{])}
+
+\CommentTok{\# calculate mean phread + min + max}
+\NormalTok{R1 }\OtherTok{\textless{}{-}}\NormalTok{ R1 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}\AttributeTok{mean\_qual =} \FunctionTok{map\_dbl}\NormalTok{(}\AttributeTok{.x =}\NormalTok{ quality, }
+                                        \AttributeTok{.f =} \ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{mean}\NormalTok{(}\FunctionTok{utf8ToInt}\NormalTok{(x) }\SpecialCharTok{{-}} \DecValTok{33}\NormalTok{)), }
+                    \AttributeTok{min\_qual =} \FunctionTok{map\_dbl}\NormalTok{(}\AttributeTok{.x =}\NormalTok{ quality, }
+                                        \AttributeTok{.f =} \ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{min}\NormalTok{(}\FunctionTok{utf8ToInt}\NormalTok{(x) }\SpecialCharTok{{-}} \DecValTok{33}\NormalTok{)),}
+                    \AttributeTok{max\_qual =} \FunctionTok{map\_dbl}\NormalTok{(}\AttributeTok{.x =}\NormalTok{ quality, }
+                                        \AttributeTok{.f =} \ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{max}\NormalTok{(}\FunctionTok{utf8ToInt}\NormalTok{(x) }\SpecialCharTok{{-}} \DecValTok{33}\NormalTok{)))}
+
+
+\NormalTok{R2 }\OtherTok{\textless{}{-}}\NormalTok{ R2 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}\AttributeTok{mean\_qual =} \FunctionTok{map\_dbl}\NormalTok{(}\AttributeTok{.x =}\NormalTok{ quality, }
+                                        \AttributeTok{.f =} \ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{mean}\NormalTok{(}\FunctionTok{utf8ToInt}\NormalTok{(x) }\SpecialCharTok{{-}} \DecValTok{33}\NormalTok{)), }
+                    \AttributeTok{min\_qual =} \FunctionTok{map\_dbl}\NormalTok{(}\AttributeTok{.x =}\NormalTok{ quality, }
+                                        \AttributeTok{.f =} \ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{min}\NormalTok{(}\FunctionTok{utf8ToInt}\NormalTok{(x) }\SpecialCharTok{{-}} \DecValTok{33}\NormalTok{)),}
+                    \AttributeTok{max\_qual =} \FunctionTok{map\_dbl}\NormalTok{(}\AttributeTok{.x =}\NormalTok{ quality, }
+                                        \AttributeTok{.f =} \ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{max}\NormalTok{(}\FunctionTok{utf8ToInt}\NormalTok{(x) }\SpecialCharTok{{-}} \DecValTok{33}\NormalTok{)))}
+
+
+\FunctionTok{ggplot}\NormalTok{(R1, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ mean\_qual)) }\SpecialCharTok{+} \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{bins=}\DecValTok{20}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{theme\_classic}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+These reads are 151 bp long (standard is 150). The minimum and maximum
+Phred scores for all reads are 2 and 41, respectively The majority of
+reads have quality scores above 35, with a few poor quality reads with
+quality scores around 25, equivalent to a probability of error of 0.003
+/ 1 in 333 error.
+
+\end{tcolorbox}
+
+After exploring raw reads, we can remove reads that have a low quality.
+This is one of many sequence filtering steps you can do before aligning
+to a reference genome. What would you do - would you remove any of the
+reads in our dataset?
+
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacitybacktitle=0.6, toprule=.15mm, breakable, colback=white, coltitle=black, colframe=quarto-callout-tip-color-frame, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Answer}, toptitle=1mm, rightrule=.15mm, arc=.35mm, bottomtitle=1mm, titlerule=0mm, bottomrule=.15mm, leftrule=.75mm]
+
+There's no right or wrong here!
+
+There are many steps that researchers can make when processing their
+data. Some things are standard, but most things depend on what you want
+to do with the data. In this case, I think a mean quality score of 25 is
+still pretty good. We wouldn't want to waste precious data!
+
+But we could, for example, see how many bases have a poor quality. Are
+there multiple, one after another, or just one with a very low quality?
+
+You wouldn't explore the data in this much detail when you're looking at
+millions to billions of reads though. Most of the time, the software
+used in the next steps can be used to filter for e.g.~read quality, or
+incorporates the quality information in its analysis.
+
+\end{tcolorbox}
+
+\subsection{Exercise 4: reference
+genomes}\label{exercise-4-reference-genomes}
+
+Even though we do not strictly need a reference genome to align
+sequences, it makes the process a lot more reliable and easy. Plus, a
+reference genome enables us to know more about the genes if it is
+annotated. For example, without a reference genome, we wouldn't know
+where base 1236123 on chromosome 2 is located - is it in a gene? If so,
+what kind of gene is it? This is of course very valuable information.
+
+There is a large public database that stores genetic data, including
+reference genomes. This database is called
+\href{http://ncbi.nlm.nih.gov/}{NCBI}. It's a large website, with lots
+of information.
+
+At the start of this course, you chose a species to design a
+mini-project for. Do the following:
+
+\begin{itemize}
+\tightlist
+\item
+  Check whether your chosen species has a reference genome on NCBI. A
+  reference genome is also called an assembly. If there is no assembly
+  for your species, find another species that does have a reference
+  genome to answer the rest of the questions.
+\item
+  When was it created? How large is the reference genome of your species
+  (i.e.~how many bases)? Is there just one (or none) reference genome,
+  or multiple?
+\item
+  Browse around the page. How many chromosomes does your species have?
+  How many base pairs is the largest chromosome (or the largest
+  scaffold)?
+\item
+  If you were to design a project with this species, do you think the
+  genome assembly is good enough?
+\end{itemize}
+
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacitybacktitle=0.6, toprule=.15mm, breakable, colback=white, coltitle=black, colframe=quarto-callout-tip-color-frame, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Tips}, toptitle=1mm, rightrule=.15mm, arc=.35mm, bottomtitle=1mm, titlerule=0mm, bottomrule=.15mm, leftrule=.75mm]
+
+\begin{itemize}
+\tightlist
+\item
+  In the search bar, type the common or latin name of your species and
+  filter for `Assembly'
+\item
+  In the URL, you will see that (if your species has an assembly), the
+  URL will be something like
+  \texttt{ncbi.nlm.nih.gov/datasets/genome/GCA****}. The \texttt{GCA} is
+  something typical of genome assemblies, it's the accession prefix
+  (allegedly stands for GenBank Assembly, but not sure where the C is
+  coming from)
+\item
+  You will find lots of metadata on the page of the assembly: genome
+  size, how many pieces it consists of (chromosomes or scaffolds), GC
+  percent, coverage of the genome, just to name a few
+\end{itemize}
+
+\end{tcolorbox}
+
+\subsection{Exercise 5: alignments}\label{exercise-5-alignments}
+
+When we align fq files to a reference genome, we get a .sam file.
+Generally, we don't do a whole lot with these files as they just serve
+as an intermediate step before we detect genetic variants. So - no need
+to understand this in fine detail.
+
+Depending on the time, read through chapter
+\href{https://eriqande.github.io/eca-bioinf-handbook/bioinformatic-file-formats.html\#sambamfiles}{17.4}
+from the bioinformatic handbook from Eric. Don't worry about executing
+the coding examples.
+
+Answer the following questions: - What is the difference between a .sam
+and a .bam file? - What column in a SAM file tells us something about
+the reference sequence that the read aligned to?
+
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacitybacktitle=0.6, toprule=.15mm, breakable, colback=white, coltitle=black, colframe=quarto-callout-tip-color-frame, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Tips}, toptitle=1mm, rightrule=.15mm, arc=.35mm, bottomtitle=1mm, titlerule=0mm, bottomrule=.15mm, leftrule=.75mm]
+
+\begin{itemize}
+\tightlist
+\item
+  A .bam file is the binary version of a .sam file
+\item
+  The @SQ header: ``typically the most abundant SAM header lines, each
+  of these gives information about a sequence in the reference genome
+  aligned to''
+\end{itemize}
+
+\end{tcolorbox}
+
+That's it for today! In tomorrow's lecture and practical, we will focus
+on identifying genetic variants.
+
+:::
+
+\bookmarksetup{startatroot}
+
+\chapter{Day 2: single nucleotide
+polymorphisms}\label{day-2-single-nucleotide-polymorphisms}
 
 
 

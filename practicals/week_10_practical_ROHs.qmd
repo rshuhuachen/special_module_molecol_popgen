@@ -1,0 +1,118 @@
+---
+title: "Week 10 ROHs"
+---
+
+## Analysis 2 - SNPs
+
+### RZooROH package
+Now it's time to turn it up a notch: we'll move on from using microsatellite markers to a larger dataset: single nucleotide polymorphisms (SNPs). These genetic variants are most commonly analysed in (population) genetics and molecular ecology.
+
+We will continue using genetic data from the black grouse. We have sequencing data from 190 males (not the same ones as from the microsatellite dataset): the whole genomes of these individuals have been sequenced. This allows us to identify runs of homozygosity: long, continuous stretches of homozygous loci.
+
+This morning, we learned about the RZooROH package we'll be using. To familiarise yourself even more, read chapter 3 and 4 from the [RZooRoh vignette](https://cran.r-project.org/web/packages/RZooRoH/vignettes/zooroh-vignette.pdf). Rest assured: this is a complex package with complex algorithms behind the computation. We do not expect you to understand how this works in fine detail, but we want you to understand broadly what the package is doing.
+
+Importantly, the RZooROH package uses the term HBD: homozygous by descent. For the sake of our analyses, this can be considered analogous to a run of homozygosity (ROH). The difference is that a ROH is what you observe in the genotype data, whereas a HBD segment is the true underlying genealogical state. In other words, a ROH can be homozygous not necessarily because it was inherited through sharing a common ancestor, although it is typically assumed this is the case. In contrast, a HBD segment is a genomic segment where the two alleles truly descend from the same ancestral chromosome copy. All HBD segments are a ROH, but not all ROHs are a HBD segment.
+
+The main things to understand are:
+- How is the RZooROH probability approach different from rule-based approaches
+- The best approach depends on the data 
+- HBD segment / ROH segment length tells us more about the demographic history of the population
+
+### VCF files
+
+SNPs are generally stored in a `.vcf` format: each row is a locus and there are various columns. The most important ones are:
+- CHR: this is the chromosome
+- POS: this is the basepair position within that chromosome
+- REF: this is the allele that is noted in the reference genome, e.g. T
+- ALT: this is the variant allele that differs from the reference genome, e.g. C
+
+Then follows a number of columns: one for each individual in the dataset. Each individual will have a value that looks like this: 0/1:246,0,248:42. Three types of information are stored here, separated by a colon. The information relevant to us now is the genotype which are the first two numbers: 0/1. These two numbers indicate in binary format what two alleles the individual has for this locus/SNP. 0/1 indicates that allele 1 is 0 = reference allele = T and that allele 2 is 1 = alternative allele = C. This individual is therefore heterozygous for this locus.
+NA's are indicated by dots (e.g. ./.). Homozygous individuals are therefore 0/0 (homozygous reference allele) or 1/1 (homozgyous alternative allele).
+
+We will learn more about VCF files later in this course.
+
+### Exercise 1
+
+Let's explore the .vcf file before digging into inbreeding estimates. We will only look at one chromosome (chr 30) because we are working with a huge dataset here. You will find this subsetted .vcf file in `data/week_5_inbreeding` named `snps_chr30.vcf.gz`. The `.gz` indicates this file has been zipped to make it smaller in file size. 
+
+Execute the following:
+1. Import the dataset. The best function to use for this is read.table() from the `data.table` package as it can directly import .gz files.
+2. Explore the dataset and try to understand what all columns mean 
+3. The columns do not have headers. Give the columns the following headers:
+"CHROM", "POS", "ID", "REF", "ALT", "QUAL", "FILTER", "INFO","FORMAT", followed by the ids stored in the file `vcf_sample_names.vcf`.
+4. You can ignore column 8 "info" - we'll get back to this later in the course.
+
+::: {.callout-tip title="Code and answer" collapse="true"}
+```{r}
+# load library
+library(data.table)
+
+# import SNP data
+snps <- read.table("../data/week_5_inbreeding/snps_chr30.vcf.gz")
+
+# import individual names
+names <- read.csv("../data/week_5_inbreeding/vcf_sample_names.txt", header=F)
+
+# change names manually
+names(snps) <- c("CHROM", "POS", "ID", "REF", "ALT", "QUAL", "FILTER", "INFO","FORMAT", names$V1)
+
+# explore the data with e.g. View()
+```
+:::
+
+If you continue read the sections on VCF formats in chapter 5 of the vignette, you'll see we need to make a conversion of the data (5.2.4) int o a .gen dataformat which is a type of genotype probability format. Read through this, but don't worry - this are steps done outside of R and we have computed them for you. The converted file can be found in `data/week_5_inbreeding` titled `snps_chr30.gen.gz`. We won't go into the details why or how this is done.
+
+### Exercise 2
+
+Next, we will follow the steps to define an RZooROH model and identify HBD segments. First, read the vignette on how data should be read / imported (you can skip 5.3.4) until (and including) section 5.3.5.
+
+1. Check out the converted vcf file to know which columns to define. You will need: supcol, poscol and chrcol.
+2. Read in the data, keeping in mind we are importing genotype probabilities (gp)
+3. Decide whether you want to filter for minor allele frequency (MAF) and implement it accordingly
+4. Make sure to specify the sample file
+5. How many markers were imported?
+
+::: {.callout-tip title="Code and answer" collapse="true"}
+```{r}
+
+## load in data
+library(RZooRoH)
+file_gen <- "../data/week_5_inbreeding/snps_chr30.gen.gz"
+data <- zoodata(genofile = file_gen, zformat = "gp", chrcol = 1, poscol = 3, supcol = 5, samplefile= "../data/week_5_inbreeding/vcf_sample_names.txt")
+
+```
+3786 markers/SNPs were imported if you don't filter for MAF.
+:::
+
+Nice! We now have a zooin object that can be used to estimate HBD segments. You can access different types of information using the `@` symbol (see section 5.3.7).
+
+### Exercise 3
+
+Now, we need to define the model, in which we specify the number of segments lengths we want to measure and their lengths. RZooROH and these specifications are complex: complexity that goes beyond the purpose of this practical. We will therefore take the easiest step: we just want to understand which segments are likely to be in HBD and which ones not (section 6.1). We can just read that section and skip to page 24 to see how to define a model with one HBD-class.
+
+- Define the (simplistic) model next.
+
+::: {.callout-tip title="Code and answer" collapse="true"}
+```{r}
+### Define model
+model <- zoomodel(predefined=FALSE,K=1,krates=c(10))
+```
+
+:::
+
+
+::: {.callout-tip title="Code and answer" collapse="true"}
+```{r}
+### run model
+out <- zoorun(zoomodel = model, 
+              zooin = data, 
+              nT = 8, localhbd = TRUE)
+
+### divide out rzooroh ###
+hbd <- realized(out)
+
+hbd$file_id <- out@sampleids
+
+
+```
+:::
