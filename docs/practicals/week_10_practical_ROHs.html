@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>5&nbsp; Week 10 ROHs – Special Module: Methods in Mol Ecol and Pop Gen</title>
+<title>6&nbsp; Week 10 ROHs – Special Module: Methods in Mol Ecol and Pop Gen</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -127,7 +127,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../practicals/week_10_practical_ROHs.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Week 10 ROHs</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../practicals/week_10_practical_ROHs.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Week 10 ROHs</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -148,25 +148,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../tests/test_introduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Basic skills - a test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Week 4 - testing your R skills</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../practicals/week_7_practical_inbreeding.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Week 7 inbreeding</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Week 7 + 8 - inbreeding</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practicals/week_8_practical_geneflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Week 8 - gene flow</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../practicals/week_9_practical_NGS.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Week 9 NGS</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Week 9 - NGS</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../practicals/week_10_practical_ROHs.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Week 10 ROHs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Week 10 ROHs</span></span></a>
   </div>
 </li>
     </ul>
@@ -179,13 +185,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#analysis-2---snps" id="toc-analysis-2---snps" class="nav-link active" data-scroll-target="#analysis-2---snps"><span class="header-section-number">5.1</span> Analysis 2 - SNPs</a>
+  <li><a href="#analysis-2---snps" id="toc-analysis-2---snps" class="nav-link active" data-scroll-target="#analysis-2---snps"><span class="header-section-number">6.1</span> Analysis 2 - SNPs</a>
   <ul class="collapse">
-  <li><a href="#rzooroh-package" id="toc-rzooroh-package" class="nav-link" data-scroll-target="#rzooroh-package"><span class="header-section-number">5.1.1</span> RZooROH package</a></li>
-  <li><a href="#vcf-files" id="toc-vcf-files" class="nav-link" data-scroll-target="#vcf-files"><span class="header-section-number">5.1.2</span> VCF files</a></li>
-  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1"><span class="header-section-number">5.1.3</span> Exercise 1</a></li>
-  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2"><span class="header-section-number">5.1.4</span> Exercise 2</a></li>
-  <li><a href="#exercise-3" id="toc-exercise-3" class="nav-link" data-scroll-target="#exercise-3"><span class="header-section-number">5.1.5</span> Exercise 3</a></li>
+  <li><a href="#rzooroh-package" id="toc-rzooroh-package" class="nav-link" data-scroll-target="#rzooroh-package"><span class="header-section-number">6.1.1</span> RZooROH package</a></li>
+  <li><a href="#vcf-files" id="toc-vcf-files" class="nav-link" data-scroll-target="#vcf-files"><span class="header-section-number">6.1.2</span> VCF files</a></li>
+  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1"><span class="header-section-number">6.1.3</span> Exercise 1</a></li>
+  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2"><span class="header-section-number">6.1.4</span> Exercise 2</a></li>
+  <li><a href="#exercise-3" id="toc-exercise-3" class="nav-link" data-scroll-target="#exercise-3"><span class="header-section-number">6.1.5</span> Exercise 3</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -195,7 +201,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Week 10 ROHs</span></h1>
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Week 10 ROHs</span></h1>
 </div>
 
 
@@ -212,24 +218,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="analysis-2---snps" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="analysis-2---snps"><span class="header-section-number">5.1</span> Analysis 2 - SNPs</h2>
-<section id="rzooroh-package" class="level3" data-number="5.1.1">
-<h3 data-number="5.1.1" class="anchored" data-anchor-id="rzooroh-package"><span class="header-section-number">5.1.1</span> RZooROH package</h3>
+<section id="analysis-2---snps" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="analysis-2---snps"><span class="header-section-number">6.1</span> Analysis 2 - SNPs</h2>
+<section id="rzooroh-package" class="level3" data-number="6.1.1">
+<h3 data-number="6.1.1" class="anchored" data-anchor-id="rzooroh-package"><span class="header-section-number">6.1.1</span> RZooROH package</h3>
 <p>Now it’s time to turn it up a notch: we’ll move on from using microsatellite markers to a larger dataset: single nucleotide polymorphisms (SNPs). These genetic variants are most commonly analysed in (population) genetics and molecular ecology.</p>
 <p>We will continue using genetic data from the black grouse. We have sequencing data from 190 males (not the same ones as from the microsatellite dataset): the whole genomes of these individuals have been sequenced. This allows us to identify runs of homozygosity: long, continuous stretches of homozygous loci.</p>
 <p>This morning, we learned about the RZooROH package we’ll be using. To familiarise yourself even more, read chapter 3 and 4 from the <a href="https://cran.r-project.org/web/packages/RZooRoH/vignettes/zooroh-vignette.pdf">RZooRoh vignette</a>. Rest assured: this is a complex package with complex algorithms behind the computation. We do not expect you to understand how this works in fine detail, but we want you to understand broadly what the package is doing.</p>
 <p>Importantly, the RZooROH package uses the term HBD: homozygous by descent. For the sake of our analyses, this can be considered analogous to a run of homozygosity (ROH). The difference is that a ROH is what you observe in the genotype data, whereas a HBD segment is the true underlying genealogical state. In other words, a ROH can be homozygous not necessarily because it was inherited through sharing a common ancestor, although it is typically assumed this is the case. In contrast, a HBD segment is a genomic segment where the two alleles truly descend from the same ancestral chromosome copy. All HBD segments are a ROH, but not all ROHs are a HBD segment.</p>
 <p>The main things to understand are: - How is the RZooROH probability approach different from rule-based approaches - The best approach depends on the data - HBD segment / ROH segment length tells us more about the demographic history of the population</p>
 </section>
-<section id="vcf-files" class="level3" data-number="5.1.2">
-<h3 data-number="5.1.2" class="anchored" data-anchor-id="vcf-files"><span class="header-section-number">5.1.2</span> VCF files</h3>
+<section id="vcf-files" class="level3" data-number="6.1.2">
+<h3 data-number="6.1.2" class="anchored" data-anchor-id="vcf-files"><span class="header-section-number">6.1.2</span> VCF files</h3>
 <p>SNPs are generally stored in a <code>.vcf</code> format: each row is a locus and there are various columns. The most important ones are: - CHR: this is the chromosome - POS: this is the basepair position within that chromosome - REF: this is the allele that is noted in the reference genome, e.g.&nbsp;T - ALT: this is the variant allele that differs from the reference genome, e.g.&nbsp;C</p>
 <p>Then follows a number of columns: one for each individual in the dataset. Each individual will have a value that looks like this: 0/1:246,0,248:42. Three types of information are stored here, separated by a colon. The information relevant to us now is the genotype which are the first two numbers: 0/1. These two numbers indicate in binary format what two alleles the individual has for this locus/SNP. 0/1 indicates that allele 1 is 0 = reference allele = T and that allele 2 is 1 = alternative allele = C. This individual is therefore heterozygous for this locus. NA’s are indicated by dots (e.g.&nbsp;./.). Homozygous individuals are therefore 0/0 (homozygous reference allele) or 1/1 (homozgyous alternative allele).</p>
 <p>We will learn more about VCF files later in this course.</p>
 </section>
-<section id="exercise-1" class="level3" data-number="5.1.3">
-<h3 data-number="5.1.3" class="anchored" data-anchor-id="exercise-1"><span class="header-section-number">5.1.3</span> Exercise 1</h3>
+<section id="exercise-1" class="level3" data-number="6.1.3">
+<h3 data-number="6.1.3" class="anchored" data-anchor-id="exercise-1"><span class="header-section-number">6.1.3</span> Exercise 1</h3>
 <p>Let’s explore the .vcf file before digging into inbreeding estimates. We will only look at one chromosome (chr 30) because we are working with a huge dataset here. You will find this subsetted .vcf file in <code>data/week_5_inbreeding</code> named <code>snps_chr30.vcf.gz</code>. The <code>.gz</code> indicates this file has been zipped to make it smaller in file size.</p>
 <p>Execute the following: 1. Import the dataset. The best function to use for this is read.table() from the <code>data.table</code> package as it can directly import .gz files. 2. Explore the dataset and try to understand what all columns mean 3. The columns do not have headers. Give the columns the following headers: “CHROM”, “POS”, “ID”, “REF”, “ALT”, “QUAL”, “FILTER”, “INFO”,“FORMAT”, followed by the ids stored in the file <code>vcf_sample_names.vcf</code>. 4. You can ignore column 8 “info” - we’ll get back to this later in the course.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Code and answer">
@@ -267,8 +273,8 @@ Code and answer
 </div>
 <p>If you continue read the sections on VCF formats in chapter 5 of the vignette, you’ll see we need to make a conversion of the data (5.2.4) int o a .gen dataformat which is a type of genotype probability format. Read through this, but don’t worry - this are steps done outside of R and we have computed them for you. The converted file can be found in <code>data/week_5_inbreeding</code> titled <code>snps_chr30.gen.gz</code>. We won’t go into the details why or how this is done.</p>
 </section>
-<section id="exercise-2" class="level3" data-number="5.1.4">
-<h3 data-number="5.1.4" class="anchored" data-anchor-id="exercise-2"><span class="header-section-number">5.1.4</span> Exercise 2</h3>
+<section id="exercise-2" class="level3" data-number="6.1.4">
+<h3 data-number="6.1.4" class="anchored" data-anchor-id="exercise-2"><span class="header-section-number">6.1.4</span> Exercise 2</h3>
 <p>Next, we will follow the steps to define an RZooROH model and identify HBD segments. First, read the vignette on how data should be read / imported (you can skip 5.3.4) until (and including) section 5.3.5.</p>
 <ol type="1">
 <li>Check out the converted vcf file to know which columns to define. You will need: supcol, poscol and chrcol.</li>
@@ -304,8 +310,8 @@ Code and answer
 </div>
 <p>Nice! We now have a zooin object that can be used to estimate HBD segments. You can access different types of information using the <code>@</code> symbol (see section 5.3.7).</p>
 </section>
-<section id="exercise-3" class="level3" data-number="5.1.5">
-<h3 data-number="5.1.5" class="anchored" data-anchor-id="exercise-3"><span class="header-section-number">5.1.5</span> Exercise 3</h3>
+<section id="exercise-3" class="level3" data-number="6.1.5">
+<h3 data-number="6.1.5" class="anchored" data-anchor-id="exercise-3"><span class="header-section-number">6.1.5</span> Exercise 3</h3>
 <p>Now, we need to define the model, in which we specify the number of segments lengths we want to measure and their lengths. RZooROH and these specifications are complex: complexity that goes beyond the purpose of this practical. We will therefore take the easiest step: we just want to understand which segments are likely to be in HBD and which ones not (section 6.1). We can just read that section and skip to page 24 to see how to define a model with one HBD-class.</p>
 <ul>
 <li>Define the (simplistic) model next.</li>
@@ -786,8 +792,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../practicals/week_9_practical_NGS.html" class="pagination-link" aria-label="Week 9 NGS">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Week 9 NGS</span></span>
+      <a href="../practicals/week_9_practical_NGS.html" class="pagination-link" aria-label="Week 9 - NGS">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Week 9 - NGS</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>4&nbsp; Week 9 NGS – Special Module: Methods in Mol Ecol and Pop Gen</title>
+<title>5&nbsp; Week 9 - NGS – Special Module: Methods in Mol Ecol and Pop Gen</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../practicals/week_10_practical_ROHs.html" rel="next">
-<link href="../practicals/week_7_practical_inbreeding.html" rel="prev">
+<link href="../practicals/week_8_practical_geneflow.html" rel="prev">
 <link href="../img/dna.jpg" rel="icon" type="image/jpeg">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -128,7 +128,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../practicals/week_9_practical_NGS.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Week 9 NGS</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../practicals/week_9_practical_NGS.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Week 9 - NGS</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -149,25 +149,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../tests/test_introduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Basic skills - a test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Week 4 - testing your R skills</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../practicals/week_7_practical_inbreeding.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Week 7 inbreeding</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Week 7 + 8 - inbreeding</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practicals/week_8_practical_geneflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Week 8 - gene flow</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../practicals/week_9_practical_NGS.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Week 9 NGS</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Week 9 - NGS</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../practicals/week_10_practical_ROHs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Week 10 ROHs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Week 10 ROHs</span></span></a>
   </div>
 </li>
     </ul>
@@ -180,20 +186,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#day-1-sequencing-methods-fasta-files-and-reference-genomes" id="toc-day-1-sequencing-methods-fasta-files-and-reference-genomes" class="nav-link active" data-scroll-target="#day-1-sequencing-methods-fasta-files-and-reference-genomes"><span class="header-section-number">5</span> Day 1: sequencing methods, fasta files and reference genomes</a>
+  <li><a href="#day-1-sequencing-methods-fasta-files-and-reference-genomes" id="toc-day-1-sequencing-methods-fasta-files-and-reference-genomes" class="nav-link active" data-scroll-target="#day-1-sequencing-methods-fasta-files-and-reference-genomes"><span class="header-section-number">6</span> Day 1: sequencing methods, fasta files and reference genomes</a>
   <ul class="collapse">
-  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview"><span class="header-section-number">5.1</span> Overview</a></li>
-  <li><a href="#exercise-1-sequencing" id="toc-exercise-1-sequencing" class="nav-link" data-scroll-target="#exercise-1-sequencing"><span class="header-section-number">5.2</span> Exercise 1: sequencing</a></li>
-  <li><a href="#exercise-2-read-data" id="toc-exercise-2-read-data" class="nav-link" data-scroll-target="#exercise-2-read-data"><span class="header-section-number">5.3</span> Exercise 2: read data</a></li>
-  <li><a href="#exercise-3-explore-fq.gz-file" id="toc-exercise-3-explore-fq.gz-file" class="nav-link" data-scroll-target="#exercise-3-explore-fq.gz-file"><span class="header-section-number">5.4</span> Exercise 3: explore fq.gz file</a></li>
-  <li><a href="#exercise-4-reference-genomes" id="toc-exercise-4-reference-genomes" class="nav-link" data-scroll-target="#exercise-4-reference-genomes"><span class="header-section-number">5.5</span> Exercise 4: reference genomes</a></li>
-  <li><a href="#exercise-5-alignments" id="toc-exercise-5-alignments" class="nav-link" data-scroll-target="#exercise-5-alignments"><span class="header-section-number">5.6</span> Exercise 5: alignments</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview"><span class="header-section-number">6.1</span> Overview</a></li>
+  <li><a href="#exercise-1-sequencing" id="toc-exercise-1-sequencing" class="nav-link" data-scroll-target="#exercise-1-sequencing"><span class="header-section-number">6.2</span> Exercise 1: sequencing</a></li>
+  <li><a href="#exercise-2-read-data" id="toc-exercise-2-read-data" class="nav-link" data-scroll-target="#exercise-2-read-data"><span class="header-section-number">6.3</span> Exercise 2: read data</a></li>
+  <li><a href="#exercise-3-explore-fq.gz-file" id="toc-exercise-3-explore-fq.gz-file" class="nav-link" data-scroll-target="#exercise-3-explore-fq.gz-file"><span class="header-section-number">6.4</span> Exercise 3: explore fq.gz file</a></li>
+  <li><a href="#exercise-4-reference-genomes" id="toc-exercise-4-reference-genomes" class="nav-link" data-scroll-target="#exercise-4-reference-genomes"><span class="header-section-number">6.5</span> Exercise 4: reference genomes</a></li>
+  <li><a href="#exercise-5-alignments" id="toc-exercise-5-alignments" class="nav-link" data-scroll-target="#exercise-5-alignments"><span class="header-section-number">6.6</span> Exercise 5: alignments</a></li>
   </ul></li>
-  <li><a href="#day-2-single-nucleotide-polymorphisms" id="toc-day-2-single-nucleotide-polymorphisms" class="nav-link" data-scroll-target="#day-2-single-nucleotide-polymorphisms"><span class="header-section-number">6</span> Day 2: single nucleotide polymorphisms</a>
+  <li><a href="#day-2-single-nucleotide-polymorphisms" id="toc-day-2-single-nucleotide-polymorphisms" class="nav-link" data-scroll-target="#day-2-single-nucleotide-polymorphisms"><span class="header-section-number">7</span> Day 2: single nucleotide polymorphisms</a>
   <ul class="collapse">
-  <li><a href="#overview-1" id="toc-overview-1" class="nav-link" data-scroll-target="#overview-1"><span class="header-section-number">6.1</span> Overview</a></li>
-  <li><a href="#exercise-1-loading-in-.vcf-files" id="toc-exercise-1-loading-in-.vcf-files" class="nav-link" data-scroll-target="#exercise-1-loading-in-.vcf-files"><span class="header-section-number">6.2</span> Exercise 1: loading in .vcf files</a></li>
-  <li><a href="#exercise-2-cleaning-the-file" id="toc-exercise-2-cleaning-the-file" class="nav-link" data-scroll-target="#exercise-2-cleaning-the-file"><span class="header-section-number">6.3</span> Exercise 2: cleaning the file</a></li>
+  <li><a href="#overview-1" id="toc-overview-1" class="nav-link" data-scroll-target="#overview-1"><span class="header-section-number">7.1</span> Overview</a></li>
+  <li><a href="#exercise-1-loading-in-.vcf-files" id="toc-exercise-1-loading-in-.vcf-files" class="nav-link" data-scroll-target="#exercise-1-loading-in-.vcf-files"><span class="header-section-number">7.2</span> Exercise 1: loading in .vcf files</a></li>
+  <li><a href="#exercise-2-cleaning-the-file" id="toc-exercise-2-cleaning-the-file" class="nav-link" data-scroll-target="#exercise-2-cleaning-the-file"><span class="header-section-number">7.3</span> Exercise 2: cleaning the file</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -203,7 +209,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Week 9 NGS</span></h1>
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Week 9 - NGS</span></h1>
 </div>
 
 
@@ -220,15 +226,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="day-1-sequencing-methods-fasta-files-and-reference-genomes" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Day 1: sequencing methods, fasta files and reference genomes</h1>
-<section id="overview" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="overview"><span class="header-section-number">5.1</span> Overview</h2>
+<section id="day-1-sequencing-methods-fasta-files-and-reference-genomes" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Day 1: sequencing methods, fasta files and reference genomes</h1>
+<section id="overview" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="overview"><span class="header-section-number">6.1</span> Overview</h2>
 <p>In today’s lecture, we learned about different sequencing technologies and the different bioinformatic steps that are taken in a typical workflow in molecol/popgen.</p>
 <p>The way that data are normally delivered are in fastq format. We’ll do some exploration with this data format so you get a feel for these type of files. In this practical, we will be working less with code because at this bioinformatic stage, R is generally not used. Instead, we use the command line which uses UNIX/bash. However, teaching you a second programming language in a single course is a bit of an overkill. We will therefore keep this practical mostly descriptive, test how much knowledge you retained from the lecture, and we will help you understand the files we’re working with and how information is stored.</p>
 </section>
-<section id="exercise-1-sequencing" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="exercise-1-sequencing"><span class="header-section-number">5.2</span> Exercise 1: sequencing</h2>
+<section id="exercise-1-sequencing" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="exercise-1-sequencing"><span class="header-section-number">6.2</span> Exercise 1: sequencing</h2>
 <p>We started the day learning about different sequencing techniques. These days, it’s hard to imagine that Sanger sequencing was used to sequence the entire human genome! This sequencing technique was a breakthrough and is known for its high accuracy, but it’s not a surprise that it took more than a decade to assemble an entire genome (rather than just a single gene or genetic variant).</p>
 <p>There is a very extensive bioinformatics handbook online that describes DNA sequencing quite well. Read through the part about <a href="https://eriqande.github.io/eca-bioinf-handbook/dna-sequences-and-sequencing.html#sanger-sequencing">Sanger sequencing</a> and answer the following questions:</p>
 <ul>
@@ -276,8 +282,8 @@ Answer
 </div>
 <p>These days, we mostly use Illumina sequencing or other sequencing by synthesis methods to obtain our genetic data. Continue reading section 16.3 on Illumina Sequencing, and watch the video (the same we watched in the lecture). Look through the question he poses, but note this a level of understanding I don’t expect you to have. You can try to answer them to get a better understanding of the process.</p>
 </section>
-<section id="exercise-2-read-data" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="exercise-2-read-data"><span class="header-section-number">5.3</span> Exercise 2: read data</h2>
+<section id="exercise-2-read-data" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="exercise-2-read-data"><span class="header-section-number">6.3</span> Exercise 2: read data</h2>
 <p>Fasta and fastq files are the most common way to store (raw) sequencing data.</p>
 <ul>
 <li>What is the difference between a fasta and a fastq file?</li>
@@ -344,8 +350,8 @@ Answer
 </div>
 </div>
 </section>
-<section id="exercise-3-explore-fq.gz-file" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="exercise-3-explore-fq.gz-file"><span class="header-section-number">5.4</span> Exercise 3: explore fq.gz file</h2>
+<section id="exercise-3-explore-fq.gz-file" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="exercise-3-explore-fq.gz-file"><span class="header-section-number">6.4</span> Exercise 3: explore fq.gz file</h2>
 <p>Let’s get our hands dirty! As mentioned, fasta files are generally handed outside of the R environment. But that doesn’t mean we can’t have a look at some of the data in R to get a better feeling of it.</p>
 <p>The dataset described by Eric was imported, and we will follow his tutorial with slight modifications here. I only copied the first thousand lines of the fq.gz files. You don’t have to look at the tutorial from Eric at the same time, all you need is in this one.</p>
 <ul>
@@ -589,8 +595,8 @@ Answer
 </div>
 </div>
 </section>
-<section id="exercise-4-reference-genomes" class="level2" data-number="5.5">
-<h2 data-number="5.5" class="anchored" data-anchor-id="exercise-4-reference-genomes"><span class="header-section-number">5.5</span> Exercise 4: reference genomes</h2>
+<section id="exercise-4-reference-genomes" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="exercise-4-reference-genomes"><span class="header-section-number">6.5</span> Exercise 4: reference genomes</h2>
 <p>Even though we do not strictly need a reference genome to align sequences, it makes the process a lot more reliable and easy. Plus, a reference genome enables us to know more about the genes if it is annotated. For example, without a reference genome, we wouldn’t know where base 1236123 on chromosome 2 is located - is it in a gene? If so, what kind of gene is it? This is of course very valuable information.</p>
 <p>There is a large public database that stores genetic data, including reference genomes. This database is called <a href="http://ncbi.nlm.nih.gov/">NCBI</a>. It’s a large website, with lots of information.</p>
 <p>At the start of this course, you chose a species to design a mini-project for. Do the following:</p>
@@ -621,8 +627,8 @@ Tips
 </div>
 </div>
 </section>
-<section id="exercise-5-alignments" class="level2" data-number="5.6">
-<h2 data-number="5.6" class="anchored" data-anchor-id="exercise-5-alignments"><span class="header-section-number">5.6</span> Exercise 5: alignments</h2>
+<section id="exercise-5-alignments" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="exercise-5-alignments"><span class="header-section-number">6.6</span> Exercise 5: alignments</h2>
 <p>When we align fq files to a reference genome, we get a .sam file. Generally, we don’t do a whole lot with these files as they just serve as an intermediate step before we detect genetic variants. So - no need to understand this in fine detail.</p>
 <p>Depending on the time, read through chapter <a href="https://eriqande.github.io/eca-bioinf-handbook/bioinformatic-file-formats.html#sambamfiles">17.4</a> from the bioinformatic handbook from Eric. Don’t worry about executing the coding examples.</p>
 <p>Answer the following questions: - What is the difference between a .sam and a .bam file? - What column in a SAM file tells us something about the reference sequence that the read aligned to?</p>
@@ -649,14 +655,14 @@ Tips
 <p>:::</p>
 </section>
 </section>
-<section id="day-2-single-nucleotide-polymorphisms" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Day 2: single nucleotide polymorphisms</h1>
+<section id="day-2-single-nucleotide-polymorphisms" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Day 2: single nucleotide polymorphisms</h1>
 <p>In today’s practical, we will explore SNPs and work with the files in which genetic variants are normally stored in (a .vcf file). Similar to yesterday’s practical, we don’t typically work in R when dealing with SAM, BAM, and .vcf files - this is generally done in UNIX/bash but we will try to explore them in R for the sake of the practical. The files that we are typically working with are huge, which would be slow to work with in R. Nevertheless, it’s not impossible and we can handle part of the files within R.</p>
-<section id="overview-1" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="overview-1"><span class="header-section-number">6.1</span> Overview</h2>
+<section id="overview-1" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="overview-1"><span class="header-section-number">7.1</span> Overview</h2>
 </section>
-<section id="exercise-1-loading-in-.vcf-files" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="exercise-1-loading-in-.vcf-files"><span class="header-section-number">6.2</span> Exercise 1: loading in .vcf files</h2>
+<section id="exercise-1-loading-in-.vcf-files" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="exercise-1-loading-in-.vcf-files"><span class="header-section-number">7.2</span> Exercise 1: loading in .vcf files</h2>
 <p>There is a .vcf file containing SNPs located on chromosome 30 stored in the <code>data/week5_inbreeding</code> folder, called <code>snps_chr30.vcf.gz</code>. The <code>.gz</code> means it is gzipped to reduce its size.</p>
 <p>Load this vcf file into R. Use both the fread() from the <code>data.table</code> package and the read.table() commands and compare the dataframes. What is the difference?</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Code and answer">
@@ -713,8 +719,8 @@ Answers
 </div>
 </div>
 </section>
-<section id="exercise-2-cleaning-the-file" class="level2" data-number="6.3">
-<h2 data-number="6.3" class="anchored" data-anchor-id="exercise-2-cleaning-the-file"><span class="header-section-number">6.3</span> Exercise 2: cleaning the file</h2>
+<section id="exercise-2-cleaning-the-file" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="exercise-2-cleaning-the-file"><span class="header-section-number">7.3</span> Exercise 2: cleaning the file</h2>
 <p>Although the metadata is useful, we will stop looking at it now and instead focus on the genotype data. I.e. you can get rid of the <code>vcf_1</code> dataframe and only look at <code>vcf_2</code>, perhaps we can also rename it.</p>
 <p>Next, we want to add some column names to make it easier to deal with the genotype data. Rename the first 9 columns (the columns that do not contain genotype data) in the dataframe. In a random order, this is the data that can typically be found in a .vcf file (recap from the lecture): info about the location of the SNP, the reference and alternative allele, quality score, whether data were filtered, the info column, the format in which the genotypes are presented in. Look up the usual order and names. Tip: there are two columns that only contain NA’s (represented as dots .): remove them.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Code and answer">
@@ -743,8 +749,8 @@ Code and answer
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(vcf)[<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"CHROM"</span>, <span class="st">"POS"</span>, <span class="st">"REF"</span>, <span class="st">"ALT"</span>, <span class="st">"QUAL"</span>, <span class="st">"INFO"</span>, <span class="st">"FORMAT"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<section id="exercise-3-handling-and-filtering" class="level2" data-number="6.4">
-<h2 data-number="6.4" class="anchored" data-anchor-id="exercise-3-handling-and-filtering"><span class="header-section-number">6.4</span> Exercise 3: handling and filtering</h2>
+<section id="exercise-3-handling-and-filtering" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="exercise-3-handling-and-filtering"><span class="header-section-number">7.4</span> Exercise 3: handling and filtering</h2>
 <ol type="1">
 <li>How many SNPs are in this vcf file?</li>
 <li>And how many individuals are in the file?</li>
@@ -789,8 +795,8 @@ Code and answer
 </div>
 </div>
 </section>
-<section id="exercise-4-comparing-snps-and-microsatellites" class="level2" data-number="6.5">
-<h2 data-number="6.5" class="anchored" data-anchor-id="exercise-4-comparing-snps-and-microsatellites"><span class="header-section-number">6.5</span> Exercise 4: comparing SNPs and microsatellites</h2>
+<section id="exercise-4-comparing-snps-and-microsatellites" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="exercise-4-comparing-snps-and-microsatellites"><span class="header-section-number">7.5</span> Exercise 4: comparing SNPs and microsatellites</h2>
 <p>Even though SNPs are very commonly used, microsatellite genotyping is still very valuable as well. The method you use depends on the purpose of the study, what you want to find out, and how much budget you have.</p>
 <p>The next exercise is not coding based, but literature based.</p>
 <p>Find 2 papers published that used both microsatellites and SNPs and answer the following: 1. How many microsatellites were used and how many high-quality SNPs? 2. What filtering steps were performed for the microsatellite and SNP datasets? 3. What was the main research question they addressed? 4. Did they draw different conclusions based on the two different datasets? 5. Do they conclude whether SNPs or microsatellites were more informative or reliable?</p>
@@ -1224,13 +1230,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../practicals/week_7_practical_inbreeding.html" class="pagination-link" aria-label="Week 7 inbreeding">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Week 7 inbreeding</span></span>
+      <a href="../practicals/week_8_practical_geneflow.html" class="pagination-link" aria-label="Week 8 - gene flow">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Week 8 - gene flow</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../practicals/week_10_practical_ROHs.html" class="pagination-link" aria-label="Week 10 ROHs">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Week 10 ROHs</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Week 10 ROHs</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

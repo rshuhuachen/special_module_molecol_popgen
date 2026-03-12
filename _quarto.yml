@@ -11,6 +11,7 @@ book:
     - index.qmd
     - tests/test_introduction.qmd
     - practicals/week_7_practical_inbreeding.qmd
+    - practicals/week_8_practical_geneflow.qmd
     - practicals/week_9_practical_NGS.qmd
     - practicals/week_10_practical_ROHs.qmd
   navbar:

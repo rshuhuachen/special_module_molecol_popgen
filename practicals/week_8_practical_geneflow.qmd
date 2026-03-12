@@ -1,0 +1,56 @@
+---
+title: "Week 8 - gene flow"
+---
+
+## Overview
+In today's practical, we will use a [published](https://www.nature.com/articles/s41598-020-61560-8) microsatellite dataset on Antarctic fur seals to investigate gene flow and population differentiation. 
+
+## Exercise 1
+
+```{r}
+library(adegenet)
+
+data <- read.structure(
+  "../data/week_8_migration/structure_in_gaz.stru",
+  n.ind =  2000, 
+  n.loc = 39, 
+  onerowperind = FALSE,
+  col.lab = 1,
+  col.pop = 2,
+  NA.char = "-9",
+  row.marknames = 0,
+  col.others = NULL,
+  pop = NULL, sep = NULL, ask = F, quiet = FALSE
+)
+
+head(seal)
+nInd(seal)
+nLoc(seal)
+pop(seal)
+
+tab(seal, freq=TRUE) #af
+
+library(hierfstat)
+
+basic.stats(seal)
+
+#Which populations are most genetically diverse?
+
+library(hierfstat)
+
+fst <- pairwise.WCfst(data)
+fst
+
+# which pop strongest genetic isolation
+
+pca <- dudi.pca(tab(data, NA.method="mean"), 
+                scale=FALSE, 
+                scannf=FALSE, 
+                nf=3)
+
+s.class(pca$li, pop(data))
+
+# connected or isolated?
+# fsta match pca?
+# are there migrants?
+```

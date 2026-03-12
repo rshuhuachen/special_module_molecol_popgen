@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3&nbsp; Week 7 inbreeding – Special Module: Methods in Mol Ecol and Pop Gen</title>
+<title>3&nbsp; Week 7 + 8 - inbreeding – Special Module: Methods in Mol Ecol and Pop Gen</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../practicals/week_9_practical_NGS.html" rel="next">
+<link href="../practicals/week_8_practical_geneflow.html" rel="next">
 <link href="../tests/test_introduction.html" rel="prev">
 <link href="../img/dna.jpg" rel="icon" type="image/jpeg">
 <script src="../site_libs/quarto-html/quarto.js"></script>
@@ -128,7 +128,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../practicals/week_7_practical_inbreeding.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Week 7 inbreeding</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../practicals/week_7_practical_inbreeding.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Week 7 + 8 - inbreeding</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -149,25 +149,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../tests/test_introduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Basic skills - a test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Week 4 - testing your R skills</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../practicals/week_7_practical_inbreeding.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Week 7 inbreeding</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Week 7 + 8 - inbreeding</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practicals/week_8_practical_geneflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Week 8 - gene flow</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../practicals/week_9_practical_NGS.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Week 9 NGS</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Week 9 - NGS</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../practicals/week_10_practical_ROHs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Week 10 ROHs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Week 10 ROHs</span></span></a>
   </div>
 </li>
     </ul>
@@ -184,9 +190,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#the-dataset" id="toc-the-dataset" class="nav-link" data-scroll-target="#the-dataset"><span class="header-section-number">3.2</span> The dataset</a></li>
   <li><a href="#microsatellite-datasets" id="toc-microsatellite-datasets" class="nav-link" data-scroll-target="#microsatellite-datasets"><span class="header-section-number">3.3</span> Microsatellite datasets</a></li>
   <li><a href="#calculating-smlh" id="toc-calculating-smlh" class="nav-link" data-scroll-target="#calculating-smlh"><span class="header-section-number">3.4</span> Calculating sMLH</a></li>
-  <li><a href="#exercise-1-day-1" id="toc-exercise-1-day-1" class="nav-link" data-scroll-target="#exercise-1-day-1"><span class="header-section-number">3.5</span> Exercise 1 (day 1)</a></li>
-  <li><a href="#exercise-2-day-1" id="toc-exercise-2-day-1" class="nav-link" data-scroll-target="#exercise-2-day-1"><span class="header-section-number">3.6</span> Exercise 2 (day 1)</a></li>
-  <li><a href="#exercise-3-day-2" id="toc-exercise-3-day-2" class="nav-link" data-scroll-target="#exercise-3-day-2"><span class="header-section-number">3.7</span> Exercise 3 (day 2)</a></li>
+  <li><a href="#exercise-1-day-1-week-7" id="toc-exercise-1-day-1-week-7" class="nav-link" data-scroll-target="#exercise-1-day-1-week-7"><span class="header-section-number">3.5</span> Exercise 1 (day 1/ week 7)</a></li>
+  <li><a href="#exercise-2-day-1-week-7" id="toc-exercise-2-day-1-week-7" class="nav-link" data-scroll-target="#exercise-2-day-1-week-7"><span class="header-section-number">3.6</span> Exercise 2 (day 1 / week 7)</a></li>
+  <li><a href="#exercise-3-day-2-week-8" id="toc-exercise-3-day-2-week-8" class="nav-link" data-scroll-target="#exercise-3-day-2-week-8"><span class="header-section-number">3.7</span> Exercise 3 (day 2 / week 8)</a></li>
   </ul>
 </nav>
     </div>
@@ -195,7 +201,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Week 7 inbreeding</span></h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Week 7 + 8 - inbreeding</span></h1>
 </div>
 
 
@@ -232,8 +238,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="3.4" class="anchored" data-anchor-id="calculating-smlh"><span class="header-section-number">3.4</span> Calculating sMLH</h2>
 <p>Using this dataset, we will calculate the standardized multilocus heterozygosity. Standardized Multilocus Heterozygosity (sMLH) is a measure of an individual’s genetic diversity that divides their total number of heterozygous loci by the average observed heterozygosity of those specific, successfully typed loci in the population. What we are essentially looking at is whether two alleles are the same in length and thus homozygous, or whether the two alleles are different in length and thus heterozygous. sMLH measures heterozygosity: this is therefore the opposite of homozygosity. In other words, individuals with lower sMLH values are more inbred and vice versa. The paper that describes how to calculate sMLH with the <code>inbreedR</code> package can be found <a href="https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.12588">here</a>.</p>
 </section>
-<section id="exercise-1-day-1" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="exercise-1-day-1"><span class="header-section-number">3.5</span> Exercise 1 (day 1)</h2>
+<section id="exercise-1-day-1-week-7" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="exercise-1-day-1-week-7"><span class="header-section-number">3.5</span> Exercise 1 (day 1/ week 7)</h2>
 <ul>
 <li>Load in the dataset. It can be found under <code>data/week_5_inbreeding</code> and is named msat_black_grouse - it is a .csv file with a header.</li>
 <li>Investigate the structure of the dataset: how many microsatellite loci does the dataset contain? And how many individuals are there in the dataset? Also make sure to check whether all 12 populations are included in this dataset</li>
@@ -312,8 +318,8 @@ Code and answer
 </div>
 </div>
 </section>
-<section id="exercise-2-day-1" class="level2" data-number="3.6">
-<h2 data-number="3.6" class="anchored" data-anchor-id="exercise-2-day-1"><span class="header-section-number">3.6</span> Exercise 2 (day 1)</h2>
+<section id="exercise-2-day-1-week-7" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="exercise-2-day-1-week-7"><span class="header-section-number">3.6</span> Exercise 2 (day 1 / week 7)</h2>
 <p>Now, we want to calculate sMLH based on this dataset. We will do this using the R package <code>inbreedR</code>. Make sure to familiarise yourself with the package and read through the <a href="https://cran.r-project.org/web/packages/inbreedR/vignettes/inbreedR_step_by_step.html">manual</a> / <a href="https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.12588">paper</a>.</p>
 <p>After reading through it, execute the following:</p>
 <ul>
@@ -639,8 +645,8 @@ attr(,"freq")
 </div>
 </div>
 </section>
-<section id="exercise-3-day-2" class="level2" data-number="3.7">
-<h2 data-number="3.7" class="anchored" data-anchor-id="exercise-3-day-2"><span class="header-section-number">3.7</span> Exercise 3 (day 2)</h2>
+<section id="exercise-3-day-2-week-8" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="exercise-3-day-2-week-8"><span class="header-section-number">3.7</span> Exercise 3 (day 2 / week 8)</h2>
 <p>Now that we have these values, we can do some analyses and plotting, and ask some research questions. We have the following data: sMLH values from 2078 individuals. These individuals were sampled at 12 different locations / from 12 populations, of which some allow recreational hunting (see the pops file). We have the exact coordinates of each population as well (see the pops file).</p>
 <p>The individuals belong to three ‘categories’: males, females and chicks. Male IDs start with a D. Female IDs start with an H and do not have an appending number. Chicks also start with an H but the way they are named is their mother’s ID and then an appending number (e.g.&nbsp;<code>H462.4</code>) separated with a dot (.). This means that this chick was the fourth chick of mother H462. Some chicks had unknown numbers and have an ID something like <code>UNK9</code>. For some chicks, a year is also appended: this happened when females had clutches across multiple years (e.g.&nbsp;<code>H441.7_2005</code>). At the bottom of the dataset there are also some chick IDs with unknown data and are instead named after the location they were found (e.g.&nbsp;<code>saaRTON.1</code>)</p>
 <p>You will find an additional dataset with metadata from the population, it is stored in <code>data/week_5_inbreeding/metadata_individuals.csv</code>. Here you will find the sex of the individual, but also the year of the sample, the density of that population in that year. There are more individuals in this metadata because all chicks of all broods are included: in the previous microsatellite dataset, only one chick was included per brood as they are related.</p>
@@ -1080,13 +1086,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../tests/test_introduction.html" class="pagination-link" aria-label="Basic skills - a test">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Basic skills - a test</span></span>
+      <a href="../tests/test_introduction.html" class="pagination-link" aria-label="Week 4 - testing your R skills">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Week 4 - testing your R skills</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../practicals/week_9_practical_NGS.html" class="pagination-link" aria-label="Week 9 NGS">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Week 9 NGS</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../practicals/week_8_practical_geneflow.html" class="pagination-link" aria-label="Week 8 - gene flow">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Week 8 - gene flow</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
