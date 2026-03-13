@@ -325,6 +325,7 @@ vcf <- vcf[,-c(3,7)] #remove columns 3 and 7 which are empty / all NA
 names(vcf)[1:7] <- c("CHROM", "POS", "REF", "ALT", "QUAL", "INFO", "FORMAT")
 
 ```
+:::
 
 ## Exercise 3: handling and filtering
 
@@ -365,4 +366,4 @@ The next exercise is not coding based, but literature based.
 Find 2 papers published that used both microsatellites and SNPs and answer the following: 1. How many microsatellites were used and how many high-quality SNPs? 2. What filtering steps were performed for the microsatellite and SNP datasets? 3. What was the main research question they addressed? 4. Did they draw different conclusions based on the two different datasets? 5. Do they conclude whether SNPs or microsatellites were more informative or reliable?
 
 Once you have the answers to these questions for both papers, present them to me and you are done for the day!
-::::
+

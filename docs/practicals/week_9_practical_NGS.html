@@ -200,6 +200,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#overview-1" id="toc-overview-1" class="nav-link" data-scroll-target="#overview-1"><span class="header-section-number">7.1</span> Overview</a></li>
   <li><a href="#exercise-1-loading-in-.vcf-files" id="toc-exercise-1-loading-in-.vcf-files" class="nav-link" data-scroll-target="#exercise-1-loading-in-.vcf-files"><span class="header-section-number">7.2</span> Exercise 1: loading in .vcf files</a></li>
   <li><a href="#exercise-2-cleaning-the-file" id="toc-exercise-2-cleaning-the-file" class="nav-link" data-scroll-target="#exercise-2-cleaning-the-file"><span class="header-section-number">7.3</span> Exercise 2: cleaning the file</a></li>
+  <li><a href="#exercise-3-handling-and-filtering" id="toc-exercise-3-handling-and-filtering" class="nav-link" data-scroll-target="#exercise-3-handling-and-filtering"><span class="header-section-number">7.4</span> Exercise 3: handling and filtering</a></li>
+  <li><a href="#exercise-4-comparing-snps-and-microsatellites" id="toc-exercise-4-comparing-snps-and-microsatellites" class="nav-link" data-scroll-target="#exercise-4-comparing-snps-and-microsatellites"><span class="header-section-number">7.5</span> Exercise 4: comparing SNPs and microsatellites</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -724,7 +726,7 @@ Answers
 <p>Although the metadata is useful, we will stop looking at it now and instead focus on the genotype data. I.e. you can get rid of the <code>vcf_1</code> dataframe and only look at <code>vcf_2</code>, perhaps we can also rename it.</p>
 <p>Next, we want to add some column names to make it easier to deal with the genotype data. Rename the first 9 columns (the columns that do not contain genotype data) in the dataframe. In a random order, this is the data that can typically be found in a .vcf file (recap from the lecture): info about the location of the SNP, the reference and alternative allele, quality score, whether data were filtered, the info column, the format in which the genotypes are presented in. Look up the usual order and names. Tip: there are two columns that only contain NA’s (represented as dots .): remove them.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Code and answer">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -733,7 +735,7 @@ Code and answer
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <details class="code-fold">
@@ -749,6 +751,10 @@ Code and answer
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(vcf)[<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"CHROM"</span>, <span class="st">"POS"</span>, <span class="st">"REF"</span>, <span class="st">"ALT"</span>, <span class="st">"QUAL"</span>, <span class="st">"INFO"</span>, <span class="st">"FORMAT"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
+</div>
+</div>
+</div>
+</section>
 <section id="exercise-3-handling-and-filtering" class="level2" data-number="7.4">
 <h2 data-number="7.4" class="anchored" data-anchor-id="exercise-3-handling-and-filtering"><span class="header-section-number">7.4</span> Exercise 3: handling and filtering</h2>
 <ol type="1">
@@ -759,7 +765,7 @@ Code and answer
 <li>What is a biallelic SNP? Do you think this file only contains biallelic SNPs or also triallelic SNPs?</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled" title="Code and answer">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -768,7 +774,7 @@ Code and answer
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <details class="code-fold">
@@ -801,10 +807,6 @@ Code and answer
 <p>The next exercise is not coding based, but literature based.</p>
 <p>Find 2 papers published that used both microsatellites and SNPs and answer the following: 1. How many microsatellites were used and how many high-quality SNPs? 2. What filtering steps were performed for the microsatellite and SNP datasets? 3. What was the main research question they addressed? 4. Did they draw different conclusions based on the two different datasets? 5. Do they conclude whether SNPs or microsatellites were more informative or reliable?</p>
 <p>Once you have the answers to these questions for both papers, present them to me and you are done for the day!</p>
-</section>
-</div>
-</div>
-</div>
 
 
 </section>
