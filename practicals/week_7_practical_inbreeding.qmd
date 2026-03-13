@@ -7,10 +7,9 @@ execute:
   message: false
 ---
 
-
 We've just learned what inbreeding is and how we can measure it. In this practical, we will learn how to quantify heterozygosity (the inverse of inbreeding) using a real-life dataset.
 
-In the analysis, we will use a microsatellite dataset to quantify the inbreeding coefficient sMLH using the package `inbreedR`. 
+In the analysis, we will use a microsatellite dataset to quantify the inbreeding coefficient sMLH using the package `inbreedR`.
 
 ## Background
 
@@ -56,9 +55,7 @@ summary(as.factor(data$pop))
 
 ```
 
-Number of loci: 12 
-Number of individuals: 2078 
-Yes, data from all 12 populations are included
+Number of loci: 12 Number of individuals: 2078 Yes, data from all 12 populations are included
 :::
 
 ## Exercise 2 (day 1 / week 7)
@@ -80,7 +77,6 @@ We see a few loci with a few NA's (\<10): BG16, BG18, TTT1, TTD3, TUD6. But ther
 However, if you sample less loci, you have a lower resolution. It is therefore important to investigate your data like this: we want to make sure that the number of loci used to calculate sMLH does not bias the sMLH values. Say all individuals in this dataset are homozygous for TTD2 (hypothetically), then the sMLH values of those individuals that were not genotyped at TTD2 might all have slighly higher sMLH values. It is good to investigate this later on.
 
 The short answer: no, this missing data does not matter for the calculation of sMLH, but we should keep an eye on it so we make sure this doesn't bias our results.
-
 :::
 
 Before we calculate sMLH, we should clean up some of the data. Execute the following (not necessarily in this order):
@@ -143,11 +139,11 @@ Sweet, we got some sMLH values now!
 
 Let's do some exploration with it. Answer the following:
 
-1. What are the highest and lowest sMLH values?
-2. What is the mean, median and mode sMLH?
-3. What does it mean to have a negative sMLH (sMLH < 0)?
-4. Plot the distribution of sMLH in a figure (histogram)
-5. Why is the distribution not smooth? We see gaps between the bars of the histogram, why? 
+1.  What are the highest and lowest sMLH values?
+2.  What is the mean, median and mode sMLH?
+3.  What does it mean to have a negative sMLH (sMLH \< 0)?
+4.  Plot the distribution of sMLH in a figure (histogram)
+5.  Why is the distribution not smooth? We see gaps between the bars of the histogram, why?
 
 ::: {.callout-tip title="Code and answer" collapse="true"}
 ```{r}
@@ -178,12 +174,10 @@ ggplot(as.data.frame(smlh), aes(x = smlh)) + geom_histogram(bins=40) + theme_cla
 
 ```
 
-1. min = 0.3618, max = 1.4472
-2. mean = 1.00, median = 0.99, mode = 1.11
-3. A negative sMLH means the individual has a lower heterozygosity compared to the population average (i.e. more inbred)
-5. sMLH is a continuous variable, but we don't get a smooth distribution. Actually, when we check out the data more closely using e.g. `summary(as.factor(smlh))` (this forces the sMLH values to be categorical, and we see how many values are in each category), we see that there are specific sMLH values that individuals have. This is an 'artifact' as to how sMLH is calculated. 
-sMLH is a proportion of the number of microsatellites that are heterozygous (because we divide by the number of successfully genotyped loci), and therefore there are only a set number of sMLH values that an individual can have. The more loci, the higher the resolution, and the more possible sMLH values a population has. For example, if there is just one locus, sMLH values can be 0 or 1. If there are two loci, sMLH values can be 0, 0.5 and 1, and so on. 
-
+1.  min = 0.3618, max = 1.4472
+2.  mean = 1.00, median = 0.99, mode = 1.11
+3.  A negative sMLH means the individual has a lower heterozygosity compared to the population average (i.e. more inbred)
+4.  sMLH is a continuous variable, but we don't get a smooth distribution. Actually, when we check out the data more closely using e.g. `summary(as.factor(smlh))` (this forces the sMLH values to be categorical, and we see how many values are in each category), we see that there are specific sMLH values that individuals have. This is an 'artifact' as to how sMLH is calculated. sMLH is a proportion of the number of microsatellites that are heterozygous (because we divide by the number of successfully genotyped loci), and therefore there are only a set number of sMLH values that an individual can have. The more loci, the higher the resolution, and the more possible sMLH values a population has. For example, if there is just one locus, sMLH values can be 0 or 1. If there are two loci, sMLH values can be 0, 0.5 and 1, and so on.
 :::
 
 ## Exercise 3 (day 2 / week 8)
@@ -209,8 +203,4 @@ Note: this order of execution - calculating something and only afterwards phrase
 3.  A figure to show the results (using e.g. `ggplot()`)
 4.  The code in an organised way, from the start of importing data to the end which shows the figure. Label and annotate your steps!
 
-Here are some tips to make your code cleaner:
-- Use the hashtag `#` to make a comment (this text won't be executed).
-- You can use 4 hashtags before and after text to mark a header like this `#### Header ####`. You can quickly get to a header within RStudio (bottom of the script). If you add another hashtag at the end, it will insert a sub-header.
-
-
+Here are some tips to make your code cleaner: - Use the hashtag `#` to make a comment (this text won't be executed). - You can use 4 hashtags before and after text to mark a header like this `#### Header ####`. You can quickly get to a header within RStudio (bottom of the script). If you add another hashtag at the end, it will insert a sub-header.

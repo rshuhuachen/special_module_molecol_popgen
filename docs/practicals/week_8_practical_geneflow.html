@@ -188,6 +188,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">4.1</span> Overview</a></li>
   <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1"><span class="header-section-number">4.2</span> Exercise 1</a></li>
+  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2"><span class="header-section-number">4.3</span> Exercise 2</a></li>
+  <li><a href="#exercise-3" id="toc-exercise-3" class="nav-link" data-scroll-target="#exercise-3"><span class="header-section-number">4.4</span> Exercise 3</a></li>
+  <li><a href="#exercise-4" id="toc-exercise-4" class="nav-link" data-scroll-target="#exercise-4"><span class="header-section-number">4.5</span> Exercise 4</a></li>
   </ul>
 </nav>
     </div>
@@ -216,59 +219,233 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="overview" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="overview"><span class="header-section-number">4.1</span> Overview</h2>
 <p>In today’s practical, we will use a <a href="https://www.nature.com/articles/s41598-020-61560-8">published</a> microsatellite dataset on Antarctic fur seals to investigate gene flow and population differentiation.</p>
+<p>The Antarctic fur seal (Arctocephalus gazella) is polygynous, highly site faithful, and has a generation time of around ten years. Despite breeding on all of the major sub-Antarctic islands, it was driven to the brink of extinction by the 18th and 19th century sealing industry. Harvesting begun shortly after South Georgia was discovered by Captain James Cook in 1775 and reached its peak at South Georgia in 1800 when over 100,000 seals were harvested. Shortly afterwards, with the discovery of the other sub-Antarctic islands, a wave of sealing spread across the entire sub-Antarctic region, culminating in an estimated 1.7 million Antarctic fur seals being taken.</p>
+<p>By the turn of the 20th century, Antarctic fur seals were considered all but extinct and the species was placed under legal protection. For the best part of three decades and despite several dedicated sub-Antarctic expeditions, very few individuals were sighted at the traditional breeding grounds with the exception of Bouvetøya where a small population of an uncertain fur seal species was observed in the late 1920s. However, the Discovery expedition of 1936 observed a small breeding population of Antarctic fur seals with 12 pups at South Georgia, which grew rapidly in the 1960s and 1970s to reach an estimated five million individuals by 1999. As breeding populations were not observed at the other sub-Antarctic islands until the 1950s to the 1980s, several authors have speculated that the former geographic distribution of this species was likely recolonized from South Georgia. However, a number of studies have reported genetic differences among some of these populations, pointing towards a more complex picture in which more than one relict population may have survived sealing.</p>
+<p>The Antarctic fur seal therefore provides with an interesting dataset to explore population structure which is the consequence of its sealing history.</p>
 </section>
 <section id="exercise-1" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="exercise-1"><span class="header-section-number">4.2</span> Exercise 1</h2>
+<p>We will use the R package <code>adegenet</code> to conduct some basic population genetic analyses.</p>
+<ol type="1">
+<li><p>First, download the packages.</p></li>
+<li><p>Then, read the <a href="https://adegenet.r-forge.r-project.org/files/tutorial-basics.pdf">vignette</a> to <code>adegenet</code> - you don’t have to read everything: just make sure the package is installed, read through chapter 3.1. Object Classes (genid objects). Once you understand the data format, you can load in our dataset. It is stored in <code>data/week_8_migration</code> under the file name <code>structure_in_gaz.stru</code>. This dataset is in a “STRUCTURE” format (meaning this microsatellite file has two rows per ID, one for each allele, and one column per marker), and can therefore be imported with the corresponding command from adegenet. You will have to specify how many markers and individuals there are: we are working with 2000 individuals and 39 markers. You can explore the file using other commands (such as <code>fread</code>) if you want to explore it: this might be handy to specify which column contains the labels of genotypes/individuals and populations, for example.</p></li>
+<li><p>Read chapter 3.3 and explore the dataset.</p></li>
+</ol>
+<ul>
+<li>Confirm the number of markers and individuals using the corresponding commands</li>
+<li>How many populations are in the data?</li>
+<li>Do the loci have names?</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled" title="Code and answer">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Code and answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(adegenet)</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(adegenet)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.structure</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>seal <span class="ot">&lt;-</span> <span class="fu">read.structure</span>(</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"../data/week_8_migration/structure_in_gaz.stru"</span>,</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">n.ind =</span>  <span class="dv">2000</span>, </span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">n.loc =</span> <span class="dv">39</span>, </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">onerowperind =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">col.lab =</span> <span class="dv">1</span>,</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">col.pop =</span> <span class="dv">2</span>,</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">NA.char =</span> <span class="st">"-9"</span>,</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">row.marknames =</span> <span class="dv">0</span>,</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">col.others =</span> <span class="cn">NULL</span>,</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">pop =</span> <span class="cn">NULL</span>, <span class="at">sep =</span> <span class="cn">NULL</span>, <span class="at">ask =</span> F, <span class="at">quiet =</span> <span class="cn">FALSE</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">n.ind =</span>  <span class="dv">2000</span>, <span class="co">#number of individuals</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">n.loc =</span> <span class="dv">39</span>, <span class="co">#number of loci</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">onerowperind =</span> <span class="cn">FALSE</span>, <span class="co">#the file is in structure format: we have multiple rows per individuals</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">col.lab =</span> <span class="dv">1</span>, <span class="co">#column indicating genotypes/ID</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">col.pop =</span> <span class="dv">2</span>, <span class="co">#column indicating population</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">NA.char =</span> <span class="st">"-9"</span>, <span class="co">#character for NAs</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">row.marknames =</span> <span class="dv">0</span>, <span class="co">#the names of the markers are absent</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">col.others =</span> <span class="cn">NULL</span>, <span class="co">#no other information present</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">pop =</span> <span class="cn">NULL</span>, <span class="at">sep =</span> <span class="cn">NULL</span>, <span class="at">ask =</span> F </span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(seal)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">nInd</span>(seal)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">nLoc</span>(seal)</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">pop</span>(seal)</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">tab</span>(seal, <span class="at">freq=</span><span class="cn">TRUE</span>) <span class="co">#af</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hierfstat)</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">basic.stats</span>(seal)</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">#Which populations are most genetically diverse?</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hierfstat)</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>fst <span class="ot">&lt;-</span> <span class="fu">pairwise.WCfst</span>(data)</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>fst</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co"># which pop strongest genetic isolation</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>pca <span class="ot">&lt;-</span> <span class="fu">dudi.pca</span>(<span class="fu">tab</span>(data, <span class="at">NA.method=</span><span class="st">"mean"</span>), </span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>                <span class="at">scale=</span><span class="cn">FALSE</span>, </span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>                <span class="at">scannf=</span><span class="cn">FALSE</span>, </span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>                <span class="at">nf=</span><span class="dv">3</span>)</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="fu">s.class</span>(pca<span class="sc">$</span>li, <span class="fu">pop</span>(data))</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="co"># connected or isolated?</span></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="co"># fsta match pca?</span></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="co"># are there migrants?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">nInd</span>(seal) <span class="co">#2000</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">nLoc</span>(seal) <span class="co">#39</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">nPop</span>(seal) <span class="co">#8</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">locNames</span>(seal) <span class="co">#no, these are automatically generated (from L01 to L39)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-2" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="exercise-2"><span class="header-section-number">4.3</span> Exercise 2</h2>
+<p>Next, we manipulate the data a bit more. Read chapter 5.2 and answer the following:</p>
+<ol type="1">
+<li>How much % of missing data is there?</li>
+<li>Make a plot showing the number of alleles per locus</li>
+<li>Is the mean observed heterozygosity significantly lower than the mean expected heterozygosity?</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled" title="Code and answer">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Code and answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. missing data</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>sum <span class="ot">&lt;-</span> <span class="fu">summary</span>(seal) </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>sum <span class="co">#1.83% of data is missing</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. plot</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(sum<span class="sc">$</span>loc.n.all, <span class="at">ylab=</span><span class="st">"Number of alleles"</span>, <span class="at">main =</span> <span class="st">"Number of alleles per locus"</span>) <span class="co">#as in the vignette</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># if you want to do this in ggplot, it'll look something like this because you need to convert it to a data frame first:</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>sum<span class="sc">$</span>loc.n.all <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> seal<span class="sc">$</span>loc.n.all)) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y=</span><span class="st">"Number of alleles"</span>, <span class="at">title =</span> <span class="st">"Number of alleles per locus"</span>, <span class="at">x=</span> <span class="st">"Locus"</span>) <span class="sc">+</span> <span class="fu">theme_classic</span>()</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. heterozygosity, use a Bartlett test for this (see page 41 of the vignette) and t-test</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">bartlett.test</span>(<span class="fu">list</span>(sum<span class="sc">$</span>Hexp, sum<span class="sc">$</span>Hobs)) <span class="co"># not significant (p &lt; 0.05) meaning the variance is the same among expected and observed H</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(sum<span class="sc">$</span>Hexp, sum<span class="sc">$</span>Hobs, <span class="at">pair=</span>T, <span class="at">var.equal=</span><span class="cn">TRUE</span>, <span class="at">alter=</span><span class="st">"greater"</span>) <span class="co">#p-value &lt; 0.05 with a mean difference of 0.02 meaning that the Hexp is on average 0.02 higher than Hobs, so yes the observed heterozygosity is significantly lower than the mean expected heterozygosity (although the difference is quite small)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-3" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="exercise-3"><span class="header-section-number">4.4</span> Exercise 3</h2>
+<p>Next, let’s calculate some F statistics! This way, we’ll be able to understand genetic differentiation in the population.</p>
+<p>We will require the R package <code>hierfstat</code> (install this) for this, which works together with <code>adegenet</code>. Read chapter 5.4 and use the <a href="https://cran.r-project.org/web/packages/hierfstat/vignettes/hierfstat.html">hierfstat vignette</a> to answer the following:</p>
+<ol type="1">
+<li>Calculate the overall Fst</li>
+<li>Using Wright’s island model, how many migrants per generation does this Fst translate to?</li>
+<li>Which locus has the highest mean allelic richness across all populations?</li>
+<li>We now want to measure the genetic distance among the eight populations. Use Nei’s estimator to identify which pair of populations are most and least genetically distant from each other, respectively.</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tip">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Wright’s island model states: Fst = 1 / (4Nm + 1). To calculate Nm, we have to rewrite the formula To calculate allelic richness, use the <code>allelic.richness</code> command. We can use <code>rowMeans</code> to calculate means across loci Genetic distance among populations can be estimated using pairwise Fst values. You can calculate these using the <code>pairwise.neifst</code> command. Higher Fst values indicate higher differentiation / less gene flow.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Code and answer">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Code and answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(hierfstat)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Fst </span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>stats <span class="ot">&lt;-</span> <span class="fu">basic.stats</span>(seal)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>stats<span class="sc">$</span>overall <span class="co">#Fst is 0.0274</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Wright's island model: Fst = 1 / (4Nm + 1)</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># rewrite: Nm = (1 - Fst) / (4Fst) </span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.0274</span>) <span class="sc">/</span> (<span class="dv">4</span> <span class="sc">*</span> <span class="fl">0.0274</span>) <span class="co"># = 8.88 migrants/generation, indicating high gene flow under the island model</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. highest mean Ar</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(<span class="fu">t</span>(<span class="fu">allelic.richness</span>(seal)<span class="sc">$</span>Ar)) <span class="co"># a bit hard to see from this</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>ar <span class="ot">&lt;-</span> <span class="fu">allelic.richness</span>(seal)<span class="sc">$</span>Ar</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># now we want to calculate means per row (= per locus)</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>mean_ar <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">rowMeans</span>(ar))</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"># L14 has the highest mean allelic richness of 9.72</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. which populations are most genetically distant?</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>fst <span class="ot">&lt;-</span> <span class="fu">pairwise.neifst</span>(seal)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co"># The highest Fst value is 0.0658 between population 2 and 7, these are therefore the most genetically distant</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co"># The lowest Fst value is 0.0012 between population 6 and 7, these are therefore least genetically distant</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-4" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="exercise-4"><span class="header-section-number">4.5</span> Exercise 4</h2>
+<p>Next, we want to visualise the genetic structure using a principal component analysis (PCA). Microsatellite datasets often contain many loci and many alleles, making it difficult to directly visualize genetic differences among individuals or populations. A PCA is a statistical method that simplifies this complex genetic information by reducing it to a few major axes of variation.</p>
+<p>PCA works by transforming the genetic data (allele frequencies or genotypes) into new variables called principal components. Each principal component represents a direction in the data that captures as much genetic variation as possible. The first principal component explains the largest amount of variation, the second explains the next largest amount, and so on.</p>
+<p>When individuals are plotted along these components, genetically similar individuals cluster together, while genetically different individuals appear farther apart. In population genetics, this allows us to visualize population structure, identify genetically distinct groups, and detect individuals with mixed ancestry or possible migrants.</p>
+<p>In this practical, we will use PCA to explore whether individuals cluster according to their sampling populations so we can better understand among which populations there is gene flow. Read chapter 6.2 of the <code>adegenet</code> vignette on principal component analyses and build a plot where each colour indicates a population. Does the PCA correspond to the pairwise Fst values we just calculated? And based on the PCA plot, where do you think migration/gene flow occurs?</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tips">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tips
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>First, replace the NA values with the mean using <code>scaleGen</code>. Next, compute a PCA using the <code>dudi.pca</code> function To plot the results, you want to colour them according to the populations of <code>seal</code>. We can plot using the <code>s.class</code> function. Plot the first two PC’s on the x- and y-axis respectively, and you can add additional aesthetic options using e.g.&nbsp;<code>cpoint</code> and <code>grid</code>, see <code>?s.class</code>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Code and answer">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Code and answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># first we have to replace NA's with the mean</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">scaleGen</span>(seal, <span class="at">NA.method=</span><span class="st">"mean"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the PCA</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>pca <span class="ot">&lt;-</span> <span class="fu">dudi.pca</span>(X,<span class="at">cent=</span><span class="cn">FALSE</span>,<span class="at">scale=</span><span class="cn">FALSE</span>,<span class="at">scannf=</span><span class="cn">FALSE</span>,<span class="at">nf=</span><span class="dv">3</span>) </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># generate 8 random colours to label our plot</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>col <span class="ot">&lt;-</span><span class="fu">funky</span>(<span class="dv">8</span>) </span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the first two PC's (PC1 on the x axis, PC2 on the y axis)</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">s.class</span>(pca<span class="sc">$</span>li, <span class="fu">pop</span>(seal), <span class="at">xax=</span><span class="dv">1</span>, <span class="at">yax=</span><span class="dv">2</span>, <span class="at">col=</span><span class="fu">transp</span>(col,.<span class="dv">6</span>), <span class="at">axesell=</span><span class="cn">FALSE</span>, <span class="at">cstar=</span><span class="dv">0</span>, <span class="at">cpoint=</span><span class="dv">2</span>, <span class="at">grid=</span><span class="cn">FALSE</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">"PCA Antarctic fur seal"</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="dv">0</span>,<span class="at">h=</span><span class="dv">0</span>,<span class="at">col=</span><span class="st">"grey"</span>,<span class="at">lty=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>We previously identified that Fst values between population 2 and 7 are highest: this makes sense in the PCA because these two populations are spread apart. The x-axis shows PC1 which shows the most variation. Since population 2 and 7 are on opposite ends of the x-axis, this indeed makes sense. Population 6 and 7 are right next to each other / overlap in the PCA, consistent with them having the lowest pairwise Fst values.</p>
+<p>We see four main clusters in the PCA: the first one contains population 5, 7 and 8, the second one population 1 and 2, the third one population 4 and 5 and lastly, population 3. It is likely that gene flow occurs within these four clusters.</p>
+</div>
+</div>
+</div>
+<p>That’s all for today! Nice work :)</p>
 
 
 </section>

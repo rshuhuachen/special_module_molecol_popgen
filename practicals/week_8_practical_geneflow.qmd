@@ -3,54 +3,166 @@ title: "Week 8 - gene flow"
 ---
 
 ## Overview
+
 In today's practical, we will use a [published](https://www.nature.com/articles/s41598-020-61560-8) microsatellite dataset on Antarctic fur seals to investigate gene flow and population differentiation. 
+
+The Antarctic fur seal (Arctocephalus gazella) is polygynous, highly site faithful, and has a generation time of around ten years. Despite breeding on all of the major sub-Antarctic islands, it was driven to the brink of extinction by the 18th and 19th century sealing industry. Harvesting begun shortly after South Georgia was discovered by Captain James Cook in 1775 and reached its peak at South Georgia in 1800 when over 100,000 seals were harvested. Shortly afterwards, with the discovery of the other sub-Antarctic islands, a wave of sealing spread across the entire sub-Antarctic region, culminating in an estimated 1.7 million Antarctic fur seals being taken. 
+
+By the turn of the 20th century, Antarctic fur seals were considered all but extinct and the species was placed under legal protection. For the best part of three decades and despite several dedicated sub-Antarctic expeditions, very few individuals were sighted at the traditional breeding grounds with the exception of Bouvetøya where a small population of an uncertain fur seal species was observed in the late 1920s. However, the Discovery expedition of 1936 observed a small breeding population of Antarctic fur seals with 12 pups at South Georgia, which grew rapidly in the 1960s and 1970s to reach an estimated five million individuals by 1999. As breeding populations were not observed at the other sub-Antarctic islands until the 1950s to the 1980s, several authors have speculated that the former geographic distribution of this species was likely recolonized from South Georgia. However, a number of studies have reported genetic differences among some of these populations, pointing towards a more complex picture in which more than one relict population may have survived sealing.
+
+The Antarctic fur seal therefore provides with an interesting dataset to explore population structure which is the consequence of its sealing history. 
 
 ## Exercise 1
 
-```{r}
-library(adegenet)
+We will use the R package `adegenet` to conduct some basic population genetic analyses. 
 
-data <- read.structure(
+1. First, download the packages. 
+
+2. Then, read the [vignette](https://adegenet.r-forge.r-project.org/files/tutorial-basics.pdf) to `adegenet` - you don't have to read everything: just make sure the package is installed, read through chapter 3.1. Object Classes (genid objects). Once you understand the data format, you can load in our dataset. It is stored in `data/week_8_migration` under the file name `structure_in_gaz.stru`. This dataset is in a "STRUCTURE" format (meaning this microsatellite file has two rows per ID, one for each allele, and one column per marker), and can therefore be imported with the corresponding command from adegenet. You will have to specify how many markers and individuals there are: we are working with 2000 individuals and 39 markers. You can explore the file using other commands (such as `fread`) if you want to explore it: this might be handy to specify which column contains the labels of genotypes/individuals and populations, for example.
+
+3. Read chapter 3.3 and explore the dataset.
+
+- Confirm the number of markers and individuals using the corresponding commands
+- How many populations are in the data?
+- Do the loci have names?
+
+::: {.callout-tip title="Code and answer" collapse="true"}
+```{r}
+pacman::p_load(adegenet)
+
+seal <- read.structure(
   "../data/week_8_migration/structure_in_gaz.stru",
-  n.ind =  2000, 
-  n.loc = 39, 
-  onerowperind = FALSE,
-  col.lab = 1,
-  col.pop = 2,
-  NA.char = "-9",
-  row.marknames = 0,
-  col.others = NULL,
-  pop = NULL, sep = NULL, ask = F, quiet = FALSE
+  n.ind =  2000, #number of individuals
+  n.loc = 39, #number of loci
+  onerowperind = FALSE, #the file is in structure format: we have multiple rows per individuals
+  col.lab = 1, #column indicating genotypes/ID
+  col.pop = 2, #column indicating population
+  NA.char = "-9", #character for NAs
+  row.marknames = 0, #the names of the markers are absent
+  col.others = NULL, #no other information present
+  pop = NULL, sep = NULL, ask = F 
 )
 
-head(seal)
-nInd(seal)
-nLoc(seal)
-pop(seal)
+nInd(seal) #2000
+nLoc(seal) #39
+nPop(seal) #8
+locNames(seal) #no, these are automatically generated (from L01 to L39)
 
-tab(seal, freq=TRUE) #af
-
-library(hierfstat)
-
-basic.stats(seal)
-
-#Which populations are most genetically diverse?
-
-library(hierfstat)
-
-fst <- pairwise.WCfst(data)
-fst
-
-# which pop strongest genetic isolation
-
-pca <- dudi.pca(tab(data, NA.method="mean"), 
-                scale=FALSE, 
-                scannf=FALSE, 
-                nf=3)
-
-s.class(pca$li, pop(data))
-
-# connected or isolated?
-# fsta match pca?
-# are there migrants?
 ```
+:::
+
+## Exercise 2
+
+Next, we manipulate the data a bit more. Read chapter 5.2 and answer the following:
+
+1. How much % of missing data is there?
+2. Make a plot showing the number of alleles per locus
+3. Is the mean observed heterozygosity significantly lower than the mean expected heterozygosity?
+
+::: {.callout-tip title="Code and answer" collapse="true"}
+```{r}
+
+# 1. missing data
+sum <- summary(seal) 
+sum #1.83% of data is missing
+
+# 2. plot
+barplot(sum$loc.n.all, ylab="Number of alleles", main = "Number of alleles per locus") #as in the vignette
+
+# if you want to do this in ggplot, it'll look something like this because you need to convert it to a data frame first:
+sum$loc.n.all %>% as.data.frame() %>% ggplot() + geom_bar(aes(x = seal$loc.n.all)) + labs(y="Number of alleles", title = "Number of alleles per locus", x= "Locus") + theme_classic()
+
+# 3. heterozygosity, use a Bartlett test for this (see page 41 of the vignette) and t-test
+
+bartlett.test(list(sum$Hexp, sum$Hobs)) # not significant (p < 0.05) meaning the variance is the same among expected and observed H
+t.test(sum$Hexp, sum$Hobs, pair=T, var.equal=TRUE, alter="greater") #p-value < 0.05 with a mean difference of 0.02 meaning that the Hexp is on average 0.02 higher than Hobs, so yes the observed heterozygosity is significantly lower than the mean expected heterozygosity (although the difference is quite small)
+
+```
+
+:::
+
+## Exercise 3
+
+Next, let's calculate some F statistics! This way, we'll be able to understand genetic differentiation in the population.
+
+We will require the R package `hierfstat` (install this) for this, which works together with `adegenet`. Read chapter 5.4 and use the [hierfstat vignette](https://cran.r-project.org/web/packages/hierfstat/vignettes/hierfstat.html) to answer the following:
+
+1. Calculate the overall Fst
+2. Using Wright's island model, how many migrants per generation does this Fst translate to?
+3. Which locus has the highest mean allelic richness across all populations?
+4. We now want to measure the genetic distance among the eight populations. Use Nei's estimator to identify which pair of populations are most and least genetically distant from each other, respectively.
+
+::: {.callout-tip title="Tip" collapse="true"}
+Wright's island model states: Fst = 1 / (4Nm + 1). To calculate Nm, we have to rewrite the formula
+To calculate allelic richness, use the `allelic.richness` command. We can use `rowMeans` to calculate means across loci
+Genetic distance among populations can be estimated using pairwise Fst values.  You can calculate these using the `pairwise.neifst` command. Higher Fst values indicate higher differentiation / less gene flow.
+
+:::
+::: {.callout-tip title="Code and answer" collapse="true"}
+```{r}
+pacman::p_load(hierfstat)
+
+# 1. Fst 
+stats <- basic.stats(seal)
+stats$overall #Fst is 0.0274
+
+# 2. Wright's island model: Fst = 1 / (4Nm + 1)
+# rewrite: Nm = (1 - Fst) / (4Fst) 
+(1 - 0.0274) / (4 * 0.0274) # = 8.88 migrants/generation, indicating high gene flow under the island model
+
+# 3. highest mean Ar
+boxplot(t(allelic.richness(seal)$Ar)) # a bit hard to see from this
+ar <- allelic.richness(seal)$Ar
+# now we want to calculate means per row (= per locus)
+mean_ar <- as.data.frame(rowMeans(ar))
+# L14 has the highest mean allelic richness of 9.72
+
+# 4. which populations are most genetically distant?
+
+fst <- pairwise.neifst(seal)
+# The highest Fst value is 0.0658 between population 2 and 7, these are therefore the most genetically distant
+# The lowest Fst value is 0.0012 between population 6 and 7, these are therefore least genetically distant
+
+```
+:::
+
+## Exercise 4
+
+Next, we want to visualise the genetic structure using a principal component analysis (PCA). Microsatellite datasets often contain many loci and many alleles, making it difficult to directly visualize genetic differences among individuals or populations. A PCA is a statistical method that simplifies this complex genetic information by reducing it to a few major axes of variation.
+
+PCA works by transforming the genetic data (allele frequencies or genotypes) into new variables called principal components. Each principal component represents a direction in the data that captures as much genetic variation as possible. The first principal component explains the largest amount of variation, the second explains the next largest amount, and so on.
+
+When individuals are plotted along these components, genetically similar individuals cluster together, while genetically different individuals appear farther apart. In population genetics, this allows us to visualize population structure, identify genetically distinct groups, and detect individuals with mixed ancestry or possible migrants.
+
+In this practical, we will use PCA to explore whether individuals cluster according to their sampling populations so we can better understand among which populations there is gene flow. Read chapter 6.2 of the `adegenet` vignette on principal component analyses and build a plot where each colour indicates a population. Does the PCA correspond to the pairwise Fst values we just calculated? And based on the PCA plot, where do you think migration/gene flow occurs?
+
+::: {.callout-tip title="Tips" collapse="true"}
+First, replace the NA values with the mean using `scaleGen`.
+Next, compute a PCA using the `dudi.pca` function
+To plot the results, you want to colour them according to the populations of `seal`. We can plot using the `s.class` function. Plot the first two PC's on the x- and y-axis respectively, and you can add additional aesthetic options using e.g. `cpoint` and `grid`, see `?s.class`.
+:::
+
+::: {.callout-tip title="Code and answer" collapse="true"}
+```{r}
+# first we have to replace NA's with the mean
+X <- scaleGen(seal, NA.method="mean")
+
+# calculate the PCA
+pca <- dudi.pca(X,cent=FALSE,scale=FALSE,scannf=FALSE,nf=3) 
+
+# generate 8 random colours to label our plot
+col <-funky(8) 
+
+# plot the first two PC's (PC1 on the x axis, PC2 on the y axis)
+s.class(pca$li, pop(seal), xax=1, yax=2, col=transp(col,.6), axesell=FALSE, cstar=0, cpoint=2, grid=FALSE)
+title("PCA Antarctic fur seal")
+abline(v=0,h=0,col="grey",lty=2)
+```
+
+We previously identified that Fst values between population 2 and 7 are highest: this makes sense in the PCA because these two populations are spread apart. The x-axis shows PC1 which shows the most variation. Since population 2 and 7 are on opposite ends of the x-axis, this indeed makes sense. Population 6 and 7 are right next to each other / overlap in the PCA, consistent with them having the lowest pairwise Fst values.
+
+We see four main clusters in the PCA: the first one contains population 5, 7 and 8, the second one population 1 and 2, the third one population 4 and 5 and lastly, population 3. It is likely that gene flow occurs within these four clusters. 
+
+:::
+
+That's all for today! Nice work :) 
